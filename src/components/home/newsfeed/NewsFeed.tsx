@@ -1,15 +1,15 @@
+import Content from "./Content";
+import styles from "./NewsFeed.module.css";
 
-interface Props{
-  lat: number
-  lng: number
-
+interface Props {
+  lat: number | undefined;
+  lng: number | undefined;
 }
 
-export default function NewsFeed({lat, lng}:Props) {
+export default async function NewsFeed({ lat, lng }: Props) {
   return (
-    <div>
-      <h1>{lat}</h1>
-      <h1>{lng}</h1>
+    <div className={styles.container}>
+      {/* <Content/> */}
     </div>
-  )
+  );
 }

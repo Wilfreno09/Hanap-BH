@@ -1,9 +1,9 @@
-import Main from "@/components/home/Main";
+import HomePage from "@/components/home/HomePage";
 
 
 export default function Home() {
 
   return (
-    <Main/>
+    <HomePage/>
   )
 }

@@ -1,6 +1,8 @@
-import NavBar from "@/components/layout/NavBar";
 import "./globals.css";
 import { Poppins } from "next/font/google";
+import Header from "@/components/layout/Header";
+import HomeMapSelection from "@/components/layout/HomeMapSelection";
+import Menu from "@/components/layout/Menu";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <NavBar />
+        <Header />
+        <HomeMapSelection/>
+        <Menu/>
         {children}
       </body>
     </html>
