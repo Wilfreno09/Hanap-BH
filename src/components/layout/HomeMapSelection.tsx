@@ -8,7 +8,6 @@ export default function HomeMapSelection() {
   const [homeSelected, setHomeSelected] = useState(true);
   const [mapSelected, setMapSelected] = useState(false);
   const fontSize = 36
-  const activeColor = "active"
   const inActiveColor = "#00000066"
 
   return (
@@ -32,7 +31,7 @@ export default function HomeMapSelection() {
             setMapSelected(true)
           }}
         >
-          <Link href="/">
+          <Link href="/map">
             <MapOutlinedIcon sx={{fontSize, color: mapSelected ? "primary" : inActiveColor  }} />
           </Link>
         </div>

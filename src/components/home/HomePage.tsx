@@ -2,7 +2,7 @@
 
 import styles from "./HomePage.module.css"
 import { useEffect, useState } from "react";
-import NewsFeed from "./newsfeed/NewsFeed";
+import DashBoard from "./dashboard/DashBoard";
 
 
 export default function HomePage() {
@@ -29,7 +29,7 @@ export default function HomePage() {
   
   return (
     <div className={styles.homepage}>
-      <NewsFeed lat={lat} lng={lng}/>
+      <DashBoard lat={lat} lng={lng}/>
     </div>
   )
 }

@@ -1,0 +1,43 @@
+.content__box{
+    position: relative;
+    width: 20%;
+    margin-top: 2rem;
+    margin: 1rem;
+    border: 0.1rem solid rgba(0,0,0,0.1);
+}
+
+.content__box,
+.image{
+    
+    border-radius: 1rem;
+}
+.image{
+    min-height: 50vh;
+    width: 100%;
+    background-color: red;
+}
+
+.details{
+    position: absolute;
+    left: 2rem;
+    bottom: 0;
+    display:flex;
+    opacity: 0;
+    transition: 300ms ease;
+}
+
+.user__details{
+    display: flex;
+    align-items: center;
+}
+.user__details h3{
+    margin: 0 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.image:hover ~ .details{
+   opacity: 1;
+   bottom: 2rem;
+}
+

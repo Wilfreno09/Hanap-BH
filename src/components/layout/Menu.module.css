@@ -1,0 +1,38 @@
+.container {
+  position: fixed;
+  min-height: 80vh;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  z-index: 99;
+}
+.menu__bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  box-shadow: 5px 5px 8px -9px rgba(0, 0, 0, 0.75);
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background-color: transparent;
+  backdrop-filter: blur(1rem);
+  margin: 1rem;
+  min-height: 40vh;
+  transition: 0.3s;
+}
+
+.active,
+.inactive {
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  
+}
+
+.active,
+.inactive:hover{
+    
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 8px -9px rgba(0, 0, 0, 0.75);
+
+}
