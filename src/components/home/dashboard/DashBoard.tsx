@@ -8,13 +8,10 @@ interface Props {
 
 export default async function DashBoard({ lat, lng }: Props) {
   return (
-    <div className={styles.container}>
+    <div className={styles.dashboard}>
+      <div className={styles.contents}>
       <Content/>
-      <Content/>
-      <Content/>
-      <Content/>
-      <Content/>
-      <Content/>
+      </div>
     </div>
   );
 }

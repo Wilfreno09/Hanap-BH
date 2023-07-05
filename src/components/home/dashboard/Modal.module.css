@@ -1,0 +1,29 @@
+.background{
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    top: 0;
+}
+
+.background,
+.image,
+.info{
+    display: flex;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.image{
+    
+    width: 70%;
+    background-color: rgba(0, 0, 0, 0.5);
+
+}
+
+.info{
+    width: 30%;
+    background-color: rgba(0, 0, 0, 0.9);
+
+}
