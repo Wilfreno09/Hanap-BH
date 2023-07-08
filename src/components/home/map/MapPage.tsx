@@ -1,1 +1,0 @@
-//`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=${radius}&type=hotel&key=${apiKey}`

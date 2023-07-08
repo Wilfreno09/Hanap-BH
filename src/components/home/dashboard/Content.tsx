@@ -1,11 +1,13 @@
 import { Avatar } from "@mui/material";
 import styles from "./Content.module.css";
 import Modal from "./Modal";
+import { useState } from "react";
 
 export default function Content() {
+  const [selected, setSelected] = useState(false);
   return (
     <>
-    <div className={styles.content__box}>
+    <div className={styles.content__box} onClick={(e) => setSelected(true)}>
       <div className={styles.image}></div>
       <div className={styles.details}>
         <div className={styles.user__details}>
@@ -15,7 +17,7 @@ export default function Content() {
       </div>
 
     </div>
-    <Modal/>
+    {selected && <Modal contentSelected={setSelected}/>}
     </>
   );
 }

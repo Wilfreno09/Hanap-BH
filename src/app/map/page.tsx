@@ -1,8 +1,11 @@
-import styles from "./Page.module.css"
 
+import MapPage from "@/components/map/MapPage"
 
 export default function Map() {
   return (
-    <div>Map</div>
+    <>
+    <MapPage/>
+    </>
+
   )
 }

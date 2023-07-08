@@ -1,10 +1,7 @@
+import { Props } from "@/lib/types/Props";
 import Content from "./Content";
 import styles from "./DashBoard.module.css";
 
-interface Props {
-  lat: number | undefined;
-  lng: number | undefined;
-}
 
 export default async function DashBoard({ lat, lng }: Props) {
   return (
@@ -13,5 +10,6 @@ export default async function DashBoard({ lat, lng }: Props) {
       <Content/>
       </div>
     </div>
+    
   );
 }
