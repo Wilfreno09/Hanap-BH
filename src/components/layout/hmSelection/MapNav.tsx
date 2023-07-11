@@ -3,7 +3,6 @@ import Link from "next/link";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { stateProps } from "@/lib/types/stateProps";
 import { Props } from "@/lib/types/Props";
-import { useRouter } from "next/router";
 
 interface MapProps extends stateProps, Props {
   mapSelected?: boolean;

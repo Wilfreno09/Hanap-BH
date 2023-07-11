@@ -1,0 +1,18 @@
+.homepage,
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.homepage{
+  min-height: 90vh;
+  
+  background-color: whitesmoke;
+}
+
+.container{
+
+  margin-top: 10vh;
+  flex-wrap: wrap;
+}

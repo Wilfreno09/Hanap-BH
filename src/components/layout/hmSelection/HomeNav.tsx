@@ -17,6 +17,7 @@ export default function HomeNav({
   lat,
   lng,
 }: HomeProps) {
+  setHomeSelected(true)
   return (
     <div
       className={homeSelected ? styles.active : styles.inactive}

@@ -8,7 +8,7 @@ export default function HomeMapSelection() {
   const [mapSelected, setMapSelected] = useState(false);
   const [lat, setLat] = useState<number>();
   const [lng, setLng] = useState<number>();
-
+  const 
   const fontSize = 36;
 
   useEffect(() => {
