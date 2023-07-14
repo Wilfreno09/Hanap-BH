@@ -3,47 +3,28 @@ import styles from "./HomeMapSelection.module.css";
 import { useEffect, useState } from "react";
 import HomeNav from "./HomeNav";
 import MapNav from "./MapNav";
+import { usePathname } from "next/navigation";
+
 export default function HomeMapSelection() {
   const [homeSelected, setHomeSelected] = useState(true);
   const [mapSelected, setMapSelected] = useState(false);
-  const [lat, setLat] = useState<number>();
-  const [lng, setLng] = useState<number>();
-  const 
   const fontSize = 36;
-
+  const pathname = usePathname();
   useEffect(() => {
-    if (!navigator.geolocation) throw new Error("Geolocation is Not available");
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setLat(position.coords.latitude);
-        setLng(position.coords.latitude);
-      },
-      (error) => {
-        throw error;
-      }
-    );
-  }, []);
+    if (pathname == "/") {
+      setHomeSelected(true);
+      setMapSelected(false);
+    } else if (pathname == "/map") {
+      setHomeSelected(false);
+      setMapSelected(true);
+    }
+  }, [pathname]);
 
   return (
     <div className={styles.container}>
       <div className={styles.box}>
-        <HomeNav
-          homeSelected={homeSelected}
-          setHomeSelected={setHomeSelected}
-          setMapSelected={setMapSelected}
-          fontSize={fontSize}
-          lat={lat}
-          lng={lng}
-        />
-        <MapNav
-          mapSelected={mapSelected}
-          setMapSelected={setMapSelected}
-          setHomeSelected={setHomeSelected}
-          fontSize={fontSize}
-          lat={lat}
-          lng={lng}
-        />
+        <HomeNav selected={homeSelected} fontSize={fontSize} />
+        <MapNav selected={mapSelected} fontSize={fontSize} />
       </div>
     </div>
   );

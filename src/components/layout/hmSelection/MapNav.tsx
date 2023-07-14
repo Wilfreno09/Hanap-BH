@@ -1,33 +1,19 @@
 import styles from "./MapNav.module.css";
 import Link from "next/link";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import { stateProps } from "@/lib/types/stateProps";
-import { Props } from "@/lib/types/Props";
-
-interface MapProps extends stateProps, Props {
-  mapSelected?: boolean;
-  homeSelected?: boolean;
-}
+import Props from "@/lib/types/Props";
 
 export default function MapNav({
-  mapSelected,
-  setMapSelected,
-  setHomeSelected,
+  selected,
   fontSize,
-  lat,
-  lng,
-}: MapProps) {
+}: Props) {
   return (
     <div
-      className={mapSelected ? styles.active : styles.inactive}
-      onClick={(e) => {
-        setHomeSelected(false);
-        setMapSelected(true);
-      }}
+      className={selected ? styles.active : styles.inactive}
     >
       <Link href="/map">
         <MapOutlinedIcon
-          sx={{ fontSize, color: mapSelected ? "primary" : "inActive" }}
+          sx={{ fontSize, color: selected ? "primary" : "inActive" }}
         />
       </Link>
     </div>
