@@ -1,8 +1,10 @@
 "use client";
 import Geolocation from "@/lib/Geolocation";
 import styles from "./MapPage.module.css";
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
-import { useEffect, useMemo, useState } from "react";
+import {useLoadScript } from "@react-google-maps/api";
+import { useEffect, useState } from "react";
+import LoadingBar from "@/components/loading/LoadingBar";
+import MapLayout from "./MapLayout";
 
 export default function MapPage() {
   const [latitude, setLatitude] = useState<number>();
@@ -23,37 +25,14 @@ export default function MapPage() {
 
     getData();
   }, []);
-  const center = useMemo(() => ({ lat: latitude!, lng: longitude! }), []);
-  const options = useMemo(
-    () => ({
-      restriction: {
-        latLngBounds: {
-          north: 21.1321,
-          south: 4.22599,
-          west: 114.095,
-          east: 126.604,
-        },
-        strictBounds: true,
-      },
-    }),
-    []
-  );
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: key,
   });
 
   return (
-    <>
-      {isLoaded && (
-        <GoogleMap
-          zoom={14}
-          center={center}
-          mapContainerClassName={styles.map__container}
-          options={options}
-        >
-          <Marker position={center} />
-        </GoogleMap>
-      )}
-    </>
+    <section className={styles.map__container}>
+      {isLoaded ? <MapLayout lat={latitude} lng={longitude} /> : <LoadingBar />}
+    </section>
   );
 }

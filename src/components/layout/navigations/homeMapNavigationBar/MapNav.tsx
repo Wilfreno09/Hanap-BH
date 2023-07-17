@@ -3,17 +3,13 @@ import Link from "next/link";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import Props from "@/lib/types/Props";
 
-export default function MapNav({
-  selected,
-  fontSize,
-}: Props) {
+export default function MapNav({ selected, fontSize }: Props) {
   return (
-    <div
-      className={selected ? styles.active : styles.inactive}
-    >
-      <Link href="/map">
+    <div className={selected ? styles.active : styles.inactive}>
+      <Link href="/map" as="/map">
         <MapOutlinedIcon
-          sx={{ fontSize, color: selected ? "primary" : "inActive" }}
+          sx={{ fontSize}}
+          color={selected ? "": "disabled"}
         />
       </Link>
     </div>

@@ -1,5 +1,5 @@
 "use client";
-import styles from "./HomeMapSelection.module.css";
+import styles from "./HomeMapNav.module.css";
 import { useEffect, useState } from "react";
 import HomeNav from "./HomeNav";
 import MapNav from "./MapNav";

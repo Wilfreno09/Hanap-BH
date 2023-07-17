@@ -1,9 +1,7 @@
 import "./globals.css";
 import { Poppins } from "next/font/google";
-import Header from "@/components/layout/Header";
-import HomeMapSelection from "@/components/layout/hmSelection/HomeMapSelection";
-import Menu from "@/components/layout/Menu";
-import { useEffect, useState } from "react";
+import Header from "@/components/layout/header/Header";
+import Navigation from "@/components/layout/navigations/Navigation";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,8 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={poppins.className}>
         <Header />
-        <HomeMapSelection />
-        <Menu />
+        <Navigation/>
         {children}
       </body>
     </html>
