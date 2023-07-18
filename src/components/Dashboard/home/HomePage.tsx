@@ -2,38 +2,50 @@
 
 import styles from "./HomePage.module.css";
 import { useEffect, useState } from "react";
-import Content from "./Display/Content";
-import Geolocation from "@/lib/Geolocation";
+import Content from "./Content";
 
 export default async function HomePage() {
   const [lat, setLat] = useState<number>();
   const [lng, setLng] = useState<number>();
-  const [latitude, setLatitude] = useState<number>();
-  const [longitude, setLongitude] = useState<number>();
+  const [places, setPlaces] = useState([]);
 
+  async function getLocation() {
+    try {
+      const result = await fetch("/api/map/geolocation", { cache: "no-store" });
+
+      const details = await result.json();
+
+      setLat(details.lat);
+      setLng(details.lng);
+    } catch (err) {
+      if (!navigator.geolocation) throw err;
+
+      navigator.geolocation.getCurrentPosition(
+        (location) => {
+          setLat(location.coords.latitude);
+          setLng(location.coords.longitude);
+        },
+        (err) => err
+      );
+    }
+  }
+  async function getNearbyPlace() {
+    const result = await fetch("/api/map/nearby-places");
+
+    const details = await result.json();
+    setPlaces(details);
+  }
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const geolocation = await Geolocation();
+    getLocation();
+    getNearbyPlace();
+  }, [lat, lng]);
 
-        setLatitude(geolocation.lat);
-        setLongitude(geolocation.lng);
-      } catch (err) {
-        throw err;
-      } 
-    };
-
-    getData();
-  }, []);
   return (
     <div className={styles.homepage}>
       <div className={styles.container}>
-        <Content />
-        <Content />
-        <Content />
-        <Content />
-        <Content />
-        <Content />
+        {places.map((place) => (
+          <Content />
+        ))}
       </div>
     </div>
   );

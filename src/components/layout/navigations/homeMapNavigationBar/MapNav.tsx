@@ -9,7 +9,7 @@ export default function MapNav({ selected, fontSize }: Props) {
       <Link href="/map" as="/map">
         <MapOutlinedIcon
           sx={{ fontSize}}
-          color={selected ? "": "disabled"}
+          color={selected ? "action": "disabled"}
         />
       </Link>
     </div>

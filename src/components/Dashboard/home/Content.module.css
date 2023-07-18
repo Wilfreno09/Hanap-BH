@@ -12,11 +12,13 @@
     border-radius: 1rem;
 }
 .image{
-    min-height: 50vh;
+    min-height: 30vh;
+    max-height: 50vh;
     width: 100%;
-    background-color: red;
 }
-
+img{
+    object-fit: cover;
+}
 .details{
     position: absolute;
     left: 2rem;

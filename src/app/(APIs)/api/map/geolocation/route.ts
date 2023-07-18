@@ -1,7 +1,8 @@
+import { NextResponse } from "next/server";
 
-export default async function Geolocation(){
+export async function GET(request: Request) {
   try {
-  const key:string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!;
+    const key: string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!;
     const result = await fetch(
       `https://www.googleapis.com/geolocation/v1/geolocate?key=${key}`,
       {
@@ -12,8 +13,8 @@ export default async function Geolocation(){
       }
     );
     const { location } = await result.json();
-    return location
+    return NextResponse.json(location, { status: 200 });
   } catch (err) {
-    throw err;
+    return NextResponse.json(err, { status: 500 });
   }
 }
