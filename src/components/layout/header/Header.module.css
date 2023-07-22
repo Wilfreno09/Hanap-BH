@@ -1,63 +1,68 @@
 .container {
   display: flex;
+  position: sticky;
   justify-content: space-evenly;
   align-items: center;
-
-  position: sticky;
   background-color: white;
-  z-index: 2;
-  top: 0;
   box-shadow: 0px 5px 8px -9px rgba(0, 0, 0, 0.75);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   min-height: 10vh;
+  z-index: 2;
 }
 
-.container h1 {
+.header__left{
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+.header__left h1 {
   font-style: italic;
   font-weight: 900;
   font-size: 3rem;
-  flex: 1;
+
 }
 
-.search__bar {
-  display: flex;
-  align-items: center;
-  height: 5rem;
-  background-color: #eff2f5;
-  border-radius: 10px;
-  flex: 2;
-}
 
-.search__bar input {
-  width: 90%;
-  height: 2.5rem;
-  border: none;
-  background-color: transparent;
-  outline-width: 0;
-}
-
-.icons {
+.header__right {
   display: flex;
   justify-content: space-evenly;
   flex: 1;
+
 }
 
 .notifs {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   align-items: center;
-  width: 40%;
+  flex: 2;
 }
 
-.user a{
-  width: 100%;
+.notif__icon{
+  margin: 0 1rem;
+  padding: 1.2rem;
+  color: black;
+  /* border: .1rem solid rgba(0, 0, 0, 0.05); */
+}
+
+.notif__icon svg {
+  font-size: 2.2rem;
+}
+.user{
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-around;
-}
 
-.user a h3{
+}
+.user a {
+  display:flex;
+  align-items: center;
+  border: .1rem solid rgba(0, 0, 0, 0.1);
+  border-radius: 10rem;
+  padding: .5rem;
+}
+.user h3{
 
   margin: 0 1rem;
   font-size: 1.2rem;
