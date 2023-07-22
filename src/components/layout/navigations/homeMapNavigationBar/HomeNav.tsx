@@ -1,7 +1,7 @@
 import styles from "./HomeNav.module.css";
-import Props from "@/lib/types/Props";
 import Link from "next/link";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import { Props } from "@/lib/types/Props";
 
 export default function HomeNav({ selected, fontSize }: Props) {
   return (

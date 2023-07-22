@@ -1,4 +1,3 @@
-"use client";
 
 import styles from "./HomePage.module.css";
 import { useEffect, useState } from "react";

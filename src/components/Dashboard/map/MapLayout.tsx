@@ -27,10 +27,10 @@ export default function MapLayout({ user_lat, user_lng }: UserPropTypes) {
         zoom={14}
         center={center}
         mapContainerClassName={styles.map}
-        options={options}
+        // options={options}
       >
         <Marker position={center} />
       </GoogleMap>
-    </>
+    </> 
   );
 }

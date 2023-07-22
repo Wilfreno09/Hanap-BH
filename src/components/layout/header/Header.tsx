@@ -7,16 +7,16 @@ import styles from "./Header.module.css";
 import Link from "next/link";
 export default function Header() {
   return (
-    <div className={styles.header}>
-      <h1>Hanap-BH</h1>
-      <div className={styles.search__bar}>
-        <SearchRoundedIcon />
-        <input type="text" placeholder="Search..." />
+    <div className={styles.container}>
+      <div className={styles.logo}>
+        <Link href="/" as="/">
+          <h1>Hanap-BH</h1>
+        </Link>
       </div>
-      <div className={styles.header__icons}>
+      <div className={styles.icons}>
         <div className={styles.notifs}>
-          <ChatBubbleOutlineOutlinedIcon fontSize="large"/>
-          <NotificationsOutlinedIcon fontSize="large"/>
+          <ChatBubbleOutlineOutlinedIcon fontSize="large" />
+          <NotificationsOutlinedIcon fontSize="large" />
         </div>
         <div className={styles.user}>
           <Link href="/#">

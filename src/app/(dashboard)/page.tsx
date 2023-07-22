@@ -1,11 +1,9 @@
-import HomePage from "@/components/Dashboard/home/HomePage";
-import Header from "@/components/layout/header/Header";
-import Navigation from "@/components/layout/navigations/Navigation";
+import Dashboard from "@/components/Dashboard/Dashboard";
 
 export default function Home() {
   return (
     <>
-      <HomePage />
+      <Dashboard/>
     </>
   );
 }
