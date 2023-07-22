@@ -42,11 +42,14 @@ export default async function HomePage() {
 
   return (
     <div className={styles.homepage}>
-      <div className={styles.container}>
-        {places.map((place) => (
+      <Content />
+      <Content />
+      <Content />
+      <Content />
+      <Content />
+      {/* {places.map((place) => (
           <Content />
-        ))}
-      </div>
+        ))} */}
     </div>
   );
 }

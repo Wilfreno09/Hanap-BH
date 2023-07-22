@@ -5,13 +5,7 @@
   justify-content: center;
 }
 
-.homepage{
-  min-height: 90vh;
-  
-}
-
-.container{
-
-  margin-top: 10vh;
+.homepage {
+  margin-top: 9vh;
   flex-wrap: wrap;
 }

@@ -4,7 +4,7 @@ import Modal from "./Modal";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { PlacePropTypes } from "@/lib/types/Props";
-
+import exImg from "../../../../public/img/wallpaperflare.com_wallpaper (1).jpg"
 export default function Content({
   place_id,
   place_lat,
@@ -38,7 +38,7 @@ export default function Content({
     <>
       <div className={styles.content__box} onClick={(e) => setSelected(true)}>
         <div className={styles.image}>
-          <Image src={photo} alt="place_photo" placeholder="blur" fill />
+          <Image src={exImg} alt="place_photo"  />
         </div>
         <div className={styles.details}>
           <div className={styles.user__details}>
