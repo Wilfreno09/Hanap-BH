@@ -1,11 +1,19 @@
-import HomeMapSelection from './homeMapNavigationBar/HomeMapNav'
-import LeftMenuBar from "./leftMenuBar/LeftMenuBar"
+"use client";
+
+import HomeNav from "./HomeNav";
+import MapNav from "./MapNav";
+import styles from "./Navigation.module.css";
+import { usePathname } from "next/navigation";
 
 export default function Navigation() {
+const pathname = usePathname();
+
   return (
     <>
-        <HomeMapSelection/>
-        <LeftMenuBar/>
+      <div className={styles.navigation}>
+          {pathname === "/map" && <HomeNav />}
+          {pathname === "/" && <MapNav />}
+      </div>
     </>
-  )
+  );
 }

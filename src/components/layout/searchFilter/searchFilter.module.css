@@ -1,0 +1,26 @@
+.searchFilter {
+  position: fixed;
+  top: 12vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 8px -9px rgba(0, 0, 0, 0.75);
+  background-color: transparent;
+  backdrop-filter: blur(0.5rem);
+}
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem;
+  padding: 0 1rem;
+  border-right: 0.1rem solid black;
+  flex: 1;
+}
+.search svg {
+  font-size: 2.5rem;
+}

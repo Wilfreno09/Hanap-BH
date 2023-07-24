@@ -4,7 +4,13 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import styles from "./Header.module.css";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import HomeNav from "../navigations/HomeNav";
+import MapNav from "../navigations/MapNav";
+
 export default function Header() {
+  const pathname = usePathname();
+
   return (
     <div className={styles.container}>
       <div className={styles.header__left}>
@@ -14,20 +20,11 @@ export default function Header() {
       </div>
       <div className={styles.header__right}>
         <div className={styles.notifs}>
-          <IconButton
-          className={styles.notif__icon}
-          
-          >
-            <ChatBubbleOutlineOutlinedIcon
-              fontSize="large"
-            />
+          <IconButton className={styles.notif__icon}>
+            <ChatBubbleOutlineOutlinedIcon fontSize="large" />
           </IconButton>
-          <IconButton
-            className={styles.notif__icon}
-          >
-            <NotificationsOutlinedIcon
-              fontSize="large"
-            />
+          <IconButton className={styles.notif__icon}>
+            <NotificationsOutlinedIcon fontSize="large" />
           </IconButton>
         </div>
         <div className={styles.user}>

@@ -5,8 +5,8 @@ export interface PlacePropTypes{
     place_lat?: number
     place_lng?: number
     place_vicinity?: string
-    photo?: any
     place_name?: string
+    photo_details?: any
 
 }
 
