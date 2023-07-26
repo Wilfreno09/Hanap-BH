@@ -1,25 +1,13 @@
-"use client";
+import Image from "next/image";
 
-import { useEffect, useState } from "react";
 
 export default function test() {
-  const [datas, setDatas] = useState([]);
-
-  async function getData() {
-    try {
-      const response = await fetch(`/api/map/nearbyPlaces`);
-
-      const { results } = await response.json();
-
-      console.log(results);
-      setDatas(results);
-    } catch (err) {
-      throw err;
-    }
-  }
-  useEffect(() => {
-    getData();
-  }, []);
-
-  return <></>;
+ 
+  return (
+    <>
+      {/* <Image
+        src={`/api/map/photo?photo_reference=${photo_reference}&width=${width}`}
+      /> */}
+    </>
+  );
 }

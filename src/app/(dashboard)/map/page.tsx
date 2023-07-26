@@ -1,4 +1,4 @@
-import MapPage from "@/components/Dashboard/map/MapPage";
+import MapPage from "@/app/(dashboard)/map/map/MapPage";
 
 export default function page() {
   return (
