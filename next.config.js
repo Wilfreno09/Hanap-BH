@@ -9,10 +9,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "maps.googleapis.com",
         port: "",
-        pathname: "/maps/api/place/photo?**",
+        pathname: "/maps/api/place/**",
       },
     ],
   },
+
 };
 
 module.exports = nextConfig;

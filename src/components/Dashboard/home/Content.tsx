@@ -12,6 +12,7 @@ export default function Content({
   photo_details,
 }: PlacePropTypes) {
   const { width, photo_reference } = photo_details.json();
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   return (
     <>
@@ -31,7 +32,7 @@ export default function Content({
         <div className={styles.content__box}>
           <div className={styles.image}>
             <Image
-              src={`/api/map/photo?photo_reference=${photo_reference}&width=${width}`}
+              src={`https://maps.googleapis.com/maps/api/place/photo?key=${apiKey}&photo_reference=${photo_reference}&maxwidth=${maxwidth}`}
               alt="place_photo"
             />
           </div>

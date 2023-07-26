@@ -1,30 +1,24 @@
-"use client"
 import styles from "./HomePage.module.css";
 import { useEffect, useState } from "react";
 import Content from "./Content";
 
-export default async function HomePage() {
+async function getNearbyPlace() {
+  const result = await fetch("/api/map/nearby-places");
 
-  const [places, setPlaces] = useState([]);
+  const details = await result.json();
 
-  async function getNearbyPlace() {
-    const result = await fetch("/api/map/nearby-places");
+  return details
+}
 
-    const details = await result.json();
-    setPlaces(details);
-  }
-
-
-  useEffect(() => {
-    getNearbyPlace();
-  }, []);
-
+export default function HomePage() {
+  const placesDetails = getNearbyPlace();
+  
   return (
     <div className={styles.homepage}>
 
-      {places.map((place) => (
-          <Content />
-        ))}
+      {placesDetails.map((place, index) => (
+        <h3 key={index}>{place.place_id}</h3>
+))}
     </div>
   );
 }
