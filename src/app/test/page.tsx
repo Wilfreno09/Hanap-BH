@@ -1,21 +1,34 @@
 "use client";
 
-import Image from "next/image";
+import { PlaceDetail } from "@/lib/types/PlacesInfo";
+import { useEffect, useState } from "react";
 
 export default function test() {
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  const photo_reference =
-    "Aaw_FcK8BwUynLgh0xRujBjWKxPbyBOQ60UdCo_jCqLySh5tqn-DCffnup1fzshIpTFTMDrdT_oj4s8_m2yn45UC93Tun40o4x5fl0guoRqUc2VPETbGvEZPXdmv8u4taa3zEGxoR6_aN9tXJxBGJ60OPlz2ZT_EMEF11wlYtT3-yrTqEPhI";
+  const [details, setDetails] = useState<PlaceDetail[]>([]);
 
-  const maxwidth = 1004;
+  useEffect(() => {
+    async function getPlaceDetails() {
+      try {
+        const port = process.env.NEXT_PUBLIC_LOCALHOST_PORT;
+
+        const response = await fetch(`api/map/nearby-places`);
+        const {
+          data: { results },
+        } = await response.json();
+
+        setDetails(results);
+      } catch (err) {
+        throw err;
+      }
+    }
+    getPlaceDetails();
+  }, []);
+
   return (
     <>
-      test
-      {/* <Image
-        src={`https://maps.googleapis.com/maps/api/place/photo?key=${apiKey}&photo_reference=${photo_reference}&maxwidth=${maxwidth}`}
-        alt="some image"
-        fill
-      /> */}
+      {details?.map((detail) => (
+        <p key={detail.place_id}>{detail.place_id}</p>
+      ))}
     </>
   );
 }

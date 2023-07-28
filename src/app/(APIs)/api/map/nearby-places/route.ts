@@ -9,11 +9,11 @@ export async function GET(request: Request) {
       `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${apiKey}&keyword=boarding house&location=8.23976433774994%2C124.24476856021924&radius=1000`
     );
 
-    const { results } = await response.json();
-
+    const data = await response.json();
+      
     return NextResponse.json(
       {
-        results,
+        data,
       },
       { status: 200 }
     );
