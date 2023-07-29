@@ -5,11 +5,7 @@ export const location = createSlice({
   initialState: {},
   reducers: {
     setLocation: (_, action: PayloadAction<object>) => {
-      return {
-        location:{
-            action.payload,
-        }
-      };
+      return action.payload
     },
   },
 });

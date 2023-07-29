@@ -1,7 +1,5 @@
 /** @type {import('next').NextConfig} */
 
-const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -13,7 +11,15 @@ const nextConfig = {
       },
     ],
   },
-
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/dashboard",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
