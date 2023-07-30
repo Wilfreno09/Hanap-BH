@@ -2,10 +2,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import styles from "./Search.module.css";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
-type Props = {
-  setSelected: Dispatch<SetStateAction<boolean>>
-}
-export default function Search({setSelected}:Props ) {
+export default function Search() {
   return (
     <>
       <form
@@ -18,8 +15,6 @@ export default function Search({setSelected}:Props ) {
             type="text"
             id="search"
             className={ styles.input}
-            onFocus={() => setSelected(true)}
-            onBlur={() => setSelected(false)}
           />
       </form>
     </>

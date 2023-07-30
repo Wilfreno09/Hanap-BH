@@ -18,7 +18,6 @@
   transition: 0.3s;
 }
 
-.input:focus,
-.input:valid {
-    width: 100%;
+.input:focus {
+  width: 100%;
 }

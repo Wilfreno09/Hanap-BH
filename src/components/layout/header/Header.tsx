@@ -4,12 +4,8 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import styles from "./Header.module.css";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import HomeNav from "../navigations/HomeNav";
-import MapNav from "../navigations/MapNav";
 
 export default function Header() {
-  const pathname = usePathname();
 
   return (
     <div className={styles.container}>

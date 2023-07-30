@@ -1,5 +1,4 @@
-.searchFilter,
-.inactive{
+.searchFilter{
   position: fixed;
   top: 12vh;
   left: 50%;
@@ -14,13 +13,9 @@
   backdrop-filter: blur(0.5rem);
   min-width: 8%;
   max-width: 25%;
-}
-
-.inactive {
   animation-name: container-animation;
   animation-duration: .3s;
 }
-
 @keyframes container-animation {
   0% {
     width: 20%;
