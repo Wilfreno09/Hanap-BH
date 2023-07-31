@@ -4,8 +4,9 @@ export type PlacePropTypes = {
 
   place_vicinity: string;
   place_name: string;
-
-  children: React.ReactNode;
+  photo_reference: string
+  width: number
+  height: number
 };
 
 export interface UserPropTypes {
