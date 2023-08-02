@@ -1,6 +1,6 @@
 import { LatLngLiteral } from "./google-map-type";
 
-export type PlaceDetail = {
+export type PlaceDetailType = {
   geometry: {
     location: LatLngLiteral;
   };

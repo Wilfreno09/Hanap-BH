@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { store } from "@/lib/redux/store";
 import React from "react";

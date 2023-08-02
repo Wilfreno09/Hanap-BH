@@ -1,14 +1,17 @@
+"use client";
+
 import { GoogleMap, Marker, MarkerClusterer } from "@react-google-maps/api";
-import styles from "./MapLayout.module.css";
+import styles from "./Map.module.css";
 import { GoogleMapPropType } from "@/lib/types/prop-types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { LatLngLiteral, MapType } from "@/lib/types/google-map-type";
-import { PlaceDetail } from "@/lib/types/places-details-types";
+import { PlaceDetailType } from "@/lib/types/places-details-types";
 
-export default function MapLayout({ center, options }: GoogleMapPropType) {
+export default function Map({ center, options }: GoogleMapPropType) {
   const [selected, setelected] = useState<LatLngLiteral>();
-  const [details, setDetails] = useState<PlaceDetail[]>([]);
+  const [details, setDetails] = useState<PlaceDetailType[]>([]);
   const mapRef = useRef<MapType>();
+
   const onLoad = useCallback((map: MapType) => {
     mapRef.current = map;
   }, []);

@@ -3,8 +3,8 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState: UserLocation = {
   coordinates: {
-    lat: 8.240031061839161,
-    lng: 124.24471135081795,
+    lat: 12.8797,
+    lng: 121.7740,
   },
 };
 

@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import HomeNav from "./HomeNav";
 import MapNav from "./MapNav";
@@ -12,7 +12,7 @@ const pathname = usePathname();
     <>
       <div className={styles.navigation}>
           {pathname === "/map" && <HomeNav />}
-          {pathname === "/" && <MapNav />}
+          {pathname === "/dashboard" && <MapNav />}
       </div>
     </>
   );

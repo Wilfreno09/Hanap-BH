@@ -1,11 +1,13 @@
-import styles from "./Map.module.css";
-import LoadingBar from "@/components/loading/LoadingBar";
+"use client";
+import Map from "@/components/Dashboard/map/Map";
+import styles from "@/components/Dashboard/map/Map.module.css";
 import { useAppSelector } from "@/lib/redux/store";
-import MapLayout from "./MapLayout";
 import { LatLngLiteral, MapOptions } from "@/lib/types/google-map-type";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function page() {
+  const [center, setCenter] = useState<LatLngLiteral>();
+
   const mapIsLoaded = useAppSelector(
     (state) => state.mapLoaderStateReducer.mapLaodState
   );
@@ -14,7 +16,6 @@ export default function page() {
     (state) => state.userLocationReducer.coordinates
   );
 
-  const center = useMemo<LatLngLiteral>(() => userLocation, [userLocation]);
   const options = useMemo<MapOptions>(
     () => ({
       restriction: {
@@ -34,15 +35,13 @@ export default function page() {
     []
   );
 
+  useEffect(() => {
+    setCenter(userLocation);
+  }, [userLocation]);
+
   return (
     <>
-      <div className={styles.container}>
-        {mapIsLoaded ? (
-          <MapLayout center={center} options={options} />
-        ) : (
-          <LoadingBar />
-        )}
-      </div>
+        {mapIsLoaded && <Map center={center!} options={options} />}
     </>
   );
 }
