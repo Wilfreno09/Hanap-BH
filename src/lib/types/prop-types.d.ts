@@ -1,4 +1,5 @@
 import React from "react";
+import { LatLngLiteral, MapOptions } from "./google-map-type";
 
 export type PlacePropTypes = {
   place_vicinity: string;
@@ -19,6 +20,7 @@ export type Props = {
   children?: React.ReactNode;
 };
 
-export type UserLocation = {
-  location: google.maps.LatLngLiteral;
+export type GoogleMapPropType = {
+  center: LatLngLiteral;
+  options: MapOptions;
 };

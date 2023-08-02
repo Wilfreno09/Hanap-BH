@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import locationReducer from "./slices/location-slice";
-import mapLoaderStateReducer from "./slices/map-is-loaded-slice"
+import userLocationReducer from "./slices/user-location-slice";
+import mapLoaderStateReducer from "./slices/map-is-loaded-slice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const store = configureStore({
-  reducer: { locationReducer, mapLoaderStateReducer },
+  reducer: { userLocationReducer, mapLoaderStateReducer },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

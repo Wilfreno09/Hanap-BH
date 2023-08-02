@@ -2,11 +2,9 @@
 
 import { useEffect, useState } from "react";
 import styles from "./dashboard.module.css";
-import { PlaceDetail } from "@/lib/types/PlacesDetails";
 import Content from "@/app/(dashboard)/dashboard/Content";
-import Image from "next/image";
-import Link from "next/link";
 import LoadingBar from "@/components/loading/LoadingBar";
+import { PlaceDetail } from "@/lib/types/places-details-types";
 
 export default function page() {
   const [details, setDetails] = useState<PlaceDetail[]>([]);

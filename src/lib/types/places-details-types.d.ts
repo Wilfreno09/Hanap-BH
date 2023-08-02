@@ -1,9 +1,8 @@
+import { LatLngLiteral } from "./google-map-type";
+
 export type PlaceDetail = {
   geometry: {
-    location: {
-      lat: number;
-      lng: number;
-    };
+    location: LatLngLiteral;
   };
   name: string;
   photos: [
@@ -15,4 +14,4 @@ export type PlaceDetail = {
   ];
   place_id: string;
   vicinity: string;
-}
+};

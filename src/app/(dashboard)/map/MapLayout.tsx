@@ -1,38 +1,63 @@
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker, MarkerClusterer } from "@react-google-maps/api";
 import styles from "./MapLayout.module.css";
-import { useMemo } from "react";
-import { useAppSelector } from "@/lib/redux/store";
+import { GoogleMapPropType } from "@/lib/types/prop-types";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { LatLngLiteral, MapType } from "@/lib/types/google-map-type";
+import { PlaceDetail } from "@/lib/types/places-details-types";
 
-export default function MapLayout() {
-  const useLocation = useAppSelector((state) => state.locationReducer.location)
-  const options = useMemo(
-    () => ({
-      restriction: {
-        latLngBounds: {
-          north: 21.1321,
-          south: 4.22599,
-          west: 114.095,
-          east: 128.604,
-        },
-        strictBounds: true,
-      },
-      mapTypeControl: false,
-      fullscreenControl: true,
-    }),
-    []
-  );
+export default function MapLayout({ center, options }: GoogleMapPropType) {
+  const [selected, setelected] = useState<LatLngLiteral>();
+  const [details, setDetails] = useState<PlaceDetail[]>([]);
+  const mapRef = useRef<MapType>();
+  const onLoad = useCallback((map: MapType) => {
+    mapRef.current = map;
+  }, []);
 
-  
+  async function getNearbyPlace() {
+    try {
+      const response = await fetch("/api/map/nearby-places");
+
+      const {
+        data: { results },
+      } = await response.json();
+      setDetails(results);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  useEffect(() => {
+    getNearbyPlace();
+  }, []);
+
   return (
     <>
       <GoogleMap
         zoom={14}
-        center={useLocation}
+        center={center}
         mapContainerClassName={styles.map}
         options={options}
+        onLoad={onLoad}
       >
-        <Marker position={useLocation} />
+        <MarkerClusterer>
+          {(clusterer) => (
+            <div>
+              {details?.map((place) =>
+                place.photos && place.photos.length > 0 ? (
+                  <Marker
+                    key={place.place_id}
+                    position={place.geometry.location}
+                    clusterer={clusterer}
+                    onClick={() =>
+                      mapRef.current?.panTo(place.geometry.location)
+                    }
+                  />
+                ) : null
+              )}
+            </div>
+          )}
+        </MarkerClusterer>
       </GoogleMap>
-    </> 
+    </>
   );
 }
