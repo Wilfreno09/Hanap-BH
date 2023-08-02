@@ -1,10 +1,10 @@
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import styles from "./MapLayout.module.css";
 import { useMemo } from "react";
-import { UserPropTypes } from "@/lib/types/Props";
+import { useAppSelector } from "@/lib/redux/store";
 
-export default function MapLayout({ user_lat, user_lng }: UserPropTypes) {
-  const center = useMemo(() => ({ lat: user_lat!, lng: user_lng! }), []);
+export default function MapLayout() {
+  const useLocation = useAppSelector((state) => state.locationReducer.location)
   const options = useMemo(
     () => ({
       restriction: {
@@ -21,15 +21,17 @@ export default function MapLayout({ user_lat, user_lng }: UserPropTypes) {
     }),
     []
   );
+
+  
   return (
     <>
       <GoogleMap
         zoom={14}
-        center={center}
+        center={useLocation}
         mapContainerClassName={styles.map}
-        // options={options}
+        options={options}
       >
-        <Marker position={center} />
+        <Marker position={useLocation} />
       </GoogleMap>
     </> 
   );

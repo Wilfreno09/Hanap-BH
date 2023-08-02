@@ -3,19 +3,18 @@
 import { setLocation } from "@/lib/redux/slices/location-slice";
 import { setMapIsLoaded } from "@/lib/redux/slices/map-is-loaded-slice";
 import { AppDispatch } from "@/lib/redux/store";
+import { Props } from "@/lib/types/Props";
 import { useLoadScript } from "@react-google-maps/api";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-type Props = {
-  children: React.ReactNode;
-};
 export default function GlobalStateProvider({ children }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const key: string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!;
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: key,
+    libraries: ["places"],
   });
 
   function getGeolocation() {
@@ -25,8 +24,7 @@ export default function GlobalStateProvider({ children }: Props) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-
-        dispatch(setLocation({ latitude, longitude }));
+        dispatch(setLocation({ location: { lat: latitude, lng: longitude } }));
       },
       (error) => {
         throw error;
