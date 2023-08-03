@@ -3,7 +3,7 @@
 import styles from "./layout.module.css";
 import Header from "@/components/layout/header/Header";
 import Navigation from "@/components/layout/navigations/Navigation";
-import SearchFilter from "@/components/layout/searchFilter/searchFilter";
+import SearchFilter from "@/components/layout/header/searchFilter/searchFilter";
 import { useEffect, useMemo } from "react";
 import { setMapIsLoaded } from "@/lib/redux/slices/map-is-loaded-slice";
 import { useLoadScript } from "@react-google-maps/api";
@@ -51,12 +51,11 @@ export default function DashboardLayout({
 
   return (
     <>
-        <section className={styles.section}>
-          <Header />
-          <Navigation />
-          <SearchFilter />
-          {children}
-        </section>
+      <section className={styles.section}>
+        <Header />
+        <Navigation />
+        {children}
+      </section>
     </>
   );
 }

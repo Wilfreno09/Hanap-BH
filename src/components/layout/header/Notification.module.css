@@ -1,0 +1,14 @@
+.notifs {
+  display: flex;
+  align-items: center;
+}
+
+
+.notif__icon{
+  margin: 0 1rem;
+  color: black;
+}
+
+.notif__icon svg {
+  font-size: 2.2rem;
+}
