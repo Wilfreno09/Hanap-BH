@@ -18,11 +18,18 @@ export default function Map({ center, options }: GoogleMapPropType) {
 
   async function getNearbyPlace() {
     try {
-      const response = await fetch("/api/map/nearby-places");
+      const response = await fetch("/api/map/nearby-places", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(center),
+      });
 
       const {
         data: { results },
       } = await response.json();
+
       setDetails(results);
     } catch (err) {
       throw err;
@@ -31,7 +38,8 @@ export default function Map({ center, options }: GoogleMapPropType) {
 
   useEffect(() => {
     getNearbyPlace();
-  }, []);
+    console.log("coordinates:", details);
+  }, [center]);
 
   return (
     <>
