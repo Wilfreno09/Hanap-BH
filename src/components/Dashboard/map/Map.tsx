@@ -26,9 +26,7 @@ export default function Map({ center, options }: GoogleMapPropType) {
         body: JSON.stringify(center),
       });
 
-      const {
-        data: { results },
-      } = await response.json();
+      const { results } = await response.json();
 
       setDetails(results);
     } catch (err) {
