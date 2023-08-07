@@ -15,29 +15,31 @@ const PlacesSchema: Schema = new Schema<PlaceDetailType>({
     required: true,
   },
   location: {
-    province:{
+    province: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     municipality: {
       type: String,
       default: undefined,
     },
-    city:{
+    city: {
       type: String,
-      default: undefined
+      default: undefined,
     },
-    barangay:{
+    barangay: {
       type: String,
-      default: undefined
+      default: undefined,
     },
-    lat: {
-      type: Number,
-      required: true,
-    },
-    lng: {
-      type: Number,
-      required: true,
+    coordinate: {
+      lat: {
+        type: Number,
+        required: true,
+      },
+      lng: {
+        type: Number,
+        required: true,
+      },
     },
   },
 
@@ -48,15 +50,15 @@ const PlacesSchema: Schema = new Schema<PlaceDetailType>({
   photos: {
     height: {
       type: Number,
-      required: true,
+      default: undefined,
     },
     width: {
       type: Number,
-      required: true,
+      default: undefined,
     },
     photo_reference: {
       type: String,
-      required: true,
+      default: undefined,
     },
   },
 });

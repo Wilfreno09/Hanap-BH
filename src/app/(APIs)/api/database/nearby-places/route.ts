@@ -1,5 +1,5 @@
 export async function POST(request: Request) {
-  const data = await request.json();
+  const { query } = await request.json();
 
   return console.log(data)
 }

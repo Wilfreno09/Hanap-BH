@@ -16,7 +16,6 @@ export async function GET(
     );
 
     const { results } = await response.json();
-
     return NextResponse.json(
       {
         location: results[0].geometry.location,
