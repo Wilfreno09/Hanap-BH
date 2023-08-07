@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const { lat, lng } = await request.json();
 
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${apiKey}&keyword=boarding house&location=${lat}%2C${lng}&radius=40000`
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${apiKey}&type=lodging&location=${lat}%2C${lng}&radius=40000`
     );
     const { results }: { results: PlaceDetailType[] } = await response.json();
 
