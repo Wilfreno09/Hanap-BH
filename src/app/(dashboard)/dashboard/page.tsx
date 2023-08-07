@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import styles from "./dashboard.module.css";
 import Content from "@/app/(dashboard)/dashboard/Content";
 import LoadingBar from "@/components/loading/LoadingBar";
-import { PlaceDetailType } from "@/lib/types/places-details-types";
+import { PlaceDetailType } from "@/lib/types/places-detail-types";
 
 export default function page() {
   const [details, setDetails] = useState<PlaceDetailType[]>([]);

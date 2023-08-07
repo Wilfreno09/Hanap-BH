@@ -1,6 +1,7 @@
+import { PlaceDetailType } from "@/lib/types/places-detail-types";
 import mongoose, { Schema } from "mongoose";
 
-const PlacesSchema: Schema = new Schema({
+const PlacesSchema: Schema = new Schema<PlaceDetailType>({
   owner: {
     type: Schema.ObjectId,
     default: undefined,
@@ -13,18 +14,33 @@ const PlacesSchema: Schema = new Schema({
     type: String,
     required: true,
   },
-  geometry: {
-    location: {
-      lat: {
-        type: Number,
-        required: true,
-      },
-      lng: {
-        type: Number,
-        required: true,
-      },
+  location: {
+    province:{
+      type: String,
+      default: undefined
+    },
+    municipality: {
+      type: String,
+      default: undefined,
+    },
+    city:{
+      type: String,
+      default: undefined
+    },
+    barangay:{
+      type: String,
+      default: undefined
+    },
+    lat: {
+      type: Number,
+      required: true,
+    },
+    lng: {
+      type: Number,
+      required: true,
     },
   },
+
   name: {
     type: String,
     required: true,

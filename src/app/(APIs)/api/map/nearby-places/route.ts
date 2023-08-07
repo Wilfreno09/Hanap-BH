@@ -1,9 +1,6 @@
 import dbConnect from "@/lib/database/connect";
 import PlacesDetail from "@/lib/database/model/Places-detail";
-import {
-  PlaceDetailPromiseType,
-  PlaceDetailType,
-} from "@/lib/types/places-details-types";
+import { PlaceDetailType } from "@/lib/types/places-detail-types";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -16,7 +13,7 @@ export async function POST(request: Request) {
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${apiKey}&keyword=boarding house&location=${lat}%2C${lng}&radius=40000`
     );
-    const { results }: PlaceDetailPromiseType = await response.json();
+    const { results }: { results: PlaceDetailType[] } = await response.json();
 
     savePlace(results);
 
@@ -39,21 +36,23 @@ async function savePlace(datas: PlaceDetailType[]) {
       try {
         const isDuplicate = await findDuplicate(data.place_id);
         if (!isDuplicate) {
-          const newPlace = new PlacesDetail({
+          const newPlace = new PlacesDetail<PlaceDetailType>({
             place_id: data.place_id,
             vicinity: data.vicinity,
-            geometry: {
-              location: {
-                lat: data.geometry.location.lat,
-                lng: data.geometry.location.lng,
+            location: {
+              coordinate: {
+                lat: data.location.coordinate.lat,
+                lng: data.location.coordinate.lng,
               },
             },
             name: data.name,
-            photos: {
-              height: data.photos[0].height,
-              width: data.photos[0].width,
-              photo_reference: data.photos[0].photo_reference,
-            },
+            photos: [
+              {
+                height: data.photos[0].height,
+                width: data.photos[0].width,
+                photo_reference: data.photos[0].photo_reference,
+              },
+            ],
           });
           await newPlace.save();
         }

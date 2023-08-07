@@ -5,7 +5,7 @@ import styles from "./Map.module.css";
 import { GoogleMapPropType } from "@/lib/types/prop-types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { LatLngLiteral, MapType } from "@/lib/types/google-map-type";
-import { PlaceDetailType } from "@/lib/types/places-details-types";
+import { PlaceDetailType } from "@/lib/types/places-detail-types";
 
 export default function Map({ center, options }: GoogleMapPropType) {
   const [selected, setelected] = useState<LatLngLiteral>();
