@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 
 import { useEffect, useState } from "react";
@@ -47,4 +48,9 @@ export default function page() {
       )}
     </div>
   );
+=======
+
+export default function page() {
+  return null;
+>>>>>>> 4fb97f517383109b677b781c9b6b746298a883ba
 }

@@ -15,3 +15,7 @@ export type PlaceDetailType = {
   place_id: string;
   vicinity: string;
 };
+
+export type PlaceDetailPromiseType = {
+  results: PlaceDetailType[];
+};

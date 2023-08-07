@@ -1,19 +1,30 @@
-"use client"
+"use client";
 
-import HomeNav from "./HomeNav";
-import MapNav from "./MapNav";
+import Link from "next/link";
 import styles from "./Navigation.module.css";
 import { usePathname } from "next/navigation";
-
+import GridViewSharpIcon from "@mui/icons-material/GridViewSharp";
+import MapSharpIcon from "@mui/icons-material/MapSharp";
 export default function Navigation() {
-const pathname = usePathname();
+  const pathname = usePathname();
 
   return (
     <>
-      <div className={styles.navigation}>
-          {pathname === "/map" && <HomeNav />}
-          {pathname === "/dashboard" && <MapNav />}
-      </div>
+      {pathname.startsWith("/map") ? (
+        <div className={styles.navigation}>
+          <Link href="/" as="/">
+            <p>See Dashboard</p>
+            <GridViewSharpIcon />
+          </Link>
+        </div>
+      ) : (
+        <div className={styles.navigation}>
+          <Link href="/map" as="/map">
+            <p>See Map</p>
+            <MapSharpIcon />
+          </Link>
+        </div>
+      )}
     </>
   );
 }
