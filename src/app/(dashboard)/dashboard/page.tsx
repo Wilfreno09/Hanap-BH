@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import styles from "./dashboard.module.css";
 import Content from "@/app/(dashboard)/dashboard/Content";
 import LoadingBar from "@/components/loading/LoadingBar";
-import { PlaceDetail } from "@/lib/types/places-details-types";
+import { PlaceDetailType } from "@/lib/types/places-details-types";
 
 export default function page() {
-  const [details, setDetails] = useState<PlaceDetail[]>([]);
+  const [details, setDetails] = useState<PlaceDetailType[]>([]);
 
   async function getNearbyPlace() {
     try {
