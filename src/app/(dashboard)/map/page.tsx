@@ -1,4 +1,5 @@
 "use client";
+
 import Map from "@/components/Dashboard/map/Map";
 import styles from "@/components/Dashboard/map/Map.module.css";
 import { useAppSelector } from "@/lib/redux/store";

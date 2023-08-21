@@ -12,7 +12,6 @@ export default async function savePlace(datas: PlaceDetailType[]) {
 
         if (!isDuplicate) {
           if (!data.photos || data.photos.length <= 0) {
-            console.log("datas::: ", data.geometry?.location);
             const newPlace = new PlacesDetail<PlaceDetailType>({
               place_id: data.place_id,
               vicinity: data.vicinity,
@@ -23,6 +22,7 @@ export default async function savePlace(datas: PlaceDetailType[]) {
                 },
               },
               name: data.name,
+              new: false,
             });
 
             await newPlace.save();
@@ -44,6 +44,7 @@ export default async function savePlace(datas: PlaceDetailType[]) {
                 photo_reference: data.photos?.[0].photo_reference as string,
               },
             ],
+            new: false,
           });
           await newPlace.save();
         }

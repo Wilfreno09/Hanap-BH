@@ -61,6 +61,10 @@ const PlacesSchema: Schema = new Schema<PlaceDetailType>({
       default: undefined,
     },
   },
+  new: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 export default mongoose.models.PlaceDetail ||

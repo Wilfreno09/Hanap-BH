@@ -28,5 +28,7 @@ export type PlaceDetailType = {
       width: number;
       photo_reference: string;
     }
-  ] 
+  ];
+
+  new: boolean;
 };

@@ -6,16 +6,19 @@ import { GoogleMapPropType } from "@/lib/types/prop-types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { LatLngLiteral, MapType } from "@/lib/types/google-map-type";
 import { PlaceDetailType } from "@/lib/types/places-detail-types";
+import { useAppSelector } from "@/lib/redux/store";
 
 export default function Map({ center, options }: GoogleMapPropType) {
   const [selected, setelected] = useState<LatLngLiteral>();
   const [details, setDetails] = useState<PlaceDetailType[]>([]);
-  const mapRef = useRef<MapType>();
 
+  const mapRef = useRef<MapType>();
   const onLoad = useCallback((map: MapType) => {
     mapRef.current = map;
   }, []);
-
+  const searchSelected = useAppSelector(
+    (state) => state.searchSelectedReducer.selected
+  );
   async function getNearbyPlace() {
     try {
       const response = await fetch("/api/map/nearby-places", {
@@ -36,7 +39,6 @@ export default function Map({ center, options }: GoogleMapPropType) {
 
   useEffect(() => {
     getNearbyPlace();
-    console.log("coordinates:", details);
   }, [center]);
 
   return (
@@ -55,10 +57,10 @@ export default function Map({ center, options }: GoogleMapPropType) {
                 place.photos && place.photos.length > 0 ? (
                   <Marker
                     key={place.place_id}
-                    position={place.geometry.location}
+                    position={place.geometry!.location}
                     clusterer={clusterer}
                     onClick={() =>
-                      mapRef.current?.panTo(place.geometry.location)
+                      mapRef.current?.panTo(place.geometry!.location)
                     }
                   />
                 ) : null
