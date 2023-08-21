@@ -15,7 +15,12 @@ export default function Search() {
     setValue,
     suggestions: { status, data },
     clearSuggestions,
-  } = usePlacesAutocomplete();
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      componentRestrictions: { country: "PH" },
+      types: ["lodgings"],
+    },
+  });
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -41,6 +46,7 @@ export default function Search() {
                 className={styles.options}
                 onClick={async () => {
                   dispatch(setSearchSelected(place_id));
+                  clearSuggestions();
                 }}
               >
                 <p>{description}</p>
@@ -48,6 +54,7 @@ export default function Search() {
             ))}
         </section>
       </form>
+      {console.log(JSON.stringify(data))}
     </>
   );
 }
