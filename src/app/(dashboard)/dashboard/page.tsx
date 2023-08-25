@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client";
 
 import { useEffect, useState } from "react";
@@ -6,17 +5,27 @@ import styles from "./dashboard.module.css";
 import Content from "@/app/(dashboard)/dashboard/Content";
 import LoadingBar from "@/components/loading/LoadingBar";
 import { PlaceDetailType } from "@/lib/types/places-detail-types";
+import { useAppSelector } from "@/lib/redux/store";
 
 export default function page() {
   const [details, setDetails] = useState<PlaceDetailType[]>([]);
-
+  const userLocation = useAppSelector(
+    (state) => state.userLocationReducer.coordinates
+  );
   async function getNearbyPlace() {
     try {
-      const response = await fetch("/api/map/nearby-places");
+      const response = await fetch("/api/map/nearby-places", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userLocation),
+      });
 
       const {
         data: { results },
       } = await response.json();
+
       setDetails(results);
     } catch (err) {
       throw err;
@@ -26,7 +35,6 @@ export default function page() {
   useEffect(() => {
     getNearbyPlace();
   }, []);
-
   return (
     <div className={styles.dashboard}>
       {details?.map((place, index) =>
@@ -48,9 +56,4 @@ export default function page() {
       )}
     </div>
   );
-=======
-
-export default function page() {
-  return null;
->>>>>>> 4fb97f517383109b677b781c9b6b746298a883ba
 }

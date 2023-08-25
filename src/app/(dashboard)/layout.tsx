@@ -3,7 +3,6 @@
 import styles from "./layout.module.css";
 import Header from "@/components/layout/header/Header";
 import Navigation from "@/components/layout/navigations/Navigation";
-import SearchFilter from "@/components/layout/header/searchFilter/searchFilter";
 import { useEffect, useMemo } from "react";
 import { setMapIsLoaded } from "@/lib/redux/slices/map-is-loaded-slice";
 import { useLoadScript } from "@react-google-maps/api";
@@ -11,15 +10,18 @@ import { setLocation } from "@/lib/redux/slices/user-location-slice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
 import { GoogleMapsLibrary } from "@/lib/types/google-map-type";
+import { Libraries } from "use-google-maps-script";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const apiKey: string = process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY!;
+  if (!apiKey) throw new Error("NEXT_PUBLIC_GOOGLE_MAPS_API_KEY missing");
+
   const dispatch = useDispatch<AppDispatch>();
-  const key: string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!;
-  const libraries = useMemo<GoogleMapsLibrary>(() => ["places"], []);
+  // const libraries = useMemo<GoogleMapsLibrary>(() => ["places"], []);
 
   function getGeolocation() {
     if (!navigator.geolocation.getCurrentPosition) {
@@ -38,8 +40,10 @@ export default function DashboardLayout({
     );
   }
 
+  const libraries: Libraries = ["places"];
+  
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: key,
+    googleMapsApiKey: apiKey,
     libraries,
   });
 
