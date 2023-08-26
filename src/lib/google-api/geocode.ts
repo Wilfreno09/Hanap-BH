@@ -1,9 +1,9 @@
 import { LatLngLiteral } from "../types/google-map-type";
 
 export async function getGeocode(place_id: string) {
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_GEOCODING_API_KEY;
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_GEOCODE_API_KEY;
   if (!apiKey)
-    throw new Error(" NEXT_PUBLIC_GOOGLE_GEOCODING_API_KEY missing ");
+    throw new Error(" NEXT_PUBLIC_GOOGLE_GEOCODE_API_KEY missing ");
 
   try {
     const response = await fetch(

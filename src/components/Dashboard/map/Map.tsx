@@ -16,9 +16,11 @@ export default function Map({ center, options }: GoogleMapPropType) {
   const onLoad = useCallback((map: MapType) => {
     mapRef.current = map;
   }, []);
+
   const searchSelected = useAppSelector(
     (state) => state.searchSelectedReducer.selected
   );
+
   async function getNearbyPlace() {
     try {
       const response = await fetch("/api/map/nearby-places", {

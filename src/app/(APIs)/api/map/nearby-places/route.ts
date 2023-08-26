@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY;
-  if (!apiKey) throw new Error("NEXT_PUBLIC_GOOGLE_MAPS_API_KEY missing");
+  if (!apiKey) throw new Error("NEXT_PUBLIC_GOOGLE_PLACE_API_KEY missing");
 
   try {
     const { lat, lng } = await request.json();

@@ -1,14 +1,22 @@
-import { Dispatch, SetStateAction, useRef, useState } from "react";
 import styles from "./Search.module.css";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { AppDispatch, useAppSelector } from "@/lib/redux/store";
+import { AppDispatch } from "@/lib/redux/store";
 import usePlacesAutocomplete from "use-places-autocomplete";
-import { getGeocode } from "@/lib/google-api/geocode";
-import { MapType } from "@/lib/types/google-map-type";
 import { useDispatch } from "react-redux";
 import { setSearchSelected } from "@/lib/redux/slices/search-selected-slice";
+import { Libraries, useGoogleMapsScript } from "use-google-maps-script";
 
 export default function Search() {
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY;
+  if (!apiKey) throw new Error("NEXT_PUBLIC_GOOGLE_PLACE_API_KEY missing");
+
+  const libraries: Libraries = ["places"];
+
+  const { isLoaded, loadError } = useGoogleMapsScript({
+    googleMapsApiKey: apiKey,
+    libraries,
+  });
+
   const {
     ready,
     value,
@@ -16,6 +24,7 @@ export default function Search() {
     suggestions: { status, data },
     clearSuggestions,
   } = usePlacesAutocomplete({
+    debounce: 300,
     requestOptions: {
       componentRestrictions: { country: "PH" },
       types: ["lodgings"],
@@ -23,6 +32,14 @@ export default function Search() {
   });
 
   const dispatch = useDispatch<AppDispatch>();
+
+  if (!isLoaded) return null;
+  if (loadError)
+    return (
+      <>
+        <h1>Error</h1>
+      </>
+    );
 
   return (
     <>

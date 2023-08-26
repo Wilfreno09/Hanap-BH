@@ -4,14 +4,17 @@ import Map from "@/components/Dashboard/map/Map";
 import styles from "@/components/Dashboard/map/Map.module.css";
 import { useAppSelector } from "@/lib/redux/store";
 import { LatLngLiteral, MapOptions } from "@/lib/types/google-map-type";
+import { useLoadScript } from "@react-google-maps/api";
 import { useEffect, useMemo, useState } from "react";
 
 export default function page() {
   const [center, setCenter] = useState<LatLngLiteral>();
+  const apiKey: string = process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY!;
+  if (!apiKey) throw new Error("NEXT_PUBLIC_GOOGLE_MAPS_API_KEY missing");
 
-  const mapIsLoaded = useAppSelector(
-    (state) => state.mapLoaderStateReducer.mapLaodState
-  );
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: apiKey,
+  });
 
   const userLocation = useAppSelector(
     (state) => state.userLocationReducer.coordinates
@@ -40,9 +43,5 @@ export default function page() {
     setCenter(userLocation);
   }, [userLocation]);
 
-  return (
-    <>
-        {mapIsLoaded && <Map center={center!} options={options} />}
-    </>
-  );
+  return <>{isLoaded && <Map center={center!} options={options} />}</>;
 }
