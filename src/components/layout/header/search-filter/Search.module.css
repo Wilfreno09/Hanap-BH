@@ -1,0 +1,44 @@
+.form {
+  display: flex;
+  width: 25%;
+  align-items: center;
+  border: 1px solid rgba(34, 34, 34, 0.2);
+  border-radius: 10rem;
+  position: relative;
+  padding: 0 1.5rem;
+  background-color: rgba(34, 34, 34, 0.05);
+
+}
+.active {
+  box-shadow: 5px 5px 8px -9px rgba(0, 0, 0, 0.75);
+}
+
+.search__icon {
+  font-size: 2.8rem;
+  border-radius: 10rem;
+}
+
+.input {
+  border: none;
+  border-style: none;
+  outline: none;
+  font-size: 1.5rem;
+  height: 2rem;
+  width: 100%;
+  background-color: transparent;
+  margin: 1.2rem;
+}
+
+.clear__input {
+  font-size: 1.5rem;
+  font-weight: 800;
+  border-radius: 10rem;
+  color: #222222;
+  padding: 1rem;
+}
+
+.clear__input:hover {
+  cursor: pointer;
+}
+
+

@@ -1,0 +1,18 @@
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 3%;
+}
+
+.logo h1 {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 3rem;
+}
+
+.logo__img {
+  width: 2.5rem;
+  height: auto;
+  margin: 0 2rem;
+}

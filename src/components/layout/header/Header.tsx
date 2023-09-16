@@ -1,26 +1,24 @@
-import { Avatar, IconButton } from "@mui/material";
 import styles from "./Header.module.css";
-import Link from "next/link";
-import SearchFilter from "./searchFilter/searchFilter";
-import Logo from "./Logo";
-import Notification from "./Notification";
-import UserLogin from "./UserLogin";
+import Logo from "./logo/Logo";
 import { usePathname } from "next/navigation";
+import AddPlace from "./add-place/AddPlace";
+import Search from "./search-filter/Search";
+import Menu from "./menu/Menu";
 
 export default function Header() {
   const pathname = usePathname();
 
   return (
     <section
-      className={`${styles.container} ${
+      className={`${styles.header} ${
         pathname.startsWith("/map") ? styles.map : styles.default
       }`}
     >
       <Logo />
-      <SearchFilter />
+      <Search />
       <div className={styles.icons}>
-        <Notification />
-        <UserLogin />
+        <AddPlace />
+        <Menu />
       </div>
     </section>
   );
