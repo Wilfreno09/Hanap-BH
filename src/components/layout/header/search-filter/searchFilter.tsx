@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import Filter from "./filterOption/Filter";
-import Search from "./search/Search";
+import Filter from "./Filter";
+import Search from "./Search";
 import styles from "./searchFilter.module.css";
 
 export default function SearchFilter() {

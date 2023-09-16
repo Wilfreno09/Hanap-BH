@@ -1,11 +1,9 @@
-import { Avatar, IconButton } from "@mui/material";
 import styles from "./Header.module.css";
-import Link from "next/link";
-import SearchFilter from "./searchFilter/searchFilter";
-import Logo from "./Logo";
-import Notification from "./Notification";
-import UserLogin from "./UserLogin";
+import SearchFilter from "./search-filter/searchFilter";
+import Logo from "./logo/Logo";
 import { usePathname } from "next/navigation";
+import User from "./auth/User";
+import AddPlace from "./add-place/AddPlace";
 
 export default function Header() {
   const pathname = usePathname();
@@ -19,8 +17,8 @@ export default function Header() {
       <Logo />
       <SearchFilter />
       <div className={styles.icons}>
-        <Notification />
-        <UserLogin />
+        <AddPlace />
+        <User />
       </div>
     </section>
   );

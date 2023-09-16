@@ -1,12 +1,12 @@
 import React from "react";
 import "./globals.css";
-import { Poppins } from "next/font/google";
+import { Manrope } from "next/font/google";
 import ReduxProvider from "../lib/redux/ReduxProvider";
 import Script from "next/script";
 
-const poppins = Poppins({
+const poppins = Manrope({
   subsets: ["latin"],
-  weight: ["300", "400", "900"],
+  weight: ["300", "400"],
 });
 
 export const metadata = {
@@ -20,7 +20,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
- 
   return (
     <ReduxProvider>
       <html lang="en">

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
 import { setSelectedDetail } from "@/lib/redux/slices/selected-detail-slice";
-import { PlaceDetailType } from "@/lib/types/places-detail-types";
+import { PlaceDetailType } from "@/lib/types/google-place-api-types";
 
 export default function Search() {
   const [search, setSearch] = useState<string>("");
@@ -64,7 +64,6 @@ export default function Search() {
                   setActive(false);
                 }}
               >
-                <p>{result.description}</p>
               </div>
             ))}
         </div>
