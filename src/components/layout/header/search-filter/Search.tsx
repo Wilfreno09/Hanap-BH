@@ -1,10 +1,8 @@
 import styles from "./Search.module.css";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
-import { setSelectedDetail } from "@/lib/redux/slices/selected-detail-slice";
-import { PlaceDetailType } from "@/lib/types/google-place-api-types";
 
 export default function Search() {
   const [search, setSearch] = useState<string>("");
@@ -33,9 +31,13 @@ export default function Search() {
 
   return (
     <>
-      <form className={styles.form} autoFocus={false} autoComplete="off">
+      <form
+        className={`${styles.form} ${active && styles.active}`}
+        autoFocus={false}
+        autoComplete="off"
+      >
         <label htmlFor="search">
-          <SearchOutlinedIcon />
+          <SearchOutlinedIcon className={styles.search__icon} />
         </label>
         <input
           type="text"
@@ -47,26 +49,25 @@ export default function Search() {
             const newTimer = setTimeout(() => {
               getAutocomplete();
             }, 300);
-            setTimer(newTimer!);
+          setTimer(newTimer!);
           }}
           onFocus={() => setActive(true)}
+          onBlur={() => setActive(false)}
           className={styles.input}
         />
-        <div className={styles.results}>
-          {active &&
-            results.map((result: PlaceDetailType) => (
-              <div
-                key={result.place_id}
-                className={styles.options}
-                onClick={() => {
-                  console.log("result:", result);
-                  dispatch(setSelectedDetail(result));
-                  setActive(false);
-                }}
-              >
-              </div>
-            ))}
-        </div>
+        {search !== "" ? (
+          <label htmlFor="search">
+            <h2
+              className={styles.clear__input}
+              onClick={() => {
+                setSearch("");
+              }}
+            >
+              X
+            </h2>
+          </label>
+        ) : null}
+        {/* <ResultDropDown /> */}
       </form>
     </>
   );

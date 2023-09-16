@@ -1,11 +1,19 @@
 .form {
   display: flex;
-  width: 100%;
+  width: 25%;
   align-items: center;
-  padding: 0.5rem 1rem;
+  border: 1px solid rgba(34, 34, 34, 0.2);
+  border-radius: 10rem;
   position: relative;
+  padding: 0 1.5rem;
+  background-color: rgba(34, 34, 34, 0.05);
+
 }
-.form svg {
+.active {
+  box-shadow: 5px 5px 8px -9px rgba(0, 0, 0, 0.75);
+}
+
+.search__icon {
   font-size: 2.8rem;
   border-radius: 10rem;
 }
@@ -15,36 +23,22 @@
   border-style: none;
   outline: none;
   font-size: 1.5rem;
-  height: 3rem;
-  padding: 0 1rem;
+  height: 2rem;
   width: 100%;
   background-color: transparent;
+  margin: 1.2rem;
 }
 
-.form .results {
-  position: absolute;
-  width: 116%;
-  background-color: white;
-  overflow-y: scroll;
-  top: 100%;
-  left: 0;
-  border-radius: 0.3rem 0.3rem 1rem 1rem;
-  max-height: 30vh;
-  z-index: 5;
-  backdrop-filter: blur(1.5rem);
+.clear__input {
+  font-size: 1.5rem;
+  font-weight: 800;
+  border-radius: 10rem;
+  color: #222222;
+  padding: 1rem;
 }
 
-.options {
-  font-size: 1.3rem;
-  padding: .8rem 0;
-  border-radius: 0.3rem;
-}
-
-.options p {
-  padding: 0 1.2rem;
-}
-
-.options:hover {
-  background-color: rgba(33, 33, 33, 0.18);
+.clear__input:hover {
   cursor: pointer;
 }
+
+
