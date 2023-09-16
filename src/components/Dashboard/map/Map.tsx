@@ -1,74 +1,64 @@
 "use client";
 
-import { GoogleMap, Marker, MarkerClusterer } from "@react-google-maps/api";
 import styles from "./Map.module.css";
-import { GoogleMapPropType } from "@/lib/types/prop-types";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { LatLngLiteral, MapType } from "@/lib/types/google-map-type";
-import { PlaceDetailType } from "@/lib/types/places-details-types";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useAppSelector } from "@/lib/redux/store";
 
-export default function Map({ center, options }: GoogleMapPropType) {
-  const [selected, setelected] = useState<LatLngLiteral>();
-  const [details, setDetails] = useState<PlaceDetailType[]>([]);
-  const mapRef = useRef<MapType>();
+import { GoogleMap } from "@react-google-maps/api";
+import DetailPopUp from "./DetailPopUp";
+import NearbyPlacesMarker from "./markers/NearbyPlacesMarker";
+import { MapOptions, MapType } from "@/lib/types/google-maps-api-type";
+export default function Map() {
+  const [mapState, setMapState] = useState<MapType>();
+  const userLocation = useAppSelector(
+    (state) => state.userLocationReducer.coordinates
+  );
+  const { lat, lng } = userLocation;
 
   const onLoad = useCallback((map: MapType) => {
-    mapRef.current = map;
+    setMapState(map);
   }, []);
 
-  async function getNearbyPlace() {
-    try {
-      const response = await fetch("/api/map/nearby-places", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+  const options = useMemo<MapOptions>(
+    () => ({
+      restriction: {
+        latLngBounds: {
+          north: 21.1321,
+          south: 4.22599,
+          west: 114.095,
+          east: 128.604,
         },
-        body: JSON.stringify(center),
-      });
-
-      const {
-        data: { results },
-      } = await response.json();
-
-      setDetails(results);
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  useEffect(() => {
-    getNearbyPlace();
-    console.log("coordinates:", details);
-  }, [center]);
-
+        strictBounds: true,
+      },
+      mapTypeControl: false,
+      fullscreenControl: true,
+      disableDefaultUI: true,
+      clickableIcons: false,
+      mapId: "671365b374be82",
+    }),
+    []
+  );
   return (
     <>
-      <GoogleMap
-        zoom={14}
-        center={center}
-        mapContainerClassName={styles.map}
-        options={options}
-        onLoad={onLoad}
-      >
-        <MarkerClusterer>
-          {(clusterer) => (
-            <div>
-              {details?.map((place) =>
-                place.photos && place.photos.length > 0 ? (
-                  <Marker
-                    key={place.place_id}
-                    position={place.geometry.location}
-                    clusterer={clusterer}
-                    onClick={() =>
-                      mapRef.current?.panTo(place.geometry.location)
-                    }
-                  />
-                ) : null
-              )}
-            </div>
-          )}
-        </MarkerClusterer>
-      </GoogleMap>
+      {lat !== undefined && lng !== undefined ? (
+        <div className={styles.container}>
+          <GoogleMap
+            zoom={14}
+            center={{ lat, lng }}
+            mapContainerClassName={styles.map}
+            options={options}
+            onLoad={onLoad}
+          >
+            {mapState != undefined ? (
+              <NearbyPlacesMarker
+                map={mapState!}
+                user_location={{ lat, lng }}
+              />
+            ) : null}
+          </GoogleMap>
+          {/* <DetailPopUp /> */}
+        </div>
+      ) : null}
     </>
   );
 }
