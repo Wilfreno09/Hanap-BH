@@ -3,15 +3,17 @@
 import styles from "./layout.module.css";
 import Header from "@/components/layout/header/Header";
 import Navigation from "@/components/layout/navigations/Navigation";
-import { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { setLocation } from "@/lib/redux/slices/user-location-slice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
 
 export default function DashboardLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -43,6 +45,7 @@ export default function DashboardLayout({
         <Header />
         <Navigation />
         {children}
+        {modal}
       </section>
     </>
   );
