@@ -2,7 +2,7 @@ import styles from "./Header.module.css";
 import Logo from "./logo/Logo";
 import { usePathname } from "next/navigation";
 import AddPlace from "./add-place/AddPlace";
-import Search from "./search-filter/Search";
+import Search from "./search/Search";
 import Menu from "./menu/Menu";
 
 export default function Header() {
