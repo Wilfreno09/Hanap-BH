@@ -1,0 +1,138 @@
+.login {
+  position: relative;
+  width: 30%;
+  /* height: 80vh; */
+  background-color: white;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(34, 34, 34, 0.4);
+  box-shadow: 5px 5px 8px -9px rgba(34, 34, 34, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 3rem;
+}
+
+.logo__img {
+  width: 10rem;
+  height: auto;
+}
+
+.logo h2 {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 3rem;
+}
+.login__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+}
+
+.login__form form {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(34, 34, 34, 0.4);
+  border-radius: 0.5rem;
+}
+
+.user,
+.password {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(34, 34, 34, 0.1);
+  border-bottom: 1px solid rgba(34, 34, 34, 0.4);
+}
+
+.login form input {
+  width: 100%;
+  height: 4.5rem;
+  font-size: 1.8rem;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+.input__icon,
+.password__visibility {
+  font-size: 3rem;
+  color: rgba(34, 34, 34, 0.5);
+  margin: 0 1rem;
+}
+
+.user__input,
+.password {
+  border: none;
+}
+
+.login__button {
+  width: 100%;
+  border: 1px solid rgba(34, 34, 34, 0.4);
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  background-color: rgba(34, 34, 34, 0.5);
+}
+.login__button h3 {
+  font-size: 2rem;
+  font-weight: 500;
+  padding: 1rem;
+}
+
+.o__auth {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgba(34, 34, 34, 0.4);
+  border-radius: 0.5rem;
+  background-color: rgba(34, 34, 34, 0.1);
+  margin: 1rem 0;
+}
+
+.facebook,
+.google {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 3rem;
+}
+.facebook {
+  border-bottom: 1px solid rgba(34, 34, 34, 0.4);
+}
+.facebook__icon,
+.google__icon {
+  width: 4rem;
+  height: auto;
+}
+.google h3,
+.facebook h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 3.5rem;
+}
+
+.sign__up {
+  font-size: 1.3rem;
+  margin: 2rem 0;
+}
+
+.sign__up a {
+  text-decoration: underline;
+  color: rgb(0, 119, 255);
+}
+
+.login hr {
+  width: 90%;
+  margin: 1rem 0;
+}

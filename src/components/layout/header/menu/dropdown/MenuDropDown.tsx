@@ -4,7 +4,7 @@ import styles from "./MenuDropDown.module.css";
 export default function MenuDropDown() {
   return (
     <section className={styles.dropdown}>
-      <Link href="/auth/log-in">
+      <Link href="/auth/log-in" as="/auth/log-in">
         <h5>Log in</h5>
       </Link>
       <Link href="/test">
