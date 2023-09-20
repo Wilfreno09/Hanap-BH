@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import styles from "./dashboard.module.css";
 import Content from "@/app/(dashboard)/dashboard/Content";
 import LoadingBar from "@/components/loading/LoadingBar";
-import { PlaceDetailType } from "@/lib/types/places-detail-types";
 import { useAppSelector } from "@/lib/redux/store";
+import { PlaceDetailType } from "@/lib/types/google-place-api-types";
 
 export default function page() {
   const [details, setDetails] = useState<PlaceDetailType[]>([]);

@@ -56,7 +56,7 @@ export default function Map() {
               />
             ) : null}
           </GoogleMap>
-          {/* <DetailPopUp /> */}
+          <DetailPopUp />
         </div>
       ) : null}
     </>
