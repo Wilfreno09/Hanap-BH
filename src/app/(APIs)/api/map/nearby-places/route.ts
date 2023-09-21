@@ -66,6 +66,7 @@ export async function POST(request: Request) {
           street: "",
           coordinates: location,
         },
+        photos: photo_detail,
         price: {
           max: undefined,
           min: undefined,

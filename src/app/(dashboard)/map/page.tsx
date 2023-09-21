@@ -1,6 +1,6 @@
 "use client";
 
-import Map from "@/components/dashboard/map/Map";
+import Map from "@/components/page/map/Map";
 import { useLoadScript } from "@react-google-maps/api";
 
 export default function page() {

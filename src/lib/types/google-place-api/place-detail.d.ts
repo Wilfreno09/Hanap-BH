@@ -1,3 +1,5 @@
+import { PhotosType } from "./photos";
+
 export type PlaceDetailType = {
   owner?: UserDetailType;
   place_id: string;
@@ -10,6 +12,7 @@ export type PlaceDetailType = {
     street: string;
     coordinates: LatLngLiteral;
   };
+  photos: PhotosType[];
   price: {
     max?: number;
     min?: number;

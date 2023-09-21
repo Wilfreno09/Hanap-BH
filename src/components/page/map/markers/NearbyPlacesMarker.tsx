@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
 import { setSelectedDetail } from "@/lib/redux/slices/selected-detail-slice";
 import { LatLngLiteral, MapType } from "@/lib/types/google-maps-api-type";
-import { PlaceDetailType } from "@/lib/types/google-place-api-types";
+import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
 export default function NearbyPlacesMarker({
   user_location,
   map,
