@@ -1,4 +1,4 @@
-import { PlaceDetailType } from "@/lib/types/google-place-api-types";
+import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
 import mongoose, { Schema } from "mongoose";
 
 const PlaceSchema: Schema = new Schema<PlaceDetailType>({

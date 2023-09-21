@@ -46,10 +46,10 @@ export async function savePlace(data: PlaceDetailType, photos: PhotosType[]) {
       rooms,
       rating,
       contact,
-      database,
+      database: "GOOGLE",
     });
 
-    const saved_place_detail = await place_detail.save();
+    await place_detail.save();
 
     photos.forEach(async (photo) => {
       const { reference, height, width, photo_url } = photo;

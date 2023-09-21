@@ -56,7 +56,6 @@ export async function POST(request: Request) {
         },
         phone_number: [],
       },
-      database: "GOOGLE",
     };
     const photo_detail = photos.map(
       (photo: { height: number; width: number; photo_reference: string }) => {
@@ -69,7 +68,7 @@ export async function POST(request: Request) {
         } as PhotosType;
       }
     );
-    
+
     savePlace(data, photo_detail);
 
     NextResponse.json({ data }, { status: 200 });

@@ -2,10 +2,10 @@ import dbConnect from "@/lib/database/connect";
 import PlaceDetail from "@/lib/database/model/Place-detail";
 import { savePlace } from "@/lib/database/save-place";
 import { getReverseGeocode } from "@/lib/google-api/geocode";
-import {
-  NearbyPlaceType,
-  PlaceDetailType,
-} from "@/lib/types/google-place-api-types";
+import { NearbyPlaceType } from "@/lib/types/google-place-api/nearby-place";
+import { PhotosType } from "@/lib/types/google-place-api/photos";
+import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
+
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -34,45 +34,57 @@ export async function POST(request: Request) {
 
     const { results } = await response.json();
 
-    const google_response = results.map(
-      (result: NearbyPlaceType): PlaceDetailType => {
-         savePlace(result);
-        const {
-          place_id,
-          geometry: { location },
-          name,
+    const google_response = results.map((result: NearbyPlaceType) => {
+      const {
+        place_id,
+        name,
+        geometry: { location },
+        photos,
+        vicinity,
+        rating,
+      } = result;
+      const photo_detail = photos.map(
+        (photo: { height: number; width: number; photo_reference: string }) => {
+          const { height, width, photo_reference } = photo;
+          return {
+            reference: place_id,
+            height,
+            width,
+            photo_url: photo_reference,
+          } as PhotosType;
+        }
+      );
+      const detail: PlaceDetailType = {
+        owner: undefined,
+        place_id,
+        name,
+        location: {
           vicinity,
-          rating,
-        } = result;
-        return {
-          owner: undefined,
-          place_id,
-          name,
-          location: {
-            vicinity,
-            province: "",
-            municipality: "",
-            barangay: "",
-            street: "",
-            coordinates: location,
+          province: "",
+          municipality: "",
+          barangay: "",
+          street: "",
+          coordinates: location,
+        },
+        price: {
+          max: undefined,
+          min: undefined,
+        },
+        rooms: undefined,
+        contact: {
+          social_media: {
+            facebook: "",
+            twitter: "",
+            instagram: "",
           },
-          price: {
-            max: undefined,
-            min: undefined,
-          },
-          rooms: undefined,
-          contact: {
-            social_media: {
-              facebook: "",
-              twitter: "",
-              instagram: "",
-            },
-            phone_number: [""],
-          },
-          rating,
-        };
-      }
-    );
+          phone_number: [],
+        },
+        rating,
+      };
+
+      savePlace(detail, photo_detail);
+      return detail;
+    });
 
     const filtered_mongo_DB_data = mongo_DB_data.filter(
       (data) => data.database === "MONGODB"
