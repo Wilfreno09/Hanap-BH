@@ -1,8 +1,7 @@
 import React from "react";
 import "./globals.css";
 import { Manrope } from "next/font/google";
-import ReduxProvider from "../lib/redux/ReduxProvider";
-import Script from "next/script";
+import ReduxProvider from "@/lib/redux/ReduxProvider";
 
 const poppins = Manrope({
   subsets: ["latin"],

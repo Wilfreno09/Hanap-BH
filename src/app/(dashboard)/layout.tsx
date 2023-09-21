@@ -44,7 +44,7 @@ export default function DashboardLayout({
       <section className={styles.section}>
         <Header />
         <Navigation />
-        {modal}
+        {/* {modal} */}
         {children}
       </section>
     </>

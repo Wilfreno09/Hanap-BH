@@ -46,7 +46,7 @@ export async function savePlace(data: PlaceDetailType, photos: PhotosType[]) {
       rooms,
       rating,
       contact,
-      database: "GOOGLE",
+      database,
     });
 
     await place_detail.save();

@@ -25,7 +25,7 @@ export async function POST(request: Request) {
       },
     });
 
-    if (mongo_DB_data.length > 20)
+    if (mongo_DB_data.length > 0)
       return NextResponse.json({ data: mongo_DB_data }, { status: 200 });
 
     const response = await fetch(
@@ -81,17 +81,14 @@ export async function POST(request: Request) {
           phone_number: [],
         },
         rating,
+        database: "GOOGLE",
       };
 
       savePlace(detail, photo_detail);
       return detail;
     });
 
-    const filtered_mongo_DB_data = mongo_DB_data.filter(
-      (data) => data.database === "MONGODB"
-    );
-    const nearby_place = [...google_response, ...filtered_mongo_DB_data];
-    return NextResponse.json({ data: nearby_place }, { status: 200 });
+    return NextResponse.json({ data: google_response }, { status: 200 });
   } catch (err) {
     console.log("nearby-places api error");
     return NextResponse.json({ ERROR: err }, { status: 500 });
