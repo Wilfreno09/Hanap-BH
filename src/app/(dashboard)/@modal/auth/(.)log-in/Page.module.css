@@ -1,0 +1,10 @@
+.exit {
+  position: absolute;
+  top: 1%;
+  left: 3%;
+  font-size: 1.5rem;
+}
+
+.exit{
+  cursor: pointer;
+}

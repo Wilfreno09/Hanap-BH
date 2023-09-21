@@ -1,6 +1,7 @@
 import PlacesDetail from "@/lib/database/model/Place-detail";
+import { savePlace } from "@/lib/database/save-place";
 import { getGeocode } from "@/lib/google-api/geocode";
-import { ratingClasses } from "@mui/material";
+import { AutocompleteType } from "@/lib/types/google-place-api/autocomplete";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -17,71 +18,24 @@ export async function POST(request: Request) {
 
     const { predictions } = await response.json();
 
-    const data = predictions.map(
-      async (prediction: {
-        place_id: string;
-        description: string;
-        vicinity: string;
-      }) => {
-        try {
-          const { place_id, description, vicinity } = prediction;
-          const coordinates = await getGeocode(place_id);
-
-          if (!(await findDuplicate(place_id))) {
-            savePlace({
-              owner: undefined,
-              place_id,
-              name: prediction.description,
-              location: {
-                vicinity,
-                province: undefined,
-                municipality: undefined,
-                barangay: undefined,
-                street: undefined,
-                coordinates,
-              },
-              photo: {
-                height: undefined,
-                width: undefined,
-                photo_reference: "",
-              },
-              price: {
-                max: undefined,
-                min: undefined,
-              },
-              vacant_rooms: undefined,
-
-              rating: undefined,
-            });
-            return {
-              owner: undefined,
-              place_id,
-              name: prediction.description,
-              location: {
-                vicinity,
-                province: undefined,
-                municipality: undefined,
-                barangay: undefined,
-                street: undefined,
-                coordinates,
-              },
-              photo: {
-                height: undefined,
-                width: undefined,
-                photo_reference: "",
-              },
-              price: {
-                max: undefined,
-                min: undefined,
-              },
-              vacant_rooms: undefined,
-
-              rating: undefined,
-            } as PlaceDetailType;
-          }
-        } catch (error) {}
+    const data = predictions.map(async (prediction: AutocompleteType) => {
+      try {
+        const {
+          place_id,
+          description,
+          structured_formatting: { secondary_text },
+        } = prediction;
+        return {
+          place_id,
+          name: description,
+          location: {
+            vicinity: secondary_text,
+          },
+        };
+      } catch (error) {
+        throw error;
       }
-    );
+    });
 
     return NextResponse.json({ data }, { status: 200 });
   } catch (error) {
@@ -89,7 +43,7 @@ export async function POST(request: Request) {
   }
 }
 
-async function findDuplicate(data: string) {
+async function duplicate(data: string) {
   const result = await PlacesDetail.find({ place_id: data });
   if (!result || result.length <= 0) return false;
 

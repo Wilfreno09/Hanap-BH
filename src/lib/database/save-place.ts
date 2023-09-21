@@ -1,27 +1,31 @@
 import mongoose from "mongoose";
 import PlaceDetail from "./model/Place-detail";
 import Rating from "./model/Rating";
-import { NearbyPlaceType } from "../types/google-place-api-types";
 import { getReverseGeocode } from "../google-api/geocode";
 import Photos from "./model/Photos";
 import dbConnect from "./connect";
+import { PlaceDetailType } from "../types/google-place-api/place-detail";
+import { PhotosType } from "../types/google-place-api/photos";
 
-export async function savePlace(data: NearbyPlaceType) {
+export async function savePlace(data: PlaceDetailType, photos: PhotosType[]) {
   try {
-    await dbConnect();
-
     const {
+      owner,
       place_id,
-      geometry: { location },
       name,
-      vicinity,
-      photos: [{ height, width, photo_reference }],
+      location,
+      price,
+      rooms,
       rating,
+      contact,
+      database,
     } = data;
+    await dbConnect();
 
     if (await alreadyExist(place_id)) return;
 
-    const { municipality } = await getReverseGeocode(location);
+    const { municipality } = await getReverseGeocode(location.coordinates);
+
     const placeRating = new Rating({
       place_id,
       rating_value: rating,
@@ -30,30 +34,35 @@ export async function savePlace(data: NearbyPlaceType) {
     await placeRating.save();
 
     const place_detail = new PlaceDetail({
+      owner,
       place_id,
       name,
       location: {
-        vicinity,
+        vicinity: location.vicinity,
         municipality,
-        coordinates: location,
+        coordinates: location.coordinates,
       },
+      price,
+      rooms,
       rating,
-      database: "GOOGLE",
+      contact,
+      database,
     });
 
     const saved_place_detail = await place_detail.save();
 
-    const photo_detail = new Photos({
-      reference: saved_place_detail.place_id,
-      height,
-      width,
-      photo_url: photo_reference,
-    });
+    photos.forEach(async (photo) => {
+      const { reference, height, width, photo_url } = photo;
 
-    const saved_photo = await photo_detail.save();
-    console.log("photo: ", saved_photo);
+      const photo_detail = new Photos({
+        CSSVariableReferenceValue,
+        height,
+        width,
+        photo_url,
+      });
+      await photo_detail.save();
+    });
   } catch (err) {
-    console.log("saveplace error");
     throw err;
   }
 }

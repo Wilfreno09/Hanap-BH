@@ -1,4 +1,4 @@
-import { PhotosType } from "@/lib/types/google-place-api-types";
+import { PhotosType } from "@/lib/types/google-place-api/photos";
 import mongoose, { Schema } from "mongoose";
 
 const PhotoSchema: Schema = new Schema<PhotosType>({

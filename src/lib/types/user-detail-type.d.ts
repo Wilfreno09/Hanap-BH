@@ -1,4 +1,4 @@
-import { PhotosType } from "./google-place-api-types";
+import { PhotosType } from "./google-place-api/google-place-api-types";
 
 export type UserDetailType = {
   first_name: string;

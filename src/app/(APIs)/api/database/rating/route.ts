@@ -9,3 +9,7 @@
 // for (let i = 0; i < ratingValues.length; i++) {
 //   sum += ratingValues[i];
 // }
+
+export async function GET(request: Request) {
+  return null;
+}
