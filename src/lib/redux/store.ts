@@ -1,14 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userLocationReducer from "./slices/user-location-slice";
-import autoCompleteDetialReducer from "./slices/map-auto-complete-slice.";
-import selectedDetailReducer from "./slices/selected-detail-slice";
+import user_location_reducer from "./slices/user-location-slice";
+import autocomplete_detail_reducer from "./slices/map-auto-complete-slice.";
+import selected_detail_reducer from "./slices/selected-detail-slice";
+import map_center_reducer from "./slices/map-center-slice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const store = configureStore({
   reducer: {
-    userLocationReducer,
-    autoCompleteDetialReducer,
-    selectedDetailReducer,
+    user_location_reducer,
+    autocomplete_detail_reducer,
+    selected_detail_reducer,
+    map_center_reducer,
   },
 });
 

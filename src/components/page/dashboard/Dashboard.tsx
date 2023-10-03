@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 import styles from "./Dashboard.module.css";
 import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
 import { useAppSelector } from "@/lib/redux/store";
-import DetailBox from "./DetailBox";
+import DetailBox from "./DashboardDetailBox";
 
 export default function Dashboard() {
   const [places, setPlaces] = useState<PlaceDetailType[]>([]);
-  const userLocation = useAppSelector(
-    (state) => state.userLocationReducer.coordinates
+  const current_location = useAppSelector(
+    (state) => state.user_location_reducer.coordinates
   );
+
   async function getNearbyPlaces() {
     try {
       const response = await fetch("/api/map/nearby-places", {
@@ -17,7 +18,7 @@ export default function Dashboard() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userLocation),
+        body: JSON.stringify(current_location),
       });
       const { data } = await response.json();
       setPlaces(data);
@@ -26,10 +27,10 @@ export default function Dashboard() {
     }
   }
   useEffect(() => {
-    if (userLocation.lat !== undefined) {
+    if (current_location.lat !== undefined) {
       getNearbyPlaces();
     }
-  }, [userLocation]);
+  }, [current_location]);
 
   return (
     <div className={styles.dashboard}>

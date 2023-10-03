@@ -1,6 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
+  const params = request.nextUrl.searchParams.get("search");
+  console.log("params: ", params);
   try {
     return NextResponse.json(null, { status: 200 });
   } catch (err) {

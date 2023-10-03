@@ -1,7 +1,6 @@
 import { UserLocationType } from "@/lib/types/redux-slice-types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-
 const initialState: UserLocationType = {
   coordinates: {
     lat: undefined,
@@ -9,15 +8,15 @@ const initialState: UserLocationType = {
   },
 };
 
-export const user_location = createSlice({
-  name: "Userlocation",
+export const map_center = createSlice({
+  name: "MapCenter",
   initialState,
   reducers: {
-    setUserLocation: (_, action: PayloadAction<UserLocationType>) => {
+    setMapCenter: (_, action: PayloadAction<UserLocationType>) => {
       return action.payload;
     },
   },
 });
 
-export const { setUserLocation } = user_location.actions;
-export default user_location.reducer;
+export const { setMapCenter } = map_center.actions;
+export default map_center.reducer;

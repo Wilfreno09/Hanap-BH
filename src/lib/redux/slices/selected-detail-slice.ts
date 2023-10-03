@@ -1,4 +1,3 @@
-import { PlaceDetailType } from "@/lib/types/google-place-api-types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type selectedDetailType = {

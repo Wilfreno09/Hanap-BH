@@ -14,7 +14,6 @@ export async function POST(request: Request) {
 
   try {
     const { lat, lng } = await request.json();
-
     const { municiplality } = await getReverseGeocode({ lat, lng });
 
     await dbConnect();
@@ -43,7 +42,8 @@ export async function POST(request: Request) {
         vicinity,
         rating,
       } = result;
-      const photo_detail = photos.map(
+      
+      const photo_detail = photos?.map(
         (photo: { height: number; width: number; photo_reference: string }) => {
           const { height, width, photo_reference } = photo;
           return {
@@ -54,7 +54,8 @@ export async function POST(request: Request) {
           } as PhotosType;
         }
       );
-      const detail: PlaceDetailType = {
+
+      const detail = {
         owner: undefined,
         place_id,
         name,
@@ -84,13 +85,13 @@ export async function POST(request: Request) {
         database: "GOOGLE",
       };
 
-      savePlace(detail, photo_detail);
       return detail;
     });
 
     return NextResponse.json({ data: google_response }, { status: 200 });
   } catch (err) {
     console.log("nearby-places api error");
+    console.log("error: ", err);
     return NextResponse.json({ ERROR: err }, { status: 500 });
   }
 }

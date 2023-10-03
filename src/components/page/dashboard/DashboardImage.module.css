@@ -1,0 +1,72 @@
+.img__outer__container {
+  width: 100%;
+  aspect-ratio: calc(1);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.img__container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+}
+
+.img {
+  border-radius: 0.5rem 0.5rem 0 0;
+  width: 20vw;
+  height: auto;
+  aspect-ratio: calc(3 / 2);
+}
+.img:hover {
+  border-radius: 0.5rem;
+}
+
+
+.no__img {
+  font-size: 5rem;
+  color: #222222;
+}
+
+.prev,
+.next {
+  position: absolute;
+  opacity: 0;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  top: 0;
+  height: 100%;
+  width: 20%;
+  border: none;
+  font-size: 3.4rem;
+  color: rgba(34, 34, 34);
+  z-index: 11;
+}
+
+.prev:hover,
+.next:hover {
+  cursor: pointer;
+  opacity: 1;
+  background-color: rgba(34, 34, 34, 0.4);
+}
+
+.prev {
+  left: 0;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.next {
+  right: 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.prev__icon,
+.next__icon {
+  font-size: 3rem;
+}

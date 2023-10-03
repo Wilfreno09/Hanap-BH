@@ -1,6 +1,6 @@
 import styles from "./NearbyPlacesMarker.module.css";
 import { useEffect, useState } from "react";
-import { InfoWindow, Marker } from "@react-google-maps/api";
+import { Marker, MarkerClusterer } from "@react-google-maps/api";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
 import { setSelectedDetail } from "@/lib/redux/slices/selected-detail-slice";
@@ -40,20 +40,27 @@ export default function NearbyPlacesMarker({
   }, [user_location]);
   return (
     <>
-      {nearby_places?.map((place) => (
-        <Marker
-          key={place.place_id}
-          position={place.location.coordinates}
-          onClick={() => {
-            map?.panTo(place.location.coordinates);
-            dispatch(
-              setSelectedDetail({
-                place_id: place.place_id,
-              })
-            );
-          }}
-        />
-      ))}
+      <MarkerClusterer>
+        {(clusterer) => (
+          <div>
+            {nearby_places?.map((place) => (
+              <Marker
+                clusterer={clusterer}
+                key={place.place_id}
+                position={place.location.coordinates}
+                onClick={() => {
+                  map?.panTo(place.location.coordinates);
+                  dispatch(
+                    setSelectedDetail({
+                      place_id: place.place_id,
+                    })
+                  );
+                }}
+              />
+            ))}
+          </div>
+        )}
+      </MarkerClusterer>
     </>
   );
 }

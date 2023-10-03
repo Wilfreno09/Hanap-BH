@@ -55,7 +55,6 @@ export async function savePlace(data: PlaceDetailType, photos: PhotosType[]) {
       const { reference, height, width, photo_url } = photo;
 
       const photo_detail = new Photos({
-        CSSVariableReferenceValue,
         height,
         width,
         photo_url,

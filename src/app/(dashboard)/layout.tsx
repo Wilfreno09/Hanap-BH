@@ -3,10 +3,12 @@
 import styles from "./layout.module.css";
 import Header from "@/components/layout/header/Header";
 import Navigation from "@/components/layout/navigations/Navigation";
-import React, { useEffect, useMemo } from "react";
-import { setLocation } from "@/lib/redux/slices/user-location-slice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
+import { setMapCenter } from "@/lib/redux/slices/map-center-slice";
+import { useEffect } from "react";
+import { error } from "console";
+import { setUserLocation } from "@/lib/redux/slices/user-location-slice";
 
 export default function DashboardLayout({
   children,
@@ -17,7 +19,7 @@ export default function DashboardLayout({
 }) {
   const dispatch = useDispatch<AppDispatch>();
 
-  function getGeolocation() {
+  useEffect(() => {
     if (!navigator.geolocation.getCurrentPosition) {
       throw new Error("Location detector is not supported in your browser");
     }
@@ -26,19 +28,35 @@ export default function DashboardLayout({
       (position) => {
         const { latitude, longitude } = position.coords;
         dispatch(
-          setLocation({ coordinates: { lat: latitude, lng: longitude } })
+          setMapCenter({ coordinates: { lat: latitude, lng: longitude } })
         );
       },
       (error) => {
         throw error;
       }
     );
-  }
 
-  useEffect(() => {
-    getGeolocation();
+    const watch_id = navigator.geolocation.watchPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        dispatch(
+          setUserLocation({
+            coordinates: {
+              lat: latitude,
+              lng: longitude,
+            },
+          })
+        );
+      },
+      (error) => {
+        throw error;
+      }
+    );
+
+    return () => {
+      navigator.geolocation.clearWatch(watch_id);
+    };
   }, []);
-
   return (
     <>
       <section className={styles.section}>

@@ -1,21 +1,20 @@
 "use client";
 
 import styles from "./Map.module.css";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useAppSelector } from "@/lib/redux/store";
 
 import { GoogleMap } from "@react-google-maps/api";
-import DetailPopUp from "./DetailPopUp";
 import NearbyPlacesMarker from "./markers/NearbyPlacesMarker";
 import { MapOptions, MapType } from "@/lib/types/google-maps-api-type";
+import { useCallback, useMemo, useState } from "react";
 export default function Map() {
-  const [mapState, setMapState] = useState<MapType>();
-  const userLocation = useAppSelector(
-    (state) => state.userLocationReducer.coordinates
+  const [map_state, setMapState] = useState<MapType>();
+  const map_center = useAppSelector(
+    (state) => state.map_center_reducer.coordinates
   );
-  const { lat, lng } = userLocation;
 
-  const onLoad = useCallback((map: MapType) => {
+  const { lat, lng } = map_center;
+  const on_load = useCallback((map: MapType) => {
     setMapState(map);
   }, []);
 
@@ -47,16 +46,16 @@ export default function Map() {
             center={{ lat, lng }}
             mapContainerClassName={styles.map}
             options={options}
-            onLoad={onLoad}
+            onLoad={on_load}
           >
-            {mapState != undefined ? (
+            {map_state != undefined ? (
               <NearbyPlacesMarker
-                map={mapState!}
+                map={map_state!}
                 user_location={{ lat, lng }}
               />
             ) : null}
           </GoogleMap>
-          <DetailPopUp />
+          {/* <DetailPopUp /> */}
         </div>
       ) : null}
     </>
