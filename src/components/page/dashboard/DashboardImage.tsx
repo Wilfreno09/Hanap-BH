@@ -6,6 +6,7 @@ import { useState } from "react";
 import ImageNotSupportedIcon from "@mui/icons-material/ImageNotSupported";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { set } from "mongoose";
 export default function DashboardImage({
   photos,
   name,
@@ -17,9 +18,28 @@ export default function DashboardImage({
   if (!api_key) throw new Error("NEXT_PUBLIC_GOOGLE_PLACE_API_KEY is missing");
 
   const [index, setIndex] = useState<number>(0);
-  const [display_next, setDisplayNext] = useState<boolean>(false);
+
+  const variants = {
+    initial: {
+      x: 500,
+      opacity: 0,
+      scale: 1.3,
+    },
+    animate: {
+      x: 0,
+      opacity: 1,
+      scale: 1.3,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: {
+          duration: 0.2,
+        },
+      },
+    },
+  };
+
   return (
-    <AnimatePresence>
+    <AnimatePresence initial={false}>
       <motion.div
         whileHover={{ overflow: "visible" }}
         className={styles.img__outer__container}
@@ -27,17 +47,25 @@ export default function DashboardImage({
         <div className={styles.img__container}>
           {photos?.length > 0 ? (
             <motion.div
+              variants={variants}
+              initial="initial"
+              animate="animate"
+              key={index}
               whileHover={{
                 scale: 1.5,
                 position: "absolute",
                 zIndex: 10,
               }}
               onMouseEnter={() => {
-                photos?.length > 0 ? setDisplayNext(true) : null;
+                setTimeout(() => {
+                  if (index === photos?.length - 1) {
+                    setIndex(0);
+                    return;
+                  }
+                  setIndex((prev) => prev + 1);
+                }, 2000);
               }}
-              onMouseLeave={() => {
-                setDisplayNext(false);
-              }}
+              onMouseLeave={() => {}}
             >
               <Image
                 src={`https://maps.googleapis.com/maps/api/place/photo?key=${api_key}&photo_reference=${photos[index].photo_url}&maxwidth=1920`}
@@ -46,12 +74,6 @@ export default function DashboardImage({
                 height={1080}
                 className={styles.img}
               />
-              <motion.button className={styles.prev}>
-                <ArrowBackIosIcon className={styles.prev__icon} />
-              </motion.button>
-              <motion.button className={styles.next}>
-                <ArrowForwardIosIcon className={styles.next__icon} />
-              </motion.button>
             </motion.div>
           ) : (
             <ImageNotSupportedIcon className={styles.no__img} />
