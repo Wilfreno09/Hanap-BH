@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import styles from "./Dashboard.module.css";
+import styles from "./List.module.css";
 import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
 import { useAppSelector } from "@/lib/redux/store";
-import DetailBox from "./DashboardDetailBox";
+import Card from "./Card";
 
-export default function Dashboard() {
+export default function List() {
   const [places, setPlaces] = useState<PlaceDetailType[]>([]);
   const current_location = useAppSelector(
     (state) => state.user_location_reducer.coordinates
@@ -35,7 +35,7 @@ export default function Dashboard() {
   return (
     <div className={styles.dashboard}>
       {places?.map((place) => (
-        <DetailBox place={place} key={place.place_id} />
+        <Card place={place} key={place.place_id} />
       ))}
     </div>
   );

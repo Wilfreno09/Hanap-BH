@@ -1,13 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
-import styles from "./DashboardImage.module.css";
+import styles from "./CardImage.module.css";
 import { PhotosType } from "@/lib/types/google-place-api/photos";
 import Image from "next/image";
 import { useState } from "react";
 import ImageNotSupportedIcon from "@mui/icons-material/ImageNotSupported";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { set } from "mongoose";
-export default function DashboardImage({
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+export default function CardImage({
   photos,
   name,
 }: {
@@ -22,6 +20,7 @@ export default function DashboardImage({
   const variants = {
     initial: {
       x: 500,
+
       opacity: 0,
       scale: 1.3,
     },
@@ -65,7 +64,6 @@ export default function DashboardImage({
                   setIndex((prev) => prev + 1);
                 }, 2000);
               }}
-              onMouseLeave={() => {}}
             >
               <Image
                 src={`https://maps.googleapis.com/maps/api/place/photo?key=${api_key}&photo_reference=${photos[index].photo_url}&maxwidth=1920`}
@@ -74,9 +72,13 @@ export default function DashboardImage({
                 height={1080}
                 className={styles.img}
               />
+              <LocationOnIcon className={styles.location__icon} />
             </motion.div>
           ) : (
-            <ImageNotSupportedIcon className={styles.no__img} />
+            <>
+              <ImageNotSupportedIcon className={styles.no__img} />
+              <LocationOnIcon className={styles.location__icon} />
+            </>
           )}
         </div>
       </motion.div>
