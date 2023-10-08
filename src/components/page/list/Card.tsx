@@ -10,19 +10,18 @@ export default function Card({ place }: { place: PlaceDetailType }) {
     photos,
     rating,
     price,
+    distance,
   } = place;
   const replaced_name = name.replace(/ /g, "-");
   return (
-    <a
-      href={`place-detail/${replaced_name}`}
-      className={styles.detail__box}
-    >
+    <a href={`place-detail/${replaced_name}`} className={styles.detail__box}>
       <CardImage photos={photos} name={name} />
       <CardDetails
         name={name}
         vicinity={vicinity}
         rating={rating}
         price={price}
+        distance={distance}
       />
     </a>
   );

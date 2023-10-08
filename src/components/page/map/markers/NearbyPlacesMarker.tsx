@@ -50,11 +50,7 @@ export default function NearbyPlacesMarker({
                 position={place.location.coordinates}
                 onClick={() => {
                   map?.panTo(place.location.coordinates);
-                  dispatch(
-                    setSelectedDetail({
-                      place_id: place.place_id,
-                    })
-                  );
+                  dispatch(setSelectedDetail(place));
                 }}
               />
             ))}

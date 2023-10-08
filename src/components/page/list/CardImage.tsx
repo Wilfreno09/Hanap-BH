@@ -4,7 +4,6 @@ import { PhotosType } from "@/lib/types/google-place-api/photos";
 import Image from "next/image";
 import { useState } from "react";
 import ImageNotSupportedIcon from "@mui/icons-material/ImageNotSupported";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 export default function CardImage({
   photos,
   name,
@@ -72,12 +71,10 @@ export default function CardImage({
                 height={1080}
                 className={styles.img}
               />
-              <LocationOnIcon className={styles.location__icon} />
             </motion.div>
           ) : (
             <>
               <ImageNotSupportedIcon className={styles.no__img} />
-              <LocationOnIcon className={styles.location__icon} />
             </>
           )}
         </div>

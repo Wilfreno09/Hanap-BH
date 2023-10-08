@@ -1,7 +1,9 @@
 import dbConnect from "@/lib/database/connect";
 import PlaceDetail from "@/lib/database/model/Place-detail";
 import { savePlace } from "@/lib/database/save-place";
+import getDistance from "@/lib/google-api/distance";
 import { getReverseGeocode } from "@/lib/google-api/geocode";
+import quickSort from "@/lib/google-api/sort";
 import { NearbyPlaceType } from "@/lib/types/google-place-api/nearby-place";
 import { PhotosType } from "@/lib/types/google-place-api/photos";
 import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
@@ -42,7 +44,7 @@ export async function POST(request: Request) {
         vicinity,
         rating,
       } = result;
-      
+
       const photo_detail = photos?.map(
         (photo: { height: number; width: number; photo_reference: string }) => {
           const { height, width, photo_reference } = photo;
@@ -54,8 +56,8 @@ export async function POST(request: Request) {
           } as PhotosType;
         }
       );
-
-      const detail = {
+      const distance = getDistance({ lat, lng }, location);
+      const detail: PlaceDetailType = {
         owner: undefined,
         place_id,
         name,
@@ -82,13 +84,17 @@ export async function POST(request: Request) {
           phone_number: [],
         },
         rating,
-        database: "GOOGLE",
+        distance,
       };
 
       return detail;
     });
 
-    return NextResponse.json({ data: google_response }, { status: 200 });
+    
+    const sorted_data = quickSort(google_response);
+
+
+    return NextResponse.json({ data: sorted_data }, { status: 200 });
   } catch (err) {
     console.log("nearby-places api error");
     console.log("error: ", err);

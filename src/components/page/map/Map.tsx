@@ -7,6 +7,7 @@ import { GoogleMap } from "@react-google-maps/api";
 import NearbyPlacesMarker from "./markers/NearbyPlacesMarker";
 import { MapOptions, MapType } from "@/lib/types/google-maps-api-type";
 import { useCallback, useMemo, useState } from "react";
+import DetailPopUp from "./DetailPopUp";
 export default function Map() {
   const [map_state, setMapState] = useState<MapType>();
   const map_center = useAppSelector(
@@ -55,7 +56,7 @@ export default function Map() {
               />
             ) : null}
           </GoogleMap>
-          {/* <DetailPopUp /> */}
+          <DetailPopUp />
         </div>
       ) : null}
     </>

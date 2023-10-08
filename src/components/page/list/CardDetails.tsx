@@ -6,17 +6,20 @@ export default function CardDetails({
   vicinity,
   rating,
   price,
+  distance,
 }: {
   name: string;
   vicinity: string;
   rating: number;
   price: { min?: number; max?: number };
+  distance: number;
 }) {
   return (
     <div className={styles.details}>
       <div className={styles.location}>
         <h1>{name}</h1>
         <h2>{vicinity}</h2>
+        <h3> {distance.toFixed(2)} kilometers away</h3>
       </div>
       <div className={styles.other__details}>
         <h3 className={styles.price}>
