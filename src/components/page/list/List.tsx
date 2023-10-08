@@ -33,9 +33,11 @@ export default function List() {
   }, [current_location]);
 
   return (
-    <div className={styles.dashboard}>
+    <div className={styles.list}>
       {places?.map((place) => (
-        <Card place={place} key={place.place_id} />
+        <div className={styles.card__list}>
+          <Card place={place} key={place.place_id} />
+        </div>
       ))}
     </div>
   );

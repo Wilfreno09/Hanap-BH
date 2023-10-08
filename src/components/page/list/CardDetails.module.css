@@ -35,6 +35,7 @@
 .other__details {
   display: flex;
   justify-content: space-between;
+  padding: 1rem;
 }
 
 .price,

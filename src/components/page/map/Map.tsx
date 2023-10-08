@@ -18,7 +18,6 @@ export default function Map() {
   const on_load = useCallback((map: MapType) => {
     setMapState(map);
   }, []);
-
   const options = useMemo<MapOptions>(
     () => ({
       restriction: {
@@ -51,7 +50,7 @@ export default function Map() {
           >
             {map_state != undefined ? (
               <NearbyPlacesMarker
-                map={map_state!}
+                map={map_state}
                 user_location={{ lat, lng }}
               />
             ) : null}

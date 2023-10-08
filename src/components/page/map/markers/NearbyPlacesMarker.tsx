@@ -40,23 +40,16 @@ export default function NearbyPlacesMarker({
   }, [user_location]);
   return (
     <>
-      <MarkerClusterer>
-        {(clusterer) => (
-          <div>
-            {nearby_places?.map((place) => (
-              <Marker
-                clusterer={clusterer}
-                key={place.place_id}
-                position={place.location.coordinates}
-                onClick={() => {
-                  map?.panTo(place.location.coordinates);
-                  dispatch(setSelectedDetail(place));
-                }}
-              />
-            ))}
-          </div>
-        )}
-      </MarkerClusterer>
+      {nearby_places?.map((place) => (
+        <Marker
+          key={place.place_id}
+          position={place.location.coordinates}
+          onClick={() => {
+            map?.panTo(place.location.coordinates);
+            dispatch(setSelectedDetail(place));
+          }}
+        />
+      ))}
     </>
   );
 }
