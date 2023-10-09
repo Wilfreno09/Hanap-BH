@@ -31,9 +31,10 @@ const initialState: PlaceDetailType = {
     phone_number: [],
   },
   distance: 0,
+  database: ""
 };
 
-export const selectedDetail = createSlice({
+export const selected_detail = createSlice({
   name: "selectedDetail",
   initialState,
   reducers: {
@@ -43,5 +44,5 @@ export const selectedDetail = createSlice({
   },
 });
 
-export const { setSelectedDetail } = selectedDetail.actions;
-export default selectedDetail.reducer;
+export const { setSelectedDetail } = selected_detail.actions;
+export default selected_detail.reducer;

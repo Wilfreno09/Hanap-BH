@@ -28,5 +28,6 @@ export type PlaceDetailType = {
     phone_number: string[];
   };
   distance: number;
+  database: string
   date_created?: Date;
 };

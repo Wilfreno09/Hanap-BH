@@ -4,11 +4,12 @@ import styles from "./layout.module.css";
 import Header from "@/components/layout/header/Header";
 import Navigation from "@/components/layout/navigations/Navigation";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/lib/redux/store";
+import { AppDispatch, useAppSelector } from "@/lib/redux/store";
 import { setMapCenter } from "@/lib/redux/slices/map-center-slice";
 import { useEffect } from "react";
 import { error } from "console";
 import { setUserLocation } from "@/lib/redux/slices/user-location-slice";
+import { setNearbyPlaceDetails } from "@/lib/redux/slices/nearby-place-detail-slice";
 
 export default function DashboardLayout({
   children,
@@ -18,6 +19,31 @@ export default function DashboardLayout({
   modal: React.ReactNode;
 }) {
   const dispatch = useDispatch<AppDispatch>();
+  const current_location = useAppSelector(
+    (state) => state.user_location_reducer.coordinates
+  );
+
+  async function getNearbyPlaces() {
+    try {
+      const response = await fetch("/api/map/nearby-places", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(current_location),
+      });
+      const { data } = await response.json();
+      dispatch(setNearbyPlaceDetails(data));
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  useEffect(() => {
+    if (current_location.lat !== undefined) {
+      getNearbyPlaces();
+    }
+  }, [current_location]);
 
   useEffect(() => {
     if (!navigator.geolocation.getCurrentPosition) {
@@ -57,6 +83,8 @@ export default function DashboardLayout({
       navigator.geolocation.clearWatch(watch_id);
     };
   }, []);
+
+  useEffect(() => {}, []);
   return (
     <>
       <section className={styles.section}>

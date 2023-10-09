@@ -6,39 +6,16 @@ import { useAppSelector } from "@/lib/redux/store";
 import Card from "./Card";
 
 export default function List() {
-  const [places, setPlaces] = useState<PlaceDetailType[]>([]);
-  const current_location = useAppSelector(
-    (state) => state.user_location_reducer.coordinates
-  );
-
-  async function getNearbyPlaces() {
-    try {
-      const response = await fetch("/api/map/nearby-places", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(current_location),
-      });
-      const { data } = await response.json();
-      setPlaces(data);
-    } catch (error) {
-      throw error;
-    }
-  }
-  useEffect(() => {
-    if (current_location.lat !== undefined) {
-      getNearbyPlaces();
-    }
-  }, [current_location]);
+  const nearby_place = useAppSelector((state) => state.nearby_places_details);
 
   return (
     <div className={styles.list}>
-      {places?.map((place) => (
-        <div className={styles.card__list}>
-          <Card place={place} key={place.place_id} />
-        </div>
-      ))}
+      {nearby_place.length > 1 &&
+        nearby_place?.map((place) => (
+          <div className={styles.card__list} key={place.place_id}>
+            <Card place={place} key={place.place_id} />
+          </div>
+        ))}
     </div>
   );
 }

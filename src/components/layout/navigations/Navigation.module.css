@@ -6,7 +6,7 @@
   border-radius: 10rem;
   background-color: #222222;
   backdrop-filter: blur(0.5rem);
-  z-index: 2;
+  z-index: 999;
 }
 
 .navigation a {
