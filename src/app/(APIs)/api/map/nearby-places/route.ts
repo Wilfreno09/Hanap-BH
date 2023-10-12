@@ -85,14 +85,13 @@ export async function POST(request: Request) {
         },
         rating,
         distance,
+        database: "GOOGLE",
       };
 
       return detail;
     });
 
-    
     const sorted_data = quickSort(google_response);
-
 
     return NextResponse.json({ data: sorted_data }, { status: 200 });
   } catch (err) {
