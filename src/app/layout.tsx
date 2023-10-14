@@ -16,13 +16,18 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  auth,
 }: {
   children: React.ReactNode;
+  auth: React.ReactNode;
 }) {
   return (
     <ReduxProvider>
       <html lang="en">
-        <body className={poppins.className}>{children}</body>
+        <body className={poppins.className}>
+          {auth}
+          {children}
+        </body>
       </html>
     </ReduxProvider>
   );

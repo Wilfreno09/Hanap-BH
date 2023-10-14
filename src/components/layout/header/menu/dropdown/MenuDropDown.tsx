@@ -1,24 +1,15 @@
 "use client";
 import Link from "next/link";
 import styles from "./MenuDropDown.module.css";
-import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
 
 export default function MenuDropDown() {
-  const pathname = usePathname();
-  const [path, setPath] = useState<string>("");
-
-  useEffect(() => {
-    setPath(pathname);
-  }, []);
-  console.log("Pathanme: ", path);
   return (
     <section className={styles.dropdown}>
       <Link
         href={{
-          pathname: `/auth/login?${pathname}`,
+          pathname: `/auth/login?`,
         }}
-        as="/auth/log-in"
+        as="/auth/login"
       >
         <h5>Log in</h5>
       </Link>

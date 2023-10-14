@@ -1,3 +1,4 @@
+"use client"
 import styles from "./Menu.module.css";
 import { Avatar } from "@mui/material";
 import MenuSharpIcon from "@mui/icons-material/MenuSharp";

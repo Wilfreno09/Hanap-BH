@@ -2,13 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 3%;
+  margin: 0 2rem;
+  padding: 0 2rem;
 }
 
 .logo h1 {
   font-style: italic;
   font-weight: 800;
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 .logo__img {

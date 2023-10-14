@@ -1,3 +1,4 @@
+"use client"
 import styles from "./Search.module.css";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useState } from "react";
@@ -30,15 +31,15 @@ export default function Search() {
   }
 
   return (
-    <>
+    <div className={styles.search}>
       <form
         className={`${styles.form} ${active && styles.active}`}
         autoFocus={false}
         autoComplete="off"
       >
-        <label htmlFor="search">
-          <SearchOutlinedIcon className={styles.search__icon} />
-        </label>
+        {search !== "" ? (
+          <SearchOutlinedIcon className={styles.mini__search__icon} />
+        ) : null}
         <input
           type="text"
           id="search"
@@ -49,7 +50,7 @@ export default function Search() {
             const newTimer = setTimeout(() => {
               getAutocomplete();
             }, 300);
-          setTimer(newTimer!);
+            setTimer(newTimer!);
           }}
           onFocus={() => setActive(true)}
           onBlur={() => setActive(false)}
@@ -69,6 +70,9 @@ export default function Search() {
         ) : null}
         {/* <ResultDropDown /> */}
       </form>
-    </>
+      <label htmlFor="search" className={styles.search__icon__label}>
+        <SearchOutlinedIcon className={styles.search__icon} />
+      </label>
+    </div>
   );
 }
