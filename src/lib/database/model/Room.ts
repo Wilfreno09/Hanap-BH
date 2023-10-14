@@ -1,4 +1,4 @@
-import { RoomDetailType } from "@/lib/types/room-detail-type";
+import { RoomDetailType } from "@/lib/types/google-place-api/room-types";
 import mongoose, { Schema } from "mongoose";
 
 const roomSchema: Schema = new Schema<RoomDetailType>({

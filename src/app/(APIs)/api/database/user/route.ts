@@ -1,3 +1,5 @@
+import { NextResponse } from "next/server";
+
 export async function GET(request: Request) {
-  return null;
+  return NextResponse.json({ msg: "success" }, { status: 200 });
 }

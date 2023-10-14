@@ -13,10 +13,8 @@ import { setNearbyPlaceDetails } from "@/lib/redux/slices/nearby-place-detail-sl
 
 export default function DashboardLayout({
   children,
-  auth,
 }: {
   children: React.ReactNode;
-  auth: React.ReactNode;
 }) {
   const dispatch = useDispatch<AppDispatch>();
   const current_location = useAppSelector(
@@ -88,7 +86,6 @@ export default function DashboardLayout({
   return (
     <>
       <section className={styles.section}>
-        {auth}
         <Header />
         <Navigation />
         {children}

@@ -1,7 +1,6 @@
 // import "@/components/Dashboard/map/markers/InfoWindow.css";
 
-import { LatLngLiteral, MapType } from "@/lib/types/google-map-type";
-import AdvanceMarker from "./AdvanceMarker";
+import { LatLngLiteral } from "@/lib/types/google-maps-api-type";
 import BoySharpIcon from "@mui/icons-material/BoySharp";
 import { InfoWindow, Marker } from "@react-google-maps/api";
 import { useState } from "react";

@@ -9,6 +9,7 @@ import VisibilitySharpIcon from "@mui/icons-material/VisibilitySharp";
 import VisibilityOffSharpIcon from "@mui/icons-material/VisibilityOffSharp";
 import hanapBHImg from "../../../../public/logo.png";
 import React from "react";
+import Link from "next/link";
 
 export default function Login({ children }: { children?: React.ReactNode }) {
   return (
@@ -59,7 +60,10 @@ export default function Login({ children }: { children?: React.ReactNode }) {
       </div>
 
       <h3 className={styles.sign__up}>
-        Don't have Any Account? <a href="">Sign up</a>
+        Don't have Any Account?{" "}
+        <Link href="/auth/sign-up" as="/auth/sign-up">
+          Sign up
+        </Link>
       </h3>
     </div>
   );

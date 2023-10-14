@@ -7,7 +7,7 @@ export default function MenuDropDown() {
     <section className={styles.dropdown}>
       <Link
         href={{
-          pathname: `/auth/login?`,
+          pathname: `/auth/login`,
         }}
         as="/auth/login"
       >
