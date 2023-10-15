@@ -1,9 +1,9 @@
 import { PhotosType } from "./google-place-api/room-types";
 
 export type UserDetailType = {
-  first_name: string;
+  given_name: string;
   middle_name?: string;
-  last_name: string;
+  family_name: string;
   place_owned?: string[];
   gender?: string;
   birth_date?: Date;

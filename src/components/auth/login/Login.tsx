@@ -10,6 +10,7 @@ import VisibilityOffSharpIcon from "@mui/icons-material/VisibilityOffSharp";
 import hanapBHImg from "../../../../public/logo.png";
 import React from "react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export default function Login({ children }: { children?: React.ReactNode }) {
   return (
@@ -49,14 +50,14 @@ export default function Login({ children }: { children?: React.ReactNode }) {
           />
           <h3>Continue with Facebook</h3>
         </div>
-        <div className={styles.google}>
+        <button className={styles.google} onClick={() => signIn("google")}>
           <Image
             src={googleImg}
             alt="google icon"
             className={styles.google__icon}
           />
           <h3>Continue with Google</h3>
-        </div>
+        </button>
       </div>
 
       <h3 className={styles.sign__up}>

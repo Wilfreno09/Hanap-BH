@@ -2,15 +2,15 @@ import { UserDetailType } from "@/lib/types/user-detail-type";
 import mongoose, { Schema } from "mongoose";
 
 const userSchema: Schema = new Schema<UserDetailType>({
-  first_name: {
+  given_name: {
     type: String,
     required: true,
   },
   middle_name: {
     type: String,
-    default: undefined,
+    default: "",
   },
-  last_name: {
+  family_name: {
     type: String,
     required: true,
   },
@@ -27,13 +27,17 @@ const userSchema: Schema = new Schema<UserDetailType>({
   },
   birth_date: {
     type: Date,
-    required: true,
+    default: undefined,
   },
   profile_pic: {
     type: String,
     default: "/img/pfp/default.png",
   },
   contact: {
+    email: {
+      type: String,
+      required: true,
+    },
     social_media: {
       facebok: {
         type: String,
@@ -55,7 +59,7 @@ const userSchema: Schema = new Schema<UserDetailType>({
   },
   password: {
     type: String,
-    required: true,
+    default: undefined,
   },
   date_created: {
     type: Date,
