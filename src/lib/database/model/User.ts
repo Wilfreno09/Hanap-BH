@@ -41,21 +41,23 @@ const userSchema: Schema = new Schema<UserDetailType>({
     social_media: {
       facebok: {
         type: String,
-        default: undefined,
+        default: ""
       },
       twitter: {
         type: String,
-        default: undefined,
+        default: "",
       },
       instagram: {
         type: String,
-        default: undefined,
+        default: "",
       },
     },
-    phone_number: {
-      type: String,
-      default: undefined,
-    },
+    phone_number: [
+      {
+        type: String,
+        default: "",
+      },
+    ],
   },
   password: {
     type: String,

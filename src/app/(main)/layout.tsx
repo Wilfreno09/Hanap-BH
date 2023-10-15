@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { error } from "console";
 import { setUserLocation } from "@/lib/redux/slices/user-location-slice";
 import { setNearbyPlaceDetails } from "@/lib/redux/slices/nearby-place-detail-slice";
+import { useSession } from "next-auth/react";
 
 export default function DashboardLayout({
   children,
@@ -20,7 +21,11 @@ export default function DashboardLayout({
   const current_location = useAppSelector(
     (state) => state.user_location_reducer.coordinates
   );
-
+  const { data: session } = useSession();
+  const convert = session as unknown;
+  // const user_session = convert as SessionType;
+  console.log("Session: ", session);
+  // console.log("userSession: ", user_session);
   async function getNearbyPlaces() {
     try {
       const response = await fetch("/api/map/nearby-places", {

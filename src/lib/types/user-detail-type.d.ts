@@ -9,6 +9,7 @@ export type UserDetailType = {
   birth_date?: Date;
   profile_pic: PhotosType;
   contact: {
+    email: string;
     social_media: {
       facebook?: string;
       twitter?: string;

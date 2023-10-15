@@ -1,6 +1,5 @@
 import dbConnect from "@/lib/database/connect";
 import PlaceDetail from "@/lib/database/model/Place-detail";
-import { savePlace } from "@/lib/database/save-place";
 import getDistance from "@/lib/google-api/distance";
 import { getReverseGeocode } from "@/lib/google-api/geocode";
 import quickSort from "@/lib/google-api/sort";

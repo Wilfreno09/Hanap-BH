@@ -1,28 +1,16 @@
-"use client";
-import Link from "next/link";
 import styles from "./MenuDropDown.module.css";
+import { SessionType } from "@/lib/types/session-type";
+import NotLoggedInDropDown from "./NotLoggedInDropDown";
+import LoggedInDropDown from "./LoggedInDropDown";
+import { useSession } from "next-auth/react";
 
 export default function MenuDropDown() {
+  const { data: session } = useSession();
+  const convert = session as unknown;
+  // const user_session = convert as SessionType;
+  console.log("Session: ", session);
+  // console.log("userSession: ", user_session);
   return (
-    <section className={styles.dropdown}>
-      <Link
-        href={{
-          pathname: `/auth/login`,
-        }}
-        as="/auth/login"
-      >
-        <h5>Log in</h5>
-      </Link>
-      <Link href="/test">
-        <h5>Sign up</h5>
-      </Link>
-      <hr style={{ margin: "10px 0" }} />
-      <Link href="/test">
-        <h5>Add Your Bouarding House</h5>
-      </Link>
-      <Link href="/test">
-        <h5>FAQ</h5>
-      </Link>
-    </section>
+    <>{session?.user?.name ? <LoggedInDropDown /> : <NotLoggedInDropDown />}</>
   );
 }

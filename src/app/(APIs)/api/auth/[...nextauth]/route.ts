@@ -1,5 +1,7 @@
 import dbConnect from "@/lib/database/connect";
 import User from "@/lib/database/model/User";
+import { GoogleProfileType } from "@/lib/types/session-type";
+import { UserDetailType } from "@/lib/types/user-detail-type";
 import nextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -22,42 +24,51 @@ const handler = nextAuth({
   secret,
   callbacks: {
     async session({ session }) {
-      try {
-        const user = await User.findOne({
-          contact: { email: session.user?.email },
-        });
-        return user;
-      } catch (error) {
-        return session;
-      }
-    },
-    async signIn({ profile }) {
       await dbConnect();
 
+      const user = await User.findOne({
+        "contact.email": session.user?.email?.toLowerCase(),
+      });
+
+      return user;
+    },
+
+    async signIn({ profile }) {
       try {
-        const user = await User.findOne({ contact: { email: profile?.email } });
+        const user_profile = profile as GoogleProfileType;
+        await dbConnect();
+        const user = await User.findOne({
+          "contact.email": profile?.email,
+        });
 
         if (!user) {
-          const new_user = new User({
-            given_name: profile?.given_name,
+          const new_user = new User<UserDetailType>({
+            given_name: user_profile?.given_name.toLowerCase(),
             middle_name: "",
-            family_name: profile.family_name,
-            profile_pic: profile.picture,
+            family_name: user_profile.family_name.toLowerCase(),
+            profile_pic: user_profile.picture,
             contact: {
-              email: profile?.email,
+              email: profile?.email?.toLowerCase()!,
+              social_media: {
+                facebook: "",
+                twitter: "",
+                instagram: "",
+              },
+              phone_number: [""],
             },
           });
 
           await new_user.save();
+          console.log("new_user: ", new_user);
         }
 
         return true;
       } catch (error) {
+        console.log("Error: ", error);
         return false;
       }
     },
   },
-  debug: true,
 });
 
 export { handler as GET, handler as POST };
