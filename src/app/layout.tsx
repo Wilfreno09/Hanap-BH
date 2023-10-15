@@ -2,7 +2,8 @@ import React from "react";
 import "./globals.css";
 import { Manrope } from "next/font/google";
 import ReduxProvider from "@/lib/redux/ReduxProvider";
-
+import SessionProvider from "@/components/auth/SessionProvider";
+import { getServerSession } from "next-auth";
 const poppins = Manrope({
   subsets: ["latin"],
   weight: ["300", "400"],
@@ -14,17 +15,19 @@ export const metadata = {
     "A website utilizing google maps api to locate your nearby boadring houses",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
   auth: React.ReactNode;
 }) {
+  const session = await getServerSession();
+
   return (
     <ReduxProvider>
       <html lang="en">
         <body className={poppins.className}>
-          {children}
+          <SessionProvider session={session}>{children}</SessionProvider>
         </body>
       </html>
     </ReduxProvider>
