@@ -1,8 +1,8 @@
-import { PhotosType } from "@/lib/types/google-place-api/photos";
 import styles from "./PlaceImage.module.css";
 import Image from "next/image";
 import ImageNotSupportedIcon from "@mui/icons-material/ImageNotSupported";
 import { useState } from "react";
+import { PhotosType } from "@/lib/types/google-place-api/photos-type";
 
 export default function PlaceImage({ photos }: { photos: PhotosType[] }) {
   const api_key = process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY;
@@ -20,6 +20,7 @@ export default function PlaceImage({ photos }: { photos: PhotosType[] }) {
               width={1920}
               height={1080}
               className={styles.main__image}
+              priority
             />
           </div>
         ) : (
@@ -31,7 +32,7 @@ export default function PlaceImage({ photos }: { photos: PhotosType[] }) {
       <div className={styles.outer__mini__image__container}>
         {photos?.length > 0 ? (
           photos?.map((photo, index) => (
-            <div className={styles.mini__image__container}>
+            <div className={styles.mini__image__container} key={index}>
               <Image
                 src={`https://maps.googleapis.com/maps/api/place/photo?key=${api_key}&photo_reference=${photo.photo_url}&maxwidth=1920`}
                 alt={photo.reference}
@@ -39,6 +40,7 @@ export default function PlaceImage({ photos }: { photos: PhotosType[] }) {
                 height={1080}
                 className={styles.mini__image}
                 onClick={() => setPhotoIndex(index)}
+                priority
               />
             </div>
           ))

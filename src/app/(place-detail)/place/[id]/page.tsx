@@ -8,7 +8,7 @@ export default function page({ params }: { params: { id: string } }) {
   const [place_detail, setPlaceDetail] = useState<PlaceDetailType>();
 
   const nearby_place_details = useAppSelector(
-    (state) => state.nearby_places_details
+    (state) => state.nearby_places_details_reducer
   );
   const user_location = useAppSelector(
     (state) => state.user_location_reducer.coordinates
@@ -26,7 +26,7 @@ export default function page({ params }: { params: { id: string } }) {
           },
           body: JSON.stringify({ place_id: params.id, user_location }),
         });
-        const { data } = await response.json();
+        const { data } = await response .json();
         console.log("data: ", data);
         setPlaceDetail(data);
         return;

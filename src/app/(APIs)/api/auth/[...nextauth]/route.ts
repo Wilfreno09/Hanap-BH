@@ -1,6 +1,5 @@
 import dbConnect from "@/lib/database/connect";
 import User from "@/lib/database/model/User";
-import { GoogleProfileType } from "@/lib/types/session-type";
 import { UserDetailType } from "@/lib/types/user-detail-type";
 import nextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
@@ -27,15 +26,31 @@ const handler = nextAuth({
       await dbConnect();
 
       const user = await User.findOne({
-        "contact.email": session.user?.email?.toLowerCase(),
+        "contact.email": session.user?.email?.toLowerCase()!,
       });
+      if (!user) {
+        session.user.birth_date = undefined;
+        session.user.contact.phone_number = [];
+        session.user.family_name = "";
+        session.user.gender = undefined;
+        session.user.given_name = "";
+        session.user.middle_name = "";
+        session.user.place_owned = [];
+        session.user.profile_pic = session.user.image!;
 
-      return user;
+        console.log("Session:...:", session);
+        return session;
+      }
+      const new_user = { ...user };
+      delete new_user.password;
+      const { _doc } = new_user;
+      session.user = _doc;
+
+      return session;
     },
 
     async signIn({ profile }) {
       try {
-        const user_profile = profile as GoogleProfileType;
         await dbConnect();
         const user = await User.findOne({
           "contact.email": profile?.email,
@@ -43,10 +58,10 @@ const handler = nextAuth({
 
         if (!user) {
           const new_user = new User<UserDetailType>({
-            given_name: user_profile?.given_name.toLowerCase(),
+            given_name: profile?.given_name.toLowerCase()!,
             middle_name: "",
-            family_name: user_profile.family_name.toLowerCase(),
-            profile_pic: user_profile.picture,
+            family_name: profile?.family_name.toLowerCase()!,
+            profile_pic: profile?.picture!,
             contact: {
               email: profile?.email?.toLowerCase()!,
               social_media: {
@@ -54,7 +69,7 @@ const handler = nextAuth({
                 twitter: "",
                 instagram: "",
               },
-              phone_number: [""],
+              phone_number: [],
             },
           });
 

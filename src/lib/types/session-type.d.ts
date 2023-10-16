@@ -1,29 +1,18 @@
-import { Profile } from "next-auth";
+import { DefaultSession, Profile } from "next-auth";
+import { UserDetailType } from "./user-detail-type";
 
-export type SessionType = {
-  user: {
-    given_name: string;
-    middle_name?: string;
-    family_name: string;
-    place_owned?: string[];
-    gender?: string;
-    birth_date?: Date;
-    profile_pic: PhotosType;
-    contact: {
-      social_media: {
-        facebook?: string;
-        twitter?: string;
-        instagram?: string;
-      };
-      phone_number?: string[];
-    };
-    date_created?: Date;
-  };
-};
+declare module "next-auth" {
+  interface Session {
+    user: DefaultSession["user"] & Omit<UserDetailType, "password">;
+  }
+}
 
+interface GoogleProfileType {
+  given_name: string;
+  family_name: string;
+  picture: string;
+}
 
-export interface GoogleProfileType extends Profile {
-    given_name: string,
-    family_name: string,
-    picture: string
+declare module "next-auth" {
+  interface Profile extends Omit<GoogleProfileType, "password"> {}
 }

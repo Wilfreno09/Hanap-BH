@@ -6,13 +6,24 @@ import googleImg from "../../../../public/icons8-google.svg";
 import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
 import LockSharpIcon from "@mui/icons-material/LockSharp";
 import VisibilitySharpIcon from "@mui/icons-material/VisibilitySharp";
-import VisibilityOffSharpIcon from "@mui/icons-material/VisibilityOffSharp";
 import hanapBHImg from "../../../../public/logo.png";
-import React from "react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { redirect, usePathname, useRouter } from "next/navigation";
+import { useAppSelector } from "@/lib/redux/store";
 
 export default function Login({ children }: { children?: React.ReactNode }) {
+  const session = useSession();
+  const path_name = usePathname();
+
+  const redirect_route = useAppSelector(
+    (state) => state.redirect_route_reducer.route
+  );
+
+  if (session.status === "authenticated") {
+    redirect(redirect_route);
+  }
+  console.log("LSession", session);
   return (
     <div className={styles.login}>
       {children}

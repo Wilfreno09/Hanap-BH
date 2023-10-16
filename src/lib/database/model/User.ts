@@ -41,7 +41,7 @@ const userSchema: Schema = new Schema<UserDetailType>({
     social_media: {
       facebok: {
         type: String,
-        default: ""
+        default: "",
       },
       twitter: {
         type: String,

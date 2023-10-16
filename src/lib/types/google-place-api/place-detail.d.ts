@@ -1,4 +1,4 @@
-import { PhotosType } from "./photos";
+import { PhotosType } from "./photos-type";
 
 export type PlaceDetailType = {
   owner?: UserDetailType;
