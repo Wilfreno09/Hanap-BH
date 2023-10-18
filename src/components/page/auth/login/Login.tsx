@@ -12,9 +12,8 @@ import { signIn, useSession } from "next-auth/react";
 import { redirect, usePathname, useRouter } from "next/navigation";
 import { useAppSelector } from "@/lib/redux/store";
 
-export default function Login({ children }: { children?: React.ReactNode }) {
+export default function Login() {
   const session = useSession();
-  const path_name = usePathname();
 
   const redirect_route = useAppSelector(
     (state) => state.redirect_route_reducer.route
@@ -26,7 +25,6 @@ export default function Login({ children }: { children?: React.ReactNode }) {
   console.log("LSession", session);
   return (
     <div className={styles.login}>
-      {children}
       <div className={styles.logo}>
         <Image src={hanapBHImg} alt="Hanap BH" className={styles.logo__img} />
         <h2>Hanap BH</h2>
@@ -73,7 +71,7 @@ export default function Login({ children }: { children?: React.ReactNode }) {
 
       <h3 className={styles.sign__up}>
         Don't have Any Account?{" "}
-        <Link href="/auth/sign-up" as="/auth/sign-up">
+        <Link href="/auth/sign-up" as="/auth/signup">
           Sign up
         </Link>
       </h3>

@@ -3,7 +3,7 @@ import User from "@/lib/database/model/User";
 import { UserDetailType } from "@/lib/types/user-detail-type";
 import nextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
-
+import CredentialsProvider from "next-auth/providers/credentials";
 const clientId = process.env.GOOGLE_CLIENT_ID;
 if (!clientId) throw new Error("Missing GOOGLE_CLIENT_ID");
 
@@ -19,8 +19,48 @@ const handler = nextAuth({
       clientId,
       clientSecret,
     }),
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {
+        email: {
+          label: "email",
+          type: "email",
+          placeholder: "youremail@example.com",
+        },
+        password: {
+          label: "password",
+          type: "password",
+          placeholder: "password",
+        },
+      },
+      async authorize(credentials) {
+        try {
+          const response = await fetch("/api/login", {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+              email: credentials?.email,
+              password: credentials?.password,
+              provider: "credentials",
+            }),
+          });
+          const { user } = await response.json();
+
+          if (!user) {
+            return null;
+          }
+
+          return user;
+        } catch (error) {
+          return null;
+        }
+      },
+    }),
   ],
   secret,
+  debug: process.env.NODE_ENV === "development",
   callbacks: {
     async session({ session }) {
       await dbConnect();

@@ -1,11 +1,12 @@
 import Modal from "@/components/modal/Modal";
+import SignUp from "@/components/page/auth/signup/SignUp";
 
 export default function page() {
   return (
-    <div>
+    <>
       <Modal>
-        <h1>Sign up</h1>
+        <SignUp />
       </Modal>
-    </div>
+    </>
   );
 }

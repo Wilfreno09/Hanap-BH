@@ -2,7 +2,7 @@ import React from "react";
 import "./globals.css";
 import { Manrope } from "next/font/google";
 import ReduxProvider from "@/lib/redux/ReduxProvider";
-import SessionProvider from "@/components/auth/SessionProvider";
+import SessionProvider from "@/components/page/auth/SessionProvider";
 import { getServerSession } from "next-auth";
 const poppins = Manrope({
   subsets: ["latin"],

@@ -1,4 +1,4 @@
-import MainLogin from "@/components/auth/login/MainLogin";
+import MainLogin from "@/components/page/auth/login/MainLogin";
 
 export default function page() {
   return <MainLogin />;
