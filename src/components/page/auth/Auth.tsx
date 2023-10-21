@@ -4,8 +4,6 @@ import styles from "./Auth.module.css";
 import { useAppSelector } from "@/lib/redux/store";
 import React, { useEffect } from "react";
 import { redirect } from "next/navigation";
-import Image from "next/image";
-import HanapBHImg from "../../../../public/logo.png";
 
 export default function Auth({ children }: { children: React.ReactNode }) {
   const session = useSession();
@@ -14,18 +12,14 @@ export default function Auth({ children }: { children: React.ReactNode }) {
   );
 
   useEffect(() => {
-    if (session) {
+    if (session.status !== "unauthenticated") {
       redirect(redirect_route);
     }
   }, []);
 
   return (
-    <div className={styles.auth}>
-      <div className={styles.logo}>
-        <Image src={HanapBHImg} alt="Hanap BH" />
-        <h1>Hanap BH</h1>
-      </div>
-      {children}
-    </div>
+    <section className={styles.auth}>
+      <div className={styles.container}>{children}</div>
+    </section>
   );
 }

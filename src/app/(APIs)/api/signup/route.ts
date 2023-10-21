@@ -4,38 +4,29 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 export async function POST(request: Request) {
   try {
-    const {
-      given_name,
-      middle_name,
-      family_name,
-      gender,
-      birth_date,
-      profile_pic,
-      email,
-      password,
-    } = await request.json();
+    const { email, password } = await request.json();
 
     await dbConnect();
 
-      const check_email = await User.findOne({ "contact.email": email });
-      
+    const check_email = await User.findOne({ "contact.email": email });
     if (check_email) {
-      NextResponse.json({ message: "Email already exist" }, { status: 409 });
+      return NextResponse.json(
+        { message: "Email already exist" },
+        { status: 409 }
+      );
     }
     const hashed_password = await bcrypt.hash(password, 14);
     const new_user = new User({
-      given_name,
-      family_name,
-      middle_name,
-      gender,
-      birth_date,
-      profile_pic,
-      email,
+      contact: {
+        email,
+      },
       password: hashed_password,
     });
     await new_user.save();
-    return NextResponse.json({ status: 200 });
+    return NextResponse.json({ message: "Signup success" }, { status: 200 });
+    // return NextResponse.redirect(new URL("/auth/login", request.url));
   } catch (error) {
+    console.log("Error: ", error);
     return NextResponse.json({ message: error }, { status: 500 });
   }
 }

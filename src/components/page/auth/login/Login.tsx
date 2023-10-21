@@ -1,34 +1,17 @@
-"use client";
+"use client"
 import Image from "next/image";
 import styles from "./Login.module.css";
-import facebookImg from "../../../../public/icons8-facebook.svg";
-import googleImg from "../../../../public/icons8-google.svg";
+import facebookImg from "../../../../../public/icons8-facebook.svg";
+import googleImg from "../../../../../public/icons8-google.svg";
 import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
 import LockSharpIcon from "@mui/icons-material/LockSharp";
 import VisibilitySharpIcon from "@mui/icons-material/VisibilitySharp";
-import hanapBHImg from "../../../../public/logo.png";
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
-import { redirect, usePathname, useRouter } from "next/navigation";
-import { useAppSelector } from "@/lib/redux/store";
+import { signIn} from "next-auth/react";
 
 export default function Login() {
-  const session = useSession();
-
-  const redirect_route = useAppSelector(
-    (state) => state.redirect_route_reducer.route
-  );
-
-  if (session.status === "authenticated") {
-    redirect(redirect_route);
-  }
-  console.log("LSession", session);
   return (
-    <div className={styles.login}>
-      <div className={styles.logo}>
-        <Image src={hanapBHImg} alt="Hanap BH" className={styles.logo__img} />
-        <h2>Hanap BH</h2>
-      </div>
+    <>
       <div className={styles.login__form}>
         <form>
           <div className={styles.user}>
@@ -75,6 +58,6 @@ export default function Login() {
           Sign up
         </Link>
       </h3>
-    </div>
+    </>
   );
 }

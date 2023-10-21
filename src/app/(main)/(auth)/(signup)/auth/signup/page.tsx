@@ -1,9 +1,5 @@
-import SignUp from "@/components/page/auth/signup/SignUp";
+import { redirect } from "next/navigation";
 
 export default function page() {
-  return (
-    <>
-      <SignUp />
-    </>
-  );
+  redirect("/signup")
 }

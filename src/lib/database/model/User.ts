@@ -4,7 +4,7 @@ import mongoose, { Schema } from "mongoose";
 const userSchema: Schema = new Schema<UserDetailType>({
   given_name: {
     type: String,
-    required: true,
+    default: "",
   },
   middle_name: {
     type: String,
@@ -12,7 +12,7 @@ const userSchema: Schema = new Schema<UserDetailType>({
   },
   family_name: {
     type: String,
-    required: true,
+    default: "",
   },
   place_owned: [
     {

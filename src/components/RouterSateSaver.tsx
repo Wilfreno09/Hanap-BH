@@ -12,7 +12,7 @@ export default function RouterSateSaver({
 }) {
   const path_name = usePathname();
   const dispatch = useDispatch<AppDispatch>();
-  if (!path_name.startsWith("/auth")) {
+  if (!path_name.endsWith("signup") && !path_name.endsWith("login")) {
     dispatch(setRedirectRouter({ route: path_name }));
   }
   return <>{children}</>;

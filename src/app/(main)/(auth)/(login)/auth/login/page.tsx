@@ -1,5 +1,5 @@
-import MainLogin from "@/components/page/auth/login/MainLogin";
+import { redirect } from "next/navigation";
 
 export default function page() {
-  return <MainLogin />;
+  redirect("/login");
 }
