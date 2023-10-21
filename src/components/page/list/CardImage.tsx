@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import styles from "./CardImage.module.css";
-import { PhotosType } from "@/lib/types/google-place-api/photos";
 import Image from "next/image";
 import { useState } from "react";
 import ImageNotSupportedIcon from "@mui/icons-material/ImageNotSupported";
+import { PhotosType } from "@/lib/types/google-place-api/photos-type";
 export default function CardImage({
   photos,
   name,
@@ -70,6 +70,7 @@ export default function CardImage({
                 width={1920}
                 height={1080}
                 className={styles.img}
+                priority
               />
             </motion.div>
           ) : (

@@ -1,10 +1,8 @@
 import dbConnect from "@/lib/database/connect";
 import PlaceDetail from "@/lib/database/model/Place-detail";
-import { savePlace } from "@/lib/database/save-place";
 import getDistance from "@/lib/google-api/distance";
-import { PhotosType } from "@/lib/types/google-place-api/photos";
+import { PhotosType } from "@/lib/types/google-place-api/photos-type";
 import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
-import { distance } from "framer-motion";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -15,7 +13,7 @@ export async function POST(request: Request) {
     await dbConnect();
     const database_data = await PlaceDetail.findOne({ place_id });
 
-    if (database_data !== null) {
+    if (database_data) {
       const distance = getDistance(database_data.location, user_location);
       database_data.distance = distance;
       return NextResponse.json({ data: database_data }, { status: 200 });
@@ -79,8 +77,8 @@ export async function POST(request: Request) {
       database: "GOOGLE",
     };
 
-    NextResponse.json({ data }, { status: 200 });
+    return NextResponse.json({ data }, { status: 200 });
   } catch (error) {
-    NextResponse.json({ error }, { status: 500 });
+    return NextResponse.json({ error }, { status: 500 });
   }
 }

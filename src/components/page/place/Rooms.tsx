@@ -16,9 +16,9 @@ export default function Rooms({
         </h1>
         <h2>
           if this place is yours please register it{""}
-          <h2>
+          <p>
             <u>HERE</u>
-          </h2>
+          </p>
         </h2>
       </section>
     );

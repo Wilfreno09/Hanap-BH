@@ -6,7 +6,9 @@ import { useAppSelector } from "@/lib/redux/store";
 import Card from "./Card";
 
 export default function List() {
-  const nearby_place = useAppSelector((state) => state.nearby_places_details);
+  const nearby_place = useAppSelector(
+    (state) => state.nearby_places_details_reducer
+  );
 
   return (
     <div className={styles.list}>

@@ -1,4 +1,4 @@
-import { UserLocationType } from "@/lib/types/redux-slice-types";
+import { UserLocationType } from "@/lib/types/user-detail-type";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 

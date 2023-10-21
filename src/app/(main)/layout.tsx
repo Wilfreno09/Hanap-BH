@@ -7,26 +7,21 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/lib/redux/store";
 import { setMapCenter } from "@/lib/redux/slices/map-center-slice";
 import { useEffect } from "react";
-import { error } from "console";
 import { setUserLocation } from "@/lib/redux/slices/user-location-slice";
 import { setNearbyPlaceDetails } from "@/lib/redux/slices/nearby-place-detail-slice";
+import RouterSateSaver from "@/components/RouterSateSaver";
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function layout({ children }: { children: React.ReactNode }) {
   const dispatch = useDispatch<AppDispatch>();
   const current_location = useAppSelector(
     (state) => state.user_location_reducer.coordinates
   );
-
   async function getNearbyPlaces() {
     try {
       const response = await fetch("/api/map/nearby-places", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json",   
         },
         body: JSON.stringify(current_location),
       });
@@ -85,11 +80,13 @@ export default function DashboardLayout({
   useEffect(() => {}, []);
   return (
     <>
-      <section className={styles.section}>
-        <Header />
-        <Navigation />
-        {children}
-      </section>
+      <RouterSateSaver>
+        <section className={styles.section}>
+          <Header />
+          <Navigation />
+          {children}
+        </section>
+      </RouterSateSaver>
     </>
   );
 }

@@ -1,11 +1,10 @@
 import dbConnect from "@/lib/database/connect";
 import PlaceDetail from "@/lib/database/model/Place-detail";
-import { savePlace } from "@/lib/database/save-place";
 import getDistance from "@/lib/google-api/distance";
 import { getReverseGeocode } from "@/lib/google-api/geocode";
 import quickSort from "@/lib/google-api/sort";
 import { NearbyPlaceType } from "@/lib/types/google-place-api/nearby-place";
-import { PhotosType } from "@/lib/types/google-place-api/photos";
+import { PhotosType } from "@/lib/types/google-place-api/photos-type";
 import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
 
 import { NextResponse } from "next/server";

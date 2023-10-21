@@ -1,25 +1,17 @@
-"use client";
+"use client"
 import Image from "next/image";
 import styles from "./Login.module.css";
-import facebookImg from "../../../../public/icons8-facebook.svg";
-import googleImg from "../../../../public/icons8-google.svg";
+import facebookImg from "../../../../../public/icons8-facebook.svg";
+import googleImg from "../../../../../public/icons8-google.svg";
 import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
 import LockSharpIcon from "@mui/icons-material/LockSharp";
 import VisibilitySharpIcon from "@mui/icons-material/VisibilitySharp";
-import VisibilityOffSharpIcon from "@mui/icons-material/VisibilityOffSharp";
-import hanapBHImg from "../../../../public/logo.png";
-import React from "react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn} from "next-auth/react";
 
-export default function Login({ children }: { children?: React.ReactNode }) {
+export default function Login() {
   return (
-    <div className={styles.login}>
-      {children}
-      <div className={styles.logo}>
-        <Image src={hanapBHImg} alt="Hanap BH" className={styles.logo__img} />
-        <h2>Hanap BH</h2>
-      </div>
+    <>
       <div className={styles.login__form}>
         <form>
           <div className={styles.user}>
@@ -62,10 +54,10 @@ export default function Login({ children }: { children?: React.ReactNode }) {
 
       <h3 className={styles.sign__up}>
         Don't have Any Account?{" "}
-        <Link href="/auth/sign-up" as="/auth/sign-up">
+        <Link href="/auth/sign-up" as="/auth/signup">
           Sign up
         </Link>
       </h3>
-    </div>
+    </>
   );
 }

@@ -7,8 +7,9 @@ export type UserDetailType = {
   place_owned?: string[];
   gender?: string;
   birth_date?: Date;
-  profile_pic: PhotosType;
+  profile_pic: string;
   contact: {
+    email: string;
     social_media: {
       facebook?: string;
       twitter?: string;
@@ -18,4 +19,11 @@ export type UserDetailType = {
   };
   password?: string;
   date_created?: Date;
+};
+
+export type UserLocationType = {
+  coordinates: {
+    lat?: number;
+    lng?: number;
+  };
 };
