@@ -1,5 +1,4 @@
 import User from "@/lib/database/model/User";
-import { UserDetailType } from "@/lib/types/user-detail-type";
 import nextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -129,7 +128,6 @@ const handler = nextAuth({
         return session;
       }
       session.user = filtered_user;
-      console.log("SEssion:", session);
       return session;
     },
   },

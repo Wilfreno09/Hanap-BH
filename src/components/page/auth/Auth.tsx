@@ -10,11 +10,11 @@ export default function Auth({ children }: { children: React.ReactNode }) {
   const redirect_route = useAppSelector(
     (state) => state.redirect_route_reducer.route
   );
-  console.log(session);
 
   if (session.status !== "unauthenticated") {
     redirect(redirect_route);
   }
+
   return (
     <section className={styles.auth}>
       <div className={styles.container}>{children}</div>
