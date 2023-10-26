@@ -1,9 +1,11 @@
-import dbConnect from "@/lib/database/connect";
 import User from "@/lib/database/model/User";
 import { UserDetailType } from "@/lib/types/user-detail-type";
 import nextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import clientPromise from "@/lib/database/mongoclient";
+import dbConnect from "@/lib/database/connect";
 const clientId = process.env.GOOGLE_CLIENT_ID;
 if (!clientId) throw new Error("Missing GOOGLE_CLIENT_ID");
 
@@ -14,6 +16,7 @@ const secret = process.env.NEXTAUTH_SECRET;
 if (!secret) throw new Error("Missing NEXTAUTH_SECRET");
 
 const handler = nextAuth({
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
       clientId,
@@ -59,69 +62,75 @@ const handler = nextAuth({
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+    maxAge: 60 * 60 * 24 * 30,
+  },
   secret,
   debug: process.env.NODE_ENV === "development",
   callbacks: {
-    async session({ session }) {
-      await dbConnect();
-
-      const user = await User.findOne({
-        "contact.email": session.user?.email?.toLowerCase()!,
-      });
-      if (!user) {
-        session.user.birth_date = undefined;
-        session.user.contact.phone_number = [];
-        session.user.family_name = "";
-        session.user.gender = undefined;
-        session.user.given_name = "";
-        session.user.middle_name = "";
-        session.user.place_owned = [];
-        session.user.profile_pic = session.user.image!;
-
-        console.log("Session:...:", session);
-        return session;
-      }
-      const new_user = { ...user };
-      delete new_user.password;
-      const { _doc } = new_user;
-      session.user = _doc;
-
-      return session;
-    },
-
-    async signIn({ profile }) {
+    async signIn({ user, profile, account }) {
+      console.log("Sign in:", { user, profile, account });
       try {
-        await dbConnect();
-        const user = await User.findOne({
-          "contact.email": profile?.email,
-        });
-
-        if (!user) {
-          const new_user = new User<UserDetailType>({
-            given_name: profile?.given_name.toLowerCase()!,
-            middle_name: "",
-            family_name: profile?.family_name.toLowerCase()!,
-            profile_pic: profile?.picture!,
-            contact: {
-              email: profile?.email?.toLowerCase()!,
-              social_media: {
-                facebook: "",
-                twitter: "",
-                instagram: "",
-              },
-              phone_number: [],
-            },
+        if (account?.provider === "google") {
+          await dbConnect();
+          const user = await User.findOne({
+            "contact.email": profile?.email,
           });
 
-          await new_user.save();
-          console.log("new_user: ", new_user);
-        }
+          if (!user) {
+            const new_user = new User({
+              given_name: profile?.given_name.toLowerCase()!,
+              middle_name: "",
+              family_name: profile?.family_name.toLowerCase()!,
+              profile_pic: profile?.picture!,
+              contact: {
+                email: profile?.email?.toLowerCase()!,
+                social_media: {
+                  facebook: "",
+                  twitter: "",
+                  instagram: "",
+                },
+                phone_number: [],
+              },
+            });
 
+            await new_user.save();
+          }
+        }
         return true;
       } catch (error) {
         console.log("Error: ", error);
         return false;
       }
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        return {
+          token: {
+            ...user,
+          },
+        };
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      await dbConnect();
+
+      const user_result = await User.findOne({
+        "contact.email": token.email?.toLowerCase()!,
+      }).select("-password -__v");
+
+      const filtered_user = user_result.toJSON();
+      filtered_user.id = filtered_user._id;
+      delete filtered_user._id;
+
+      if (!user_result) {
+        return session;
+      }
+      session.user = filtered_user;
+      console.log("SEssion:", session);
+      return session;
     },
   },
 });

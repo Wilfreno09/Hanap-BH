@@ -1,7 +1,8 @@
 "use client";
-import { FocusEvent, useState } from "react";
+import { FocusEvent, FormEvent, useState } from "react";
 import styles from "./Form.module.css";
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
+import { useAppSelector } from "@/lib/redux/store";
 
 export default function Form() {
   const [register_form, setRegisterForm] = useState({
@@ -11,17 +12,41 @@ export default function Form() {
     birth_date: Date.now(),
     gender: "",
   });
-
+  const [user_update_sucess, setUserUpdateSuccess] = useState(false);
+  const redirect_url = useAppSelector(
+    (state) => state.redirect_route_reducer.route
+  );
   const params = useParams();
   const email = decodeURIComponent(params.email.toString());
   console.log(register_form.gender);
 
+  if (user_update_sucess) {
+    redirect(redirect_url);
+  }
+
   function setGender(e: FocusEvent<HTMLInputElement, Element>) {
     setRegisterForm((prev) => ({ ...prev, gender: e.target.value }));
   }
+  async function submitForm(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    try {
+      const response = await fetch("/api/user", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(register_form),
+      });
+
+      setUserUpdateSuccess(response.ok);
+    } catch (error) {
+      throw error;
+    }
+  }
   return (
     <>
-      <form className={styles.form} autoComplete="off">
+      <form className={styles.form} autoComplete="off" onSubmit={submitForm}>
         <div className={styles.name}>
           <input
             type="text"

@@ -1,3 +1,4 @@
+"use client";
 import { setRedirectRouter } from "@/lib/redux/slices/redirect-route-slice";
 import { AppDispatch, useAppSelector } from "@/lib/redux/store";
 import { useSession } from "next-auth/react";
