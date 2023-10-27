@@ -5,6 +5,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/lib/database/mongoclient";
 import dbConnect from "@/lib/database/connect";
+import bcrypt from "bcrypt";
+
 const clientId = process.env.GOOGLE_CLIENT_ID;
 if (!clientId) throw new Error("Missing GOOGLE_CLIENT_ID");
 
@@ -15,7 +17,11 @@ const secret = process.env.NEXTAUTH_SECRET;
 if (!secret) throw new Error("Missing NEXTAUTH_SECRET");
 
 const handler = nextAuth({
-  adapter: MongoDBAdapter(clientPromise),
+  adapter: MongoDBAdapter(clientPromise, {
+    collections: {
+      Users: "generated-users",
+    },
+  }),
   providers: [
     GoogleProvider({
       clientId,
@@ -24,10 +30,10 @@ const handler = nextAuth({
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: {
-          label: "email",
-          type: "email",
-          placeholder: "youremail@example.com",
+        user: {
+          label: "user",
+          type: "text",
+          placeholder: "Email or Username",
         },
         password: {
           label: "password",
@@ -37,26 +43,32 @@ const handler = nextAuth({
       },
       async authorize(credentials) {
         try {
-          const response = await fetch("/api/login", {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-              email: credentials?.email,
-              password: credentials?.password,
-              provider: "credentials",
-            }),
-          });
-          const { user } = await response.json();
+          if (!credentials?.user && !credentials?.password)
+            throw new Error("0");
+          if (!credentials.user) throw new Error("1");
+          if (!credentials.password) throw new Error("2");
+
+          await dbConnect();
+
+          const user = await User.findOne({
+            $or: [
+              { "contact.email": credentials?.user },
+              { "auth.user_name": credentials?.user },
+            ],
+          }).select("-__v");
 
           if (!user) {
-            return null;
+            throw new Error("400");
           }
+          if (!(await bcrypt.compare(credentials?.password!, user.password))) {
+            throw new Error("401");
+          }
+          const filtered_user = user.toJSON();
+          delete filtered_user.password;
 
-          return user;
+          return filtered_user;
         } catch (error) {
-          return null;
+          throw error;
         }
       },
     }),
@@ -65,19 +77,21 @@ const handler = nextAuth({
     strategy: "jwt",
     maxAge: 60 * 60 * 24 * 30,
   },
+  pages: {
+    signIn: "/auth/login",
+  },
   secret,
   debug: process.env.NODE_ENV === "development",
   callbacks: {
     async signIn({ user, profile, account }) {
-      console.log("Sign in:", { user, profile, account });
       try {
         if (account?.provider === "google") {
           await dbConnect();
-          const user = await User.findOne({
+          const user_result = await User.findOne({
             "contact.email": profile?.email,
           });
 
-          if (!user) {
+          if (!user_result) {
             const new_user = new User({
               given_name: profile?.given_name.toLowerCase()!,
               middle_name: "",
@@ -92,14 +106,17 @@ const handler = nextAuth({
                 },
                 phone_number: [],
               },
+              auth: {
+                user_name: profile?.given_name.toLocaleLowerCase()!,
+              },
             });
 
             await new_user.save();
           }
+          return true;
         }
         return true;
       } catch (error) {
-        console.log("Error: ", error);
         return false;
       }
     },
@@ -111,23 +128,31 @@ const handler = nextAuth({
           },
         };
       }
+
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token, user }) {
       await dbConnect();
+      console.log("TOKEN: ", token);
+      console.log("USER: ", user);
 
       const user_result = await User.findOne({
         "contact.email": token.email?.toLowerCase()!,
       }).select("-password -__v");
 
+      if (!user_result) {
+        session.user.given_name = "";
+        session.user.email = token.email;
+        session.user.profile_pic = token.picture!;
+        return session;
+      }
+
       const filtered_user = user_result.toJSON();
       filtered_user.id = filtered_user._id;
       delete filtered_user._id;
-
-      if (!user_result) {
-        return session;
-      }
       session.user = filtered_user;
+      console.log("SESSION2 ", session);
+
       return session;
     },
   },

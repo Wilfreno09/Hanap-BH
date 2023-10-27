@@ -4,8 +4,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 2rem 1.5rem;
-  /* border-bottom: 1px solid rgba(34, 34, 34, 0.2); */
+  padding: 1.5rem;
   background-color: white;
 }
 
@@ -16,10 +15,11 @@
 
 .button:hover {
   cursor: pointer;
+  text-decoration: underline;
 }
 .button h1,
 .icon {
-  color: rgba(34, 34, 34, 0.9);
-  font-size: 2rem;
+  color: rgba(34, 34, 34);
+  font-size: 1.5rem;
   font-weight: 400;
 }
