@@ -1,17 +1,12 @@
 import Link from "next/link";
-import styles from "./NotLoggedInDropDown.module.css"
+import styles from "./NotLoggedInDropDown.module.css";
 export default function NotLoggedInDropDown() {
   return (
     <section className={styles.dropdown}>
-      <Link
-        href={{
-          pathname: `/auth/login`,
-        }}
-        as="/auth/login"
-      >
+      <Link href="/auth/login" as="/auth/login">
         <h5>Log in</h5>
       </Link>
-      <Link href="/test">
+      <Link href="/auth/signup">
         <h5>Sign up</h5>
       </Link>
       <hr style={{ margin: "10px 0" }} />
