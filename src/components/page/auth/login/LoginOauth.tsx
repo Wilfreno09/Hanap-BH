@@ -1,6 +1,6 @@
 import { signIn } from "next-auth/react";
 import Image from "next/image";
-import facebookImg from "../../../../../public/icons8-facebook.svg";
+import facebookImg from "../../../../../public/icons8-facebook-f.svg";
 import googleImg from "../../../../../public/icons8-google.svg";
 import styles from "./LoginOauth.module.css";
 export default function LoginOauth() {

@@ -12,3 +12,13 @@
 .break h2 {
   font-size: 1.5rem;
 }
+
+.sign__up {
+  font-size: 1.3rem;
+  margin: 1rem 0;
+}
+
+.sign__up a {
+  text-decoration: underline;
+  color: rgb(0, 119, 255);
+}

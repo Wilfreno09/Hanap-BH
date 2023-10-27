@@ -15,8 +15,11 @@
   border-radius: 0.5rem;
   margin: 1rem 0;
   padding: 0.5rem 0;
+  background-color: white;
+  cursor: pointer;
 }
 .facebook {
+  color: white;
   background-color: rgba(66, 103, 178, 0.8);
 }
 .facebook__icon,
@@ -24,6 +27,9 @@
   width: 4rem;
   height: auto;
   margin: 0 3rem;
+  background-color: white;
+  border-radius: 99rem;
+  padding: 0.5rem;
 }
 .google h3,
 .facebook h3 {
@@ -32,12 +38,3 @@
   margin: 0 3.5rem;
 }
 
-.sign__up {
-  font-size: 1.3rem;
-  margin: 2rem 0;
-}
-
-.sign__up a {
-  text-decoration: underline;
-  color: rgb(0, 119, 255);
-}
