@@ -9,7 +9,6 @@
 .container {
   min-width: 30%;
   position: relative;
-  /* max-height: 90vh; */
   position: relative;
   display: flex;
   flex-direction: column;

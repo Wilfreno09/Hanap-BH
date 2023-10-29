@@ -6,13 +6,14 @@ import React, { useEffect } from "react";
 import { redirect } from "next/navigation";
 
 export default function Auth({ children }: { children: React.ReactNode }) {
-  const session = useSession();
+  const { data, status } = useSession();
   const redirect_route = useAppSelector(
     (state) => state.redirect_route_reducer.route
   );
-  console.log(session);
 
-  if (session.status !== "unauthenticated") {
+  if (status === "authenticated" && data?.user.given_name === "") {
+    redirect("/auth/form");
+  } else if (status === "authenticated") {
     redirect(redirect_route);
   }
   return (

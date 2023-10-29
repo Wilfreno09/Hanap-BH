@@ -59,9 +59,15 @@ const userSchema: Schema = new Schema<UserDetailType>({
       },
     ],
   },
-  password: {
-    type: String,
-    default: undefined,
+  auth: {
+    user_name: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      default: undefined,
+    },
   },
   date_created: {
     type: Date,
