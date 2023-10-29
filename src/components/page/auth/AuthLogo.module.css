@@ -1,13 +1,19 @@
 .logo {
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 3rem;
+  margin: 1rem;
 }
 
-.logo__image {
-  width: 5rem;
+.image__container {
+  width: 40%;
+  overflow: hidden;
+}
+.image {
+  object-fit: cover;
+  width: 100%;
   height: auto;
 }
 

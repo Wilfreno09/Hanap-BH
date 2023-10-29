@@ -1,10 +1,8 @@
 .exit {
   position: sticky;
-  top: 0;
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 1.5rem;
   background-color: white;
 }
 
@@ -13,13 +11,21 @@
   background-color: transparent;
 }
 
-.button:hover {
+.button h1:hover {
   cursor: pointer;
   text-decoration: underline;
 }
+
 .button h1,
 .icon {
   color: rgba(34, 34, 34);
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: bolder;
+  margin: 0rem 2rem;
+  margin-top: 1rem;
+}
+
+.icon {
+  background-color: green;
+  padding: 1rem;
 }
