@@ -1,6 +1,7 @@
 import { PhotosType } from "./google-place-api/room-types";
 
 export type UserDetailType = {
+  id: string;
   given_name: string;
   middle_name?: string;
   family_name: string;
@@ -17,7 +18,10 @@ export type UserDetailType = {
     };
     phone_number?: string[];
   };
-  password?: string;
+  auth: {
+    user_name: string;
+    password?: string;
+  };
   date_created?: Date;
 };
 

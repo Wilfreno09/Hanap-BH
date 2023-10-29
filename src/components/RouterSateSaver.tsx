@@ -1,3 +1,4 @@
+"use client";
 import { setRedirectRouter } from "@/lib/redux/slices/redirect-route-slice";
 import { AppDispatch, useAppSelector } from "@/lib/redux/store";
 import { useSession } from "next-auth/react";
@@ -12,7 +13,7 @@ export default function RouterSateSaver({
 }) {
   const path_name = usePathname();
   const dispatch = useDispatch<AppDispatch>();
-  if (!path_name.startsWith("/auth")) {
+  if (!path_name.endsWith("signup") && !path_name.endsWith("login")) {
     dispatch(setRedirectRouter({ route: path_name }));
   }
   return <>{children}</>;

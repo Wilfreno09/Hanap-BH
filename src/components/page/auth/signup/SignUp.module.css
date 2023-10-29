@@ -1,0 +1,65 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem;
+  color: rgba(34, 34, 34);
+}
+
+.input__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.input {
+  font-size: 2rem;
+  padding: 2rem 3rem;
+  border: 1px solid rgba(34, 34, 34, 0.5);
+  border-radius: 1rem;
+}
+.label,
+.visibility__icon__container {
+  position: absolute;
+}
+.label {
+  left: 0;
+}
+.visibility__icon__container {
+  right: 0;
+}
+
+.icon,
+.password__visibility {
+  font-size: 2.5rem;
+  margin: 1rem;
+}
+
+.button {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid rgba(34, 34, 34, 0.5);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 2rem 0;
+}
+
+.button h1 {
+  color: rgba(34, 34, 34);
+}
+
+.error {
+  outline: 1px solid red;
+}
+
+.matched {
+  outline: 1px solid rgb(88, 243, 88);
+}
+
+.error__message {
+  color: red;
+  font-size: 1.5rem;
+}
