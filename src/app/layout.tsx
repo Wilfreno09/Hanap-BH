@@ -4,6 +4,7 @@ import { Manrope } from "next/font/google";
 import ReduxProvider from "@/lib/redux/ReduxProvider";
 import SessionProvider from "@/components/page/auth/SessionProvider";
 import { getServerSession } from "next-auth";
+import { Analytics } from "@vercel/analytics/react";
 const poppins = Manrope({
   subsets: ["latin"],
   weight: ["300", "400"],
@@ -27,7 +28,9 @@ export default async function RootLayout({
     <ReduxProvider>
       <html lang="en">
         <body className={poppins.className}>
-          <SessionProvider session={session}>{children}</SessionProvider>
+          <SessionProvider session={session}>
+            {children} <Analytics />
+          </SessionProvider>
         </body>
       </html>
     </ReduxProvider>
