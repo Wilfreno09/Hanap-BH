@@ -1,9 +1,10 @@
-"use client"
+"use client";
 import styles from "./Search.module.css";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 
 export default function Search() {
   const [search, setSearch] = useState<string>("");
@@ -57,15 +58,8 @@ export default function Search() {
           className={styles.input}
         />
         {search !== "" ? (
-          <label htmlFor="search">
-            <h2
-              className={styles.clear__input}
-              onClick={() => {
-                setSearch("");
-              }}
-            >
-              X
-            </h2>
+          <label htmlFor="search" className={styles.clear__input} onClick={()=> setSearch("")}>
+            <ClearRoundedIcon className={styles.icon} />
           </label>
         ) : null}
         {/* <ResultDropDown /> */}

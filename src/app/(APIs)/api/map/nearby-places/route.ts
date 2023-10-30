@@ -94,7 +94,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ data: sorted_data }, { status: 200 });
   } catch (err) {
-    console.log("nearby-places api error");
     console.log("error: ", err);
     return NextResponse.json({ ERROR: err }, { status: 500 });
   }
