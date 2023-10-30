@@ -9,8 +9,8 @@ export default function layout({
 }) {
   return (
     <>
-      {signup}
       {children}
+      {signup}
     </>
   );
 }
