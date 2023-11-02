@@ -1,11 +1,8 @@
 "use client";
-import styles from "./Search.module.css";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 export default function Search() {
   const [search, setSearch] = useState<string>("");
   const [results, setResults] = useState([]);
@@ -32,41 +29,32 @@ export default function Search() {
   }
 
   return (
-    <div className={styles.search}>
-      <form
-        className={`${styles.form} ${active && styles.active}`}
-        autoFocus={false}
-        autoComplete="off"
-      >
-        {search !== "" ? (
-          <SearchOutlinedIcon className={styles.mini__search__icon} />
-        ) : null}
-        <input
-          type="text"
-          id="search"
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            clearTimeout(timer!);
-            const newTimer = setTimeout(() => {
-              getAutocomplete();
-            }, 300);
-            setTimer(newTimer!);
-          }}
-          onFocus={() => setActive(true)}
-          onBlur={() => setActive(false)}
-          className={styles.input}
-        />
-        {search !== "" ? (
-          <label htmlFor="search" className={styles.clear__input} onClick={()=> setSearch("")}>
-            <ClearRoundedIcon className={styles.icon} />
-          </label>
-        ) : null}
-        {/* <ResultDropDown /> */}
-      </form>
-      <label htmlFor="search" className={styles.search__icon__label}>
-        <SearchOutlinedIcon className={styles.search__icon} />
+    <form
+      className="flex items-center border-2 rounded-full px-2 md:shadow-sm py-2 "
+      autoFocus={false}
+      autoComplete="off"
+    >
+      <input
+        className="w-full  px-5 bg-transparent outline-none text-gray-600 placeholder-gray-400"
+        type="text"
+        id="search"
+        placeholder="Search a place"
+        value={search}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          clearTimeout(timer!);
+          const newTimer = setTimeout(() => {
+            getAutocomplete();
+          }, 300);
+          setTimer(newTimer!);
+        }}
+        onFocus={() => setActive(true)}
+        onBlur={() => setActive(false)}
+      />
+      <label htmlFor="search">
+        <MagnifyingGlassIcon className="hidden md:inline-flex h-8 text-white bg-gray-700 rounded-full p-2 cursor-pointer md:mx-2" />
       </label>
-    </div>
+      {/* <ResultDropDown /> */}
+    </form>
   );
 }

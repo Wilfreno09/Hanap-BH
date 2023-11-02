@@ -1,6 +1,5 @@
-"use client"
-import styles from "./Header.module.css";
-import Logo from "./logo/Logo";
+"use client";
+import Logo from "./Logo";
 import { usePathname } from "next/navigation";
 import AddPlace from "./add-place/AddPlace";
 import Search from "./search/Search";
@@ -10,17 +9,13 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <section
-      className={`${styles.header} ${
-        pathname.startsWith("/map") ? styles.map : styles.default
-      }`}
-    >
+    <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md px-5 py-3 md:px-10 ">
       <Logo />
       <Search />
-      <div className={styles.icons}>
+      <div className="flex items-center justify-end space-x-5 text-gray-500">
         <AddPlace />
         <Menu />
       </div>
-    </section>
+    </header>
   );
 }
