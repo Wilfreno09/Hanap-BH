@@ -1,21 +1,31 @@
 import Link from "next/link";
-import styles from "./NotLoggedInDropDown.module.css";
 export default function NotLoggedInDropDown() {
+  const link_mobile = "hover:bg-slate-100 px-5 py-3 text-sm";
+  const link_pc = "";
   return (
-    <section className={styles.dropdown}>
-      <Link href="/auth/login" as="/auth/login">
-        <h5>Log in</h5>
+    <>
+      <Link
+        className={`${link_mobile} ${link_pc} text-base`}
+        href="/auth/login"
+        as="/auth/login"
+      >
+        <p>
+          <b>Sign up</b>
+        </p>
       </Link>
-      <Link href="/auth/signup">
-        <h5>Sign up</h5>
+      <Link className={`${link_mobile} ${link_pc}`} href="/auth/signup">
+        <p>Log in</p>
       </Link>
       <hr style={{ margin: "10px 0" }} />
-      <Link href="/test">
-        <h5>Add Your Bouarding House</h5>
+      <Link className={`${link_mobile} ${link_pc}`} href="/test">
+        <p>Add Your Bouarding House</p>
       </Link>
-      <Link href="/test">
-        <h5>FAQ</h5>
+      <Link className={`${link_mobile} ${link_pc}`} href="/test">
+        <p>FAQ</p>
       </Link>
-    </section>
+      <Link className={`${link_mobile} ${link_pc}`} href="/test">
+        <p>Terms of Service</p>
+      </Link>
+    </>
   );
 }

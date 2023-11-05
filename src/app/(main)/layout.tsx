@@ -1,6 +1,5 @@
 "use client";
 
-import styles from "./layout.module.css";
 import Header from "@/components/layout/header/Header";
 import Navigation from "@/components/layout/navigations/Navigation";
 import { useDispatch } from "react-redux";
@@ -10,8 +9,12 @@ import { useEffect } from "react";
 import { setUserLocation } from "@/lib/redux/slices/user-location-slice";
 import { setNearbyPlaceDetails } from "@/lib/redux/slices/nearby-place-detail-slice";
 import RouterSateSaver from "@/components/RouterSateSaver";
+import { useSearchParams } from "next/navigation";
+import MenuDropDown from "@/components/layout/header/menu/dropdown/MenuDropDown";
 
 export default function layout({ children }: { children: React.ReactNode }) {
+  const search_params = useSearchParams();
+  const open_menu = search_params.get("open_menu");
   const dispatch = useDispatch<AppDispatch>();
   const current_location = useAppSelector(
     (state) => state.user_location_reducer.coordinates
@@ -21,7 +24,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
       const response = await fetch("/api/map/nearby-places", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",   
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(current_location),
       });
@@ -81,11 +84,9 @@ export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <RouterSateSaver>
-        <section className={styles.section}>
-          <Header />
-          <Navigation />
-          {children}
-        </section>
+        <Header />
+        {open_menu === "true" ? <MenuDropDown /> : null}
+        {children}
       </RouterSateSaver>
     </>
   );
