@@ -1,9 +1,9 @@
-import List from "@/components/page/list/List";
+import Main from "@/components/page/list/Main";
 
 export default function page() {
   return (
     <>
-      <List />
+      <Main />
     </>
   );
 }

@@ -3,17 +3,20 @@ import React from "react";
 import styles from "./AuthExit.module.css";
 import { useRouter } from "next/navigation";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import { useAppSelector } from "@/lib/redux/store";
 export default function AuthExit({ children }: { children?: React.ReactNode }) {
-  const router = useRouter();
+  const redirect_route = useAppSelector(
+    (state) => state.redirect_route_reducer.route
+  );
   return (
     <div className={styles.exit}>
-      <button className={styles.button} onClick={() => router.back()}>
+      <a className={styles.button} href={redirect_route}>
         {children ? (
           <h1>{children}</h1>
         ) : (
           <ClearRoundedIcon className={styles.icon} />
         )}
-      </button>
+      </a>
     </div>
   );
 }
