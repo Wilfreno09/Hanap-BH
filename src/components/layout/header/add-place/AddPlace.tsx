@@ -1,12 +1,10 @@
 import Link from "next/link";
-import styles from "./AddPlace.module.css";
-
+import { PlusIcon } from "@heroicons/react/24/solid";
 export default function AddPlace() {
   return (
-    <div>
-      <Link href="/test">
-        <h5 className={styles.add__place}>Add Your boarding House</h5>
-      </Link>
-    </div>
+    <Link href="/test" className="hidden md:inline-flex items-center space-x-2">
+      <p className="">Add Your boarding House</p>
+      <PlusIcon className="h-4 text-gray-950" />
+    </Link>
   );
 }
