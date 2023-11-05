@@ -27,15 +27,22 @@ export default function Search() {
       throw error;
     }
   }
-
+  const form_mobile = "flex flex-grow items-center rounded-full p-2 px-2";
+  const form_pc = "sm:border-2  sm:shadow-sm sm:grow-0 w-6/12";
+  const input_mobile =
+    "w-full px-5 bg-transparent outline-none text-gray-600 placeholder-gray-400 ";
+  const input_pc = "";
+  const icon_mobile =
+    " hidden h-8 text-gray-700 rounded-full p-2 cursor-pointer md:mx-2";
+  const icon_pc = "sm:inline-flex sm:bg-gray-700 sm:text-white ";
   return (
     <form
-      className="flex items-center border-2 rounded-full px-2 md:shadow-sm py-2 "
+      className={`${form_mobile} ${form_pc}`}
       autoFocus={false}
       autoComplete="off"
     >
       <input
-        className="w-full  px-5 bg-transparent outline-none text-gray-600 placeholder-gray-400"
+        className={`${input_mobile} ${input_pc}`}
         type="text"
         id="search"
         placeholder="Search a place"
@@ -52,7 +59,7 @@ export default function Search() {
         onBlur={() => setActive(false)}
       />
       <label htmlFor="search">
-        <MagnifyingGlassIcon className="hidden md:inline-flex h-8 text-white bg-gray-700 rounded-full p-2 cursor-pointer md:mx-2" />
+        <MagnifyingGlassIcon className={`${icon_mobile} ${icon_pc}`} />
       </label>
       {/* <ResultDropDown /> */}
     </form>
