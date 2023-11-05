@@ -9,10 +9,10 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md px-5 py-3 md:px-10 ">
+    <header className="sticky top-0 z-50 flex items-center justify-between sm:justify-evenly  sm:space-x-5 shadow-md px-5 py-3 md:px-10 ">
       <Logo />
       <Search />
-      <div className="flex items-center justify-end space-x-5 text-gray-500">
+      <div className="flex items-center justify-end space-x-3 text-gray-500">
         <AddPlace />
         <Menu />
       </div>

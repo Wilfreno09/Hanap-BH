@@ -27,10 +27,8 @@ export async function getReverseGeocode(location: LatLngLiteral) {
     const { results } = await response.json();
 
     return {
-      municipality: results[0].address_components[0].long_name.toLowerCase(),
+      municipality: results[0]?.address_components[0]?.long_name.toLowerCase(),
     };
-
-    return results;
   } catch (error) {
     throw error;
   }

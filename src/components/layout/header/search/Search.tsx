@@ -1,36 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import ResultDropDown from "./ResultDropDown";
+import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
 export default function Search() {
   const [search, setSearch] = useState<string>("");
-  const [results, setResults] = useState([]);
+  const [details, setDetails] = useState<PlaceDetailType[]>([]);
   const [timer, setTimer] = useState<NodeJS.Timeout>();
   const [active, setActive] = useState<boolean>(false);
 
-  const dispatch = useDispatch<AppDispatch>();
-
-  async function getAutocomplete() {
+  async function getPlaceDetails(query: string) {
     try {
-      const result = await fetch("/api/map/autocomplete", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: search }),
-      });
-
-      const { data } = await result.json();
-      setResults(data);
+      const res = await fetch(`/api/map/autocomplete?search=${query}`);
+      const response = await res.json();
+      setDetails(response.result);
     } catch (error) {
       throw error;
     }
   }
-
   return (
     <form
-      className="flex items-center border-2 rounded-full px-2 md:shadow-sm py-2 "
+      className="relative flex-grow md:w-1/3 flex items-center border-2 rounded-full px-2 md:shadow-sm py-2 mx-10"
       autoFocus={false}
       autoComplete="off"
     >
@@ -44,8 +36,8 @@ export default function Search() {
           setSearch(e.target.value);
           clearTimeout(timer!);
           const newTimer = setTimeout(() => {
-            getAutocomplete();
-          }, 300);
+            getPlaceDetails(e.target.value);
+          }, 400);
           setTimer(newTimer!);
         }}
         onFocus={() => setActive(true)}
@@ -54,7 +46,7 @@ export default function Search() {
       <label htmlFor="search">
         <MagnifyingGlassIcon className="hidden md:inline-flex h-8 text-white bg-gray-700 rounded-full p-2 cursor-pointer md:mx-2" />
       </label>
-      {/* <ResultDropDown /> */}
+      {search !== "" && active ? <ResultDropDown details={details} /> : null}
     </form>
   );
 }

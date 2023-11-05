@@ -15,14 +15,15 @@ export async function POST(request: Request) {
 
   try {
     const { lat, lng } = await request.json();
-    const { municiplality } = await getReverseGeocode({ lat, lng });
+    const reverse_geocode: { municipality: string } = await getReverseGeocode({
+      lat,
+      lng,
+    });
 
     await dbConnect();
 
     const mongo_DB_data = await PlaceDetail.find({
-      location: {
-        municiplality,
-      },
+      "location.municipality": reverse_geocode.municipality,
     });
 
     if (mongo_DB_data.length > 0)
@@ -92,7 +93,7 @@ export async function POST(request: Request) {
 
     const sorted_data = quickSort(google_response);
 
-    return NextResponse.json({ data: sorted_data }, { status: 200 });
+    return NextResponse.json({ result: sorted_data }, { status: 200 });
   } catch (err) {
     console.log("error: ", err);
     return NextResponse.json({ ERROR: err }, { status: 500 });

@@ -1,18 +1,19 @@
 import PlacesDetail from "@/lib/database/model/Place-detail";
 import { getGeocode } from "@/lib/google-api/geocode";
 import { AutocompleteType } from "@/lib/types/google-place-api/autocomplete";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function GET(request: NextRequest) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY;
 
   if (!apiKey) throw new Error(" NEXT_PUBLIC_GOOGLE_PLACE_API_KEY missing ");
 
-  const { query } = await request.json();
+  const searchParams = request.nextUrl.searchParams;
 
+  const search = searchParams.get("search");
   try {
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${apiKey}&input=${query}&radius=50000&components=country:ph&types=lodging`
+      `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${apiKey}&input=${search}&radius=50000&components=country:ph&types=lodging`
     );
 
     const { predictions } = await response.json();
@@ -36,9 +37,9 @@ export async function POST(request: Request) {
       }
     });
 
-    return NextResponse.json({ data }, { status: 200 });
+    return NextResponse.json({ result: data }, { status: 200 });
   } catch (error) {
-    return NextResponse.json(error, { status: 500 });
+    return NextResponse.json({ error }, { status: 500 });
   }
 }
 

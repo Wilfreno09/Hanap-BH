@@ -19,12 +19,12 @@ export default function Menu() {
   return (
     <>
       <div
-        className="flex items-center space-x-2 border-2 p-2 rounded-full cursor-pointer hover:shadow-sm "
+        className="flex items-center justify-center border-2 sm:space-x-2  sm:p-1 rounded-full cursor-pointer hover:shadow-sm "
         onClick={() => setActive(true)}
         ref={menuRef}
       >
-        <Bars3Icon className="h-6" />
-        <UserCircleIcon className="h-6" />
+        <Bars3Icon className="hidden sm:inline-flex h-6" />
+        <UserCircleIcon className="h-10 md:h-8" />
       </div>
     </>
   );
