@@ -1,7 +1,6 @@
 "use client";
 
 import Header from "@/components/layout/header/Header";
-import Navigation from "@/components/layout/navigations/Navigation";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/lib/redux/store";
 import { setMapCenter } from "@/lib/redux/slices/map-center-slice";
@@ -11,6 +10,7 @@ import { setNearbyPlaceDetails } from "@/lib/redux/slices/nearby-place-detail-sl
 import RouterSateSaver from "@/components/RouterSateSaver";
 import { useSearchParams } from "next/navigation";
 import MenuDropDown from "@/components/layout/header/menu/dropdown/MenuDropDown";
+import Navigation from "@/components/layout/mobile/Navigation";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   const search_params = useSearchParams();
@@ -87,6 +87,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
         <Header />
         {open_menu === "true" ? <MenuDropDown /> : null}
         {children}
+        <Navigation/>
       </RouterSateSaver>
     </>
   );
