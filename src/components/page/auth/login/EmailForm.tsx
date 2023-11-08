@@ -1,8 +1,16 @@
 "use client";
+import { useAppSelector } from "@/lib/redux/store";
 import { ArrowLongRightIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/navigation";
 import { FormEvent, useRef, useState } from "react";
-
+import loadingSVG from "../../../../../public/loading-white.svg";
+import Image from "next/image";
 export default function EmailForm() {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const last_route = useAppSelector(
+    (state) => state.redirect_route_reducer.route
+  );
   const dialog_ref = useRef<HTMLDialogElement>(null);
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -12,29 +20,29 @@ export default function EmailForm() {
   });
   async function submitForm(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setLoading(true);
     if (!email.includes("@") || email === "") {
-      console.log("clickkasdkasd");
       setErrorMsg((prev) => ({ ...prev, email: "Invalid email address" }));
       return;
     }
-    dialog_ref.current?.showModal();
-    // try {
-    //   const res = await fetch("/api/email/code-sender", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //     body: JSON.stringify(email),
-    //   });
-    //   if (res.status === 200) {
-    //     dialog_ref.current?.showModal();
-    //     return;
-    //   }
-    //   const response = await res.json();
-    //   setErrorMsg(response.error);
-    // } catch (error) {
-    //   throw error;
-    // }
+    try {
+      const res = await fetch("/api/email/code-sender", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      if (res.status === 200) {
+        setLoading(false);
+        dialog_ref.current?.showModal();
+        return;
+      }
+      const response = await res.json();
+      setErrorMsg(response.error);
+    } catch (error) {
+      throw error;
+    }
   }
   async function codeVerifier(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -44,8 +52,14 @@ export default function EmailForm() {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify(code),
+        body: JSON.stringify({ email, code }),
       });
+
+      if (res.status === 200) {
+        router.replace(last_route);
+      }
+      const response = await res.json();
+      setErrorMsg((prev) => ({ ...prev, code: response.msg }));
     } catch (error) {
       throw error;
     }
@@ -65,10 +79,21 @@ export default function EmailForm() {
           onChange={(e) => setEmail(e.target.value)}
         />
         <button
-          className={`flex items-center justify-center space-x-5  h-12  rounded-b-lg bg-gray-400 text-white  hover:text-gray-900`}
+          className={` relative flex items-center justify-center space-x-5  h-12  rounded-b-lg bg-gray-400 text-white  hover:text-gray-900`}
         >
-          <p className="text-lg font-semibold ">Sign up</p>
-          <ArrowLongRightIcon className="h-6" />
+          {loading ? (
+            <Image
+              src={loadingSVG}
+              alt="loading..."
+              objectFit="contain"
+              className="h-10 w-auto"
+            />
+          ) : (
+            <>
+              <p className="text-lg font-semibold ">Sign up</p>
+              <ArrowLongRightIcon className="h-6" />
+            </>
+          )}
         </button>
       </form>
       {error_msg.email !== "" ? (
@@ -93,12 +118,14 @@ export default function EmailForm() {
           </section>
           <form autoComplete="off" className="flex flex-col space-y-4">
             <input
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
               type="text"
               placeholder="Code here"
               className="w-full h-10 px-5 border border-gray-200 rounded-lg outline-gray-800"
             />
             <button className="self-center border-gray-300 bg-gray-200 shadow:sm rounded-lg w-2/3 p-2 hover:shadow-lg hover:border-gray-900 ">
-              verify
+              {loading}
             </button>
           </form>
         </div>
