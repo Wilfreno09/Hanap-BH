@@ -1,12 +1,16 @@
 "use client";
 
 import { useAppSelector } from "@/lib/redux/store";
+import { PlaceDetailsType } from "@/lib/types/place-detail";
 import { StarIcon } from "@heroicons/react/24/solid";
 
-export default function BestOfferSection() {
-  const nearby_places = useAppSelector(
-    (state) => state.nearby_places_details_reducer
-  );
+export default function BestOfferSection({
+  nearby_places,
+  next_page_token,
+}: {
+    nearby_places: PlaceDetailsType[];
+  next_page_token: string
+}) {
   return (
     <section className="flex flex-col space-y-10  ">
       <h1 className="text-2xl font-semibold">Best Offers Nearby</h1>

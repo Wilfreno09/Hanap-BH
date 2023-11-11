@@ -17,29 +17,22 @@ export default function layout({ children }: { children: React.ReactNode }) {
   const search_params = useSearchParams();
   const open_menu = search_params.get("open_menu");
   const dispatch = useDispatch<AppDispatch>();
-  const current_location = useAppSelector(
+  const user_location = useAppSelector(
     (state) => state.user_location_reducer.coordinates
   );
   async function getNearbyPlaces() {
     try {
       const api_response = await fetch(
-        `/api/nearby-places?lat=${current_location.lat}&lng=${current_location.lng}`
+        `/api/nearby-places?lat=${user_location.lat}&lng=${user_location.lng}`
       );
-
       const api_data = await api_response.json();
+
       dispatch(setNearbyPlaceDetails(api_data.data));
       dispatch(setNextPageToken(api_data.next_page_token));
     } catch (error) {
       throw error;
     }
   }
-
-  useEffect(() => {
-    if (current_location.lat !== undefined) {
-      getNearbyPlaces();
-    }
-  }, [current_location]);
-
   useEffect(() => {
     if (!navigator.geolocation.getCurrentPosition) {
       throw new Error("Location detector is not supported in your browser");
@@ -79,7 +72,9 @@ export default function layout({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (user_location.lng !== undefined) getNearbyPlaces();
+  }, [user_location]);
   return (
     <>
       <RouterSateSaver>

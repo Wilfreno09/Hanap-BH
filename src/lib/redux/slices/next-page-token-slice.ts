@@ -1,6 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+type Token = {
+  next_page_token?: string;
+};
+const initialState: Token = {
   next_page_token: "",
 };
 
