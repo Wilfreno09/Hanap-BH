@@ -1,8 +1,8 @@
 import dbConnect from "@/lib/database/connect";
 import PlaceDetail from "@/lib/database/model/Place-detail";
+import filterData from "@/lib/google-api/filter-data";
 import {
   NominatimReverseAPiResponse,
-  PlaceDetailsType,
   PlacesAPIResponseDetails,
 } from "@/lib/types/place-detail";
 import { type NextRequest } from "next/server";
@@ -11,16 +11,31 @@ import { NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   const api_key = process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY;
   if (!api_key) throw new Error("NEXT_PUBLIC_GOOGLE_PLACE_API_KEY is missing");
-
   try {
     const search_params = request.nextUrl.searchParams;
     const lat = search_params.get("lat");
     const lng = search_params.get("lng");
-
+    const next_page_token = search_params.get("next_page-token");
     const nomitatim_response = await fetch(
       `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
     );
 
+    if (next_page_token) {
+      const next_page_response = await fetch(
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken=${places_api_data.next_page_token}&key=${api_key}`
+      );
+      const next_page_data = await next_page_response.json();
+      const restructured_next_page_data = next_page_data.results.map(
+        (details: PlacesAPIResponseDetails) => {
+          return filterData(details);
+        }
+      );
+
+      return NextResponse.json({
+        data: restructured_next_page_data,
+        next_page_token: next_page_data.next_page_token,
+      });
+    }
     const nominatim_data: NominatimReverseAPiResponse =
       await nomitatim_response.json();
 
@@ -44,49 +59,14 @@ export async function GET(request: NextRequest) {
 
     const resturctured_places_api_data = places_api_data.results.map(
       (details: PlacesAPIResponseDetails) => {
-        const photo_details = details.photos?.map((photo) => {
-          return {
-            photo_url: photo.photo_reference,
-          };
-        });
-        try {
-          const new_data = <PlaceDetailsType>{
-            owner: "",
-            place_id: details.place_id,
-            name: details.name,
-            photos: photo_details,
-            location: {
-              vicinity: details.vicinity,
-              province: "",
-              town: {
-                city: nominatim_data.address.city || "",
-                municipality: nominatim_data.address.town || "",
-              },
-              barangay: "",
-              street: "",
-              coordinates: {
-                lat: details.geometry.location.lat,
-                lng: details.geometry.location.lng,
-              },
-            },
-            price: {
-              max: undefined,
-              min: undefined,
-            },
-            rating: {
-              count: details.user_ratings_total,
-              average: details.rating,
-            },
-            date_created: undefined,
-          };
-          return new_data;
-        } catch (error) {
-          throw error;
-        }
+        return filterData(details);
       }
     );
     return NextResponse.json(
-      { data: [...filtered_DB_data!, ...resturctured_places_api_data] },
+      {
+        data: [...filtered_DB_data!, ...resturctured_places_api_data],
+        next_page_token: places_api_data.next_page_token,
+      },
       { status: 200 }
     );
   } catch (err) {
