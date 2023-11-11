@@ -1,5 +1,4 @@
 import PlacesDetail from "@/lib/database/model/Place-detail";
-import { getGeocode } from "@/lib/google-api/geocode";
 import { AutocompleteType } from "@/lib/types/google-place-api/autocomplete";
 import { NextResponse } from "next/server";
 
