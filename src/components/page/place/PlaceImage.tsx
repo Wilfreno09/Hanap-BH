@@ -2,7 +2,7 @@ import styles from "./PlaceImage.module.css";
 import Image from "next/image";
 import ImageNotSupportedIcon from "@mui/icons-material/ImageNotSupported";
 import { useState } from "react";
-import { PhotosType } from "@/lib/types/google-place-api/photos-type";
+import { PhotosType } from "@/lib/types/photos-type";
 
 export default function PlaceImage({ photos }: { photos: PhotosType[] }) {
   const api_key = process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY;

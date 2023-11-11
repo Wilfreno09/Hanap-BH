@@ -1,7 +1,6 @@
-import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
 import mongoose, { Schema } from "mongoose";
 
-const PlaceSchema: Schema = new Schema<PlaceDetailType>({
+const PlaceSchema: Schema = new Schema({
   owner: {
     type: Schema.Types.ObjectId,
     default: undefined,
@@ -24,9 +23,15 @@ const PlaceSchema: Schema = new Schema<PlaceDetailType>({
       type: String,
       default: "",
     },
-    municipality: {
-      type: String,
-      default: "",
+    town: {
+      city: {
+        type: String,
+        default: "",
+      },
+      municipality: {
+        type: String,
+        default: "",
+      },
     },
     barangay: {
       type: String,
@@ -82,10 +87,6 @@ const PlaceSchema: Schema = new Schema<PlaceDetailType>({
         default: undefined,
       },
     ],
-  },
-  database: {
-    type: String,
-    required: true,
   },
   date_created: {
     type: Date,

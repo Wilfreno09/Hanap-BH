@@ -3,16 +3,16 @@ import { useAppSelector } from "@/lib/redux/store";
 import { ArrowLongRightIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
 import { FormEvent, useRef, useState } from "react";
-import loadingSVG from "../../../../../public/loading-white.svg";
+import loadingSVG from "../../../../../public/loading-transparent.svg";
 import Image from "next/image";
 export default function EmailForm() {
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const last_route = useAppSelector(
     (state) => state.redirect_route_reducer.route
   );
   const dialog_ref = useRef<HTMLDialogElement>(null);
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const [code, setCode] = useState("");
   const [error_msg, setErrorMsg] = useState({
     email: "",
@@ -20,11 +20,11 @@ export default function EmailForm() {
   });
   async function submitForm(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setLoading(true);
     if (!email.includes("@") || email === "") {
       setErrorMsg((prev) => ({ ...prev, email: "Invalid email address" }));
       return;
     }
+    setLoading(true);
     try {
       const res = await fetch("/api/email/code-sender", {
         method: "POST",
@@ -33,12 +33,13 @@ export default function EmailForm() {
         },
         body: JSON.stringify({ email }),
       });
+      const response = await res.json();
+      console.log("REsponse: ", response);
       if (res.status === 200) {
         setLoading(false);
         dialog_ref.current?.showModal();
         return;
       }
-      const response = await res.json();
       setErrorMsg(response.error);
     } catch (error) {
       throw error;
@@ -67,7 +68,6 @@ export default function EmailForm() {
   return (
     <>
       <form
-        autoComplete="off"
         className=" flex flex-col mx-10 rounded-lg border shadow-md border-gray-200"
         onSubmit={submitForm}
       >
@@ -85,8 +85,7 @@ export default function EmailForm() {
             <Image
               src={loadingSVG}
               alt="loading..."
-              objectFit="contain"
-              className="h-10 w-auto"
+              className="h-10 w-auto object-contain"
             />
           ) : (
             <>
@@ -96,9 +95,9 @@ export default function EmailForm() {
           )}
         </button>
       </form>
-      {error_msg.email !== "" ? (
+      {error_msg?.email !== "" ? (
         <p className="text-red-500 font-bold text-sm my-5 mx-auto">
-          {error_msg.email}
+          {error_msg?.email}
         </p>
       ) : null}
       <dialog
@@ -125,7 +124,11 @@ export default function EmailForm() {
               className="w-full h-10 px-5 border border-gray-200 rounded-lg outline-gray-800"
             />
             <button className="self-center border-gray-300 bg-gray-200 shadow:sm rounded-lg w-2/3 p-2 hover:shadow-lg hover:border-gray-900 ">
-              {loading}
+              {loading ? (
+                <Image src={loadingSVG} alt="loading.." />
+              ) : (
+                <p> verify</p>
+              )}
             </button>
           </form>
         </div>

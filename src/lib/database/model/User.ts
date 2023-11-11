@@ -1,7 +1,7 @@
 import { UserDetailType } from "@/lib/types/user-detail-type";
 import mongoose, { Schema } from "mongoose";
 
-const userSchema: Schema = new Schema<UserDetailType>({
+const userSchema: Schema = new Schema({
   given_name: {
     type: String,
     default: "",
@@ -39,7 +39,7 @@ const userSchema: Schema = new Schema<UserDetailType>({
       required: true,
     },
     social_media: {
-      facebok: {
+      facebook: {
         type: String,
         default: "",
       },

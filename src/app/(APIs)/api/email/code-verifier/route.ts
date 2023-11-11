@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const data = await EmailVerifier.findOne({ email: req.email });
 
     if (data.code === req.code) {
-      await EmailVerifier.remove({ email: req.email });
+      await EmailVerifier.deleteOne({ email: req.email });
       return NextResponse.json({ msg: "done" }, { status: 200 });
     }
 

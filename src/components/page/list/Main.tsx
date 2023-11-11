@@ -1,7 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
 import styles from "./List.module.css";
-import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
 import { useAppSelector } from "@/lib/redux/store";
 import Card from "./Card";
 

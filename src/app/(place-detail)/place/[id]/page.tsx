@@ -1,7 +1,7 @@
 "use client";
 import Place from "@/components/page/place/Place";
 import { useAppSelector } from "@/lib/redux/store";
-import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
+import { PlaceDetailType } from "@/lib/types/place-detail";
 import { useEffect, useState } from "react";
 
 export default function page({ params }: { params: { id: string } }) {
@@ -26,7 +26,7 @@ export default function page({ params }: { params: { id: string } }) {
           },
           body: JSON.stringify({ place_id: params.id, user_location }),
         });
-        const { data } = await response .json();
+        const { data } = await response.json();
         console.log("data: ", data);
         setPlaceDetail(data);
         return;

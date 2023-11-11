@@ -1,6 +1,6 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const EmailVerifier: Schema = new Schema({
+const EmailVerifierSchema: Schema = new Schema({
   email: {
     type: String,
     required: true,
@@ -12,4 +12,4 @@ const EmailVerifier: Schema = new Schema({
 });
 
 export default mongoose.models.EmailVerifier ||
-  mongoose.model("EmailVefier", EmailVerifier);
+  mongoose.model("EmailVerifier", EmailVerifierSchema);

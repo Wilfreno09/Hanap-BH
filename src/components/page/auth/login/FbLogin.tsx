@@ -8,8 +8,7 @@ export default function FbLogin() {
         <Image
           src={fbImg}
           alt="facebook"
-          objectFit="contain"
-          className="h-10 w-auto text-white"
+          className="h-10 w-auto text-white object-contain"
         />
       </div>
       <p>Log in with Facebook</p>

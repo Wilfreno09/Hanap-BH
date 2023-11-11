@@ -1,4 +1,4 @@
-import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
+import { PlaceDetailType } from "@/lib/types/place-detail";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState: PlaceDetailType[] = [

@@ -1,5 +1,5 @@
 import styles from "./Place.module.css";
-import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
+import { PlaceDetailType } from "@/lib/types/place-detail";
 import PlaceImage from "./PlaceImage";
 import Rooms from "./Rooms";
 import PlaceInfo from "./PlaceInfo";

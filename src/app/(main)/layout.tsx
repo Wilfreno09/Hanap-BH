@@ -21,15 +21,13 @@ export default function layout({ children }: { children: React.ReactNode }) {
   );
   async function getNearbyPlaces() {
     try {
-      const response = await fetch("/api/map/nearby-places", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(current_location),
-      });
+      const response = await fetch(
+        `/api/nearby-places?lat=${current_location.lat}&lng=${current_location.lng}`
+      );
+
       const { data } = await response.json();
       dispatch(setNearbyPlaceDetails(data));
+      console.log("DATA: ", data);
     } catch (error) {
       throw error;
     }
@@ -87,7 +85,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
         <Header />
         {open_menu === "true" ? <MenuDropDown /> : null}
         {children}
-        <Navigation/>
+        <Navigation />
       </RouterSateSaver>
     </>
   );

@@ -1,4 +1,4 @@
-import { PlaceDetailType } from "../types/google-place-api/place-detail";
+import { PlaceDetailType } from "../types/place-detail";
 
 export default function quickSort(arr: PlaceDetailType[]): PlaceDetailType[] {
   if (arr.length <= 1) {

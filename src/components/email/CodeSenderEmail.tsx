@@ -1,3 +1,4 @@
+
 import {
   Body,
   Container,
@@ -8,11 +9,10 @@ import {
   Section,
   Tailwind,
   Text,
+  Img,
 } from "@react-email/components";
-import React from "react";
-import logo from "../../../public/logo.png";
-import Image from "next/image";
-export default function CodeSender({
+import * as React from "react";
+export default function CodeSenderEmail({
   name,
   code,
 }: {
@@ -24,10 +24,14 @@ export default function CodeSender({
       <Head />
       <Tailwind>
         <Body className="bg-white my-auto mx-auto font-sans">
-          <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px] shadow-lg">
-            <Section className="aspect-square h-20 w-auto">
-              <Image src={logo} alt="logo" objectFit="contain" />
-            </Section>
+          <Container className=" flex border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px] shadow-lg">
+            <Img
+              width="auto"
+              height="64"
+              src="logo.png"
+              alt="logo"
+              className="flex mx-auto"
+            />
             <Heading className="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
               Welcome to{" "}
               <strong>
@@ -35,7 +39,7 @@ export default function CodeSender({
               </strong>
             </Heading>
             <Text>
-              Hello <strong>{name}</strong>,
+              Hello <strong>{name} s</strong>,
             </Text>
             <Text>Here's your signup code: </Text>
             <Section className="flex items-center justify-center aspect-video h-20 bg-gray-800 mx-auto color">

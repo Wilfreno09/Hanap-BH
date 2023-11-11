@@ -12,8 +12,7 @@ export default function Login() {
           <Image
             src={logoImg}
             alt="logo"
-            objectFit="contained"
-            className="h-20 w-auto"
+            className="h-20 w-auto object-contain"
           />
           <p className="text-lg">Welcome to Hanap-BH</p>
         </div>

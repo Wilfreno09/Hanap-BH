@@ -1,8 +1,8 @@
 import dbConnect from "@/lib/database/connect";
 import PlaceDetail from "@/lib/database/model/Place-detail";
 import getDistance from "@/lib/google-api/distance";
-import { PhotosType } from "@/lib/types/google-place-api/photos-type";
-import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
+import { PhotosType } from "@/lib/types/photos-type";
+import { PlaceDetailType } from "@/lib/types/place-detail";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {

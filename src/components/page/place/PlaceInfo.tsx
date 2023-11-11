@@ -1,4 +1,4 @@
-import { PlaceDetailType } from "@/lib/types/google-place-api/place-detail";
+import { PlaceDetailType } from "@/lib/types/place-detail";
 import styles from "./PlaceInfo.module.css";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Link from "next/link";
