@@ -51,5 +51,7 @@ export type PlaceDetailsType = {
     count: number;
     average: number;
   };
+  rooms: number;
+  distance?: number;
   date_created?: Date;
 };

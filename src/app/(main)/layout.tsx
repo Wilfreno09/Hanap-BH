@@ -11,6 +11,7 @@ import RouterSateSaver from "@/components/RouterSateSaver";
 import { useSearchParams } from "next/navigation";
 import MenuDropDown from "@/components/layout/header/menu/dropdown/MenuDropDown";
 import Navigation from "@/components/layout/mobile/Navigation";
+import { setNextPageToken } from "@/lib/redux/slices/next-page-token-slice";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   const search_params = useSearchParams();
@@ -21,13 +22,13 @@ export default function layout({ children }: { children: React.ReactNode }) {
   );
   async function getNearbyPlaces() {
     try {
-      const response = await fetch(
+      const api_response = await fetch(
         `/api/nearby-places?lat=${current_location.lat}&lng=${current_location.lng}`
       );
 
-      const { data } = await response.json();
-      dispatch(setNearbyPlaceDetails(data));
-      console.log("DATA: ", data);
+      const api_data = await api_response.json();
+      dispatch(setNearbyPlaceDetails(api_data.data));
+      dispatch(setNextPageToken(api_data.next_page_token));
     } catch (error) {
       throw error;
     }

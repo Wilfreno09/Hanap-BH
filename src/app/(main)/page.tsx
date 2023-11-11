@@ -1,9 +1,11 @@
-import Main from "@/components/page/list/Main";
+import BestOfferSection from "@/components/page/main/BestOfferSection";
+import NearbySection from "@/components/page/main/NearbySection";
 
 export default function page() {
   return (
-    <>
-      <Main />
-    </>
+    <main>
+      <NearbySection />
+      <BestOfferSection />
+    </main>
   );
 }

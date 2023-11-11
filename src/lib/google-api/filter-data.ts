@@ -1,12 +1,15 @@
+import { LatLngLiteral } from "../types/google-maps-api-type";
 import {
   NominatimReverseAPiResponse,
   PlaceDetailsType,
   PlacesAPIResponseDetails,
 } from "../types/place-detail";
+import getDistance from "./distance";
 
 export default function fiterData(
   details: PlacesAPIResponseDetails,
-  nominatim_data?: NominatimReverseAPiResponse
+  nominatim_data?: NominatimReverseAPiResponse,
+  user_location?: LatLngLiteral
 ) {
   const photo_details = details.photos?.map((photo) => {
     return {
@@ -40,6 +43,11 @@ export default function fiterData(
       count: details.user_ratings_total,
       average: details.rating,
     },
+    rooms: 0,
+    distance: getDistance(
+      { lat: user_location?.lat!, lng: user_location?.lng! },
+      { lng: details.geometry.location.lng, lat: details.geometry.location.lat }
+    ),
     date_created: undefined,
   };
 

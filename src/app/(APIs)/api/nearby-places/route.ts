@@ -1,6 +1,8 @@
 import dbConnect from "@/lib/database/connect";
 import PlaceDetail from "@/lib/database/model/Place-detail";
+import getDistance from "@/lib/google-api/distance";
 import filterData from "@/lib/google-api/filter-data";
+import { user_location } from "@/lib/redux/slices/user-location-slice";
 import {
   NominatimReverseAPiResponse,
   PlacesAPIResponseDetails,
@@ -19,15 +21,20 @@ export async function GET(request: NextRequest) {
     const nomitatim_response = await fetch(
       `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
     );
+    const nominatim_data: NominatimReverseAPiResponse =
+      await nomitatim_response.json();
 
     if (next_page_token) {
       const next_page_response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken=${places_api_data.next_page_token}&key=${api_key}`
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken=${next_page_token}&key=${api_key}`
       );
       const next_page_data = await next_page_response.json();
       const restructured_next_page_data = next_page_data.results.map(
         (details: PlacesAPIResponseDetails) => {
-          return filterData(details);
+          return filterData(details, nominatim_data, {
+            lat: Number(lat),
+            lng: Number(lng),
+          });
         }
       );
 
@@ -36,8 +43,6 @@ export async function GET(request: NextRequest) {
         next_page_token: next_page_data.next_page_token,
       });
     }
-    const nominatim_data: NominatimReverseAPiResponse =
-      await nomitatim_response.json();
 
     await dbConnect();
     let db_data;
@@ -51,6 +56,18 @@ export async function GET(request: NextRequest) {
       });
     }
     const filtered_DB_data = db_data?.map((detail) => detail.toJSON());
+    const restructured_DB_data = filtered_DB_data?.map((details) => {
+      return {
+        ...details,
+        distance: getDistance(
+          { lat: Number(lat), lng: Number(lng) },
+          {
+            lng: details.geometry.location.lng,
+            lat: details.geometry.location.lat,
+          }
+        ),
+      };
+    });
     const places_api_response = await fetch(
       `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${api_key}&location=${lat}%2C${lng}&type=lodging&radius=50000`
     );
@@ -59,12 +76,15 @@ export async function GET(request: NextRequest) {
 
     const resturctured_places_api_data = places_api_data.results.map(
       (details: PlacesAPIResponseDetails) => {
-        return filterData(details);
+        return filterData(details, nominatim_data, {
+          lat: Number(lat),
+          lng: Number(lng),
+        });
       }
     );
     return NextResponse.json(
       {
-        data: [...filtered_DB_data!, ...resturctured_places_api_data],
+        data: [...restructured_DB_data!, ...resturctured_places_api_data],
         next_page_token: places_api_data.next_page_token,
       },
       { status: 200 }

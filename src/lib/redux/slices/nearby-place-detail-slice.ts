@@ -1,14 +1,18 @@
-import { PlaceDetailType } from "@/lib/types/place-detail";
+import { PlaceDetailsType } from "@/lib/types/place-detail";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-const initialState: PlaceDetailType[] = [
+const initialState: PlaceDetailsType[] = [
   {
+    owner: "",
     place_id: "",
     name: "",
     location: {
       vicinity: "",
       province: "",
-      municipality: "",
+      town: {
+        city: "",
+        municipality: "",
+      },
       barangay: "",
       street: "",
       coordinates: {
@@ -22,17 +26,12 @@ const initialState: PlaceDetailType[] = [
       min: 0,
     },
     rooms: 0,
-    rating: 0,
-    contact: {
-      social_media: {
-        facebook: "",
-        twitter: "",
-        instagram: "",
-      },
-      phone_number: [],
+    rating: {
+      count: 0,
+
+      average: 0,
     },
     distance: 0,
-    database: "",
   },
 ];
 
@@ -40,7 +39,7 @@ export const nearby_place_detail = createSlice({
   name: "nearbyPlaceDetails",
   initialState,
   reducers: {
-    setNearbyPlaceDetails: (_, action: PayloadAction<PlaceDetailType[]>) => {
+    setNearbyPlaceDetails: (_, action: PayloadAction<PlaceDetailsType[]>) => {
       return action.payload;
     },
   },

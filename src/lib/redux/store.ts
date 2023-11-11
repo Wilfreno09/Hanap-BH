@@ -6,6 +6,7 @@ import map_center_reducer from "./slices/map-center-slice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import nearby_places_details_reducer from "./slices/nearby-place-detail-slice";
 import redirect_route_reducer from "./slices/redirect-route-slice";
+import next_page_token_reducer from "./slices/next-page-token-slice"
 export const store = configureStore({
   reducer: {
     user_location_reducer,
@@ -14,6 +15,7 @@ export const store = configureStore({
     map_center_reducer,
     nearby_places_details_reducer,
     redirect_route_reducer,
+    next_page_token_reducer,
   },
 });
 
