@@ -33,6 +33,7 @@ export default function Map() {
       disableDefaultUI: true,
       clickableIcons: false,
       mapId: "671365b374be82",
+      gestureHandling: "greedy",
     }),
     []
   );
