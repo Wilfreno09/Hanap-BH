@@ -12,13 +12,11 @@ export default function page() {
   );
   return (
     <main>
-      <>
-        <NearbySection nearby_places={nearby_places} />
-        <BestOfferSection
-          nearby_places={nearby_places}
-          next_page_token={next_page_token!}
-        />
-      </>
+      <NearbySection nearby_places={nearby_places} />
+      <BestOfferSection
+        nearby_places={nearby_places}
+        next_page_token={next_page_token!}
+      />
     </main>
   );
 }

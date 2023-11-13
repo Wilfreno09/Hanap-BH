@@ -2,7 +2,7 @@ export default function NearbyLoadingSkeleton() {
   return (
     <>
       <div className="flex space-x-5s">
-        {Array.from({ length: 15 }).map((i, index) => (
+        {Array.from({ length: 2 }).map((i, index) => (
           <li key={index} className="flex flex-col mx-3 space-y-3">
             <span className="aspect-square h-40 w-auto rounded-lg bg-gray-600 animate-pulse"></span>
             <span
