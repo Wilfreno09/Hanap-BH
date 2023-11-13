@@ -29,7 +29,7 @@ export default function Search() {
   }
   return (
     <form
-      className={`flex flex-grow items-center rounded-full p-2 px-2 sm:border-2  sm:shadow-sm sm:grow-0 w-6/12`}
+      className={`flex flex-grow items-center rounded-full py-2 px-2 sm:border-2  sm:shadow-sm sm:grow-0 w-6/12`}
       autoFocus={false}
       autoComplete="off"
     >

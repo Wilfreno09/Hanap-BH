@@ -1,11 +1,10 @@
 "use client";
-import Place from "@/components/page/place/Place";
 import { useAppSelector } from "@/lib/redux/store";
-import { PlaceDetailType } from "@/lib/types/place-detail";
+import { PlaceDetailsType } from "@/lib/types/place-detail";
 import { useEffect, useState } from "react";
 
 export default function page({ params }: { params: { id: string } }) {
-  const [place_detail, setPlaceDetail] = useState<PlaceDetailType>();
+  const [place_detail, setPlaceDetail] = useState<PlaceDetailsType>();
 
   const nearby_place_details = useAppSelector(
     (state) => state.nearby_places_details_reducer
@@ -41,9 +40,5 @@ export default function page({ params }: { params: { id: string } }) {
     getPlaceDetail();
   }, [nearby_place_details]);
 
-  return (
-    <>
-      <Place place_detail={place_detail!} />
-    </>
-  );
+  return <></>;
 }
