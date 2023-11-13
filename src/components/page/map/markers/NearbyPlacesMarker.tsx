@@ -2,7 +2,7 @@ import styles from "./NearbyPlacesMarker.module.css";
 import { useEffect, useState } from "react";
 import { Marker, MarkerClusterer } from "@react-google-maps/api";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/lib/redux/store";
+import { AppDispatch, useAppSelector } from "@/lib/redux/store";
 import { setSelectedDetail } from "@/lib/redux/slices/selected-detail-slice";
 import { LatLngLiteral, MapType } from "@/lib/types/google-maps-api-type";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
@@ -15,29 +15,9 @@ export default function NearbyPlacesMarker({
 }) {
   const dispatch = useDispatch<AppDispatch>();
 
-  const [nearby_places, setNearbyPlaces] = useState<PlaceDetailsType[]>([]);
-
-  async function getNearbyPlace() {
-    try {
-      const response = await fetch("/api/map/nearby-places", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user_location),
-      });
-
-      const { data } = await response.json();
-
-      setNearbyPlaces(data);
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  useEffect(() => {
-    getNearbyPlace();
-  }, [user_location]);
+  const nearby_places = useAppSelector(
+    (state) => state.nearby_places_details_reducer
+  );
   return (
     <>
       {nearby_places?.map((place) => (

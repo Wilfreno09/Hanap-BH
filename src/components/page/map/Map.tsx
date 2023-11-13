@@ -1,6 +1,5 @@
 "use client";
 
-import styles from "./Map.module.css";
 import { useAppSelector } from "@/lib/redux/store";
 
 import { GoogleMap } from "@react-google-maps/api";
@@ -40,11 +39,11 @@ export default function Map() {
   return (
     <>
       {lat !== undefined && lng !== undefined ? (
-        <div className={styles.container}>
+        <div className="relative w-full h-screen">
           <GoogleMap
             zoom={14}
             center={{ lat, lng }}
-            mapContainerClassName={styles.map}
+            mapContainerClassName="w-full h-full z-0"
             options={options}
             onLoad={on_load}
           >

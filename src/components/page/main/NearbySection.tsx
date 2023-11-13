@@ -4,6 +4,7 @@ import { useAppSelector } from "@/lib/redux/store";
 import { LatLngLiteral } from "@/lib/types/google-maps-api-type";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
 import { StarIcon } from "@heroicons/react/24/solid";
+import NearbyLoadingSkeleton from "./NearbyLoadingSkeleton";
 
 export default function NearbySection({
   nearby_places,
@@ -13,7 +14,7 @@ export default function NearbySection({
   return (
     <section className="flex flex-col mx-auto my-10 space-y-5 ">
       <h1 className="text-2xl font-semibold my-5 mx-3">Closest to you</h1>
-      {nearby_places.length !== 1 && (
+      {nearby_places[0].name !== "" ? (
         <div className="flex overflow-x-auto scrollbar-hide">
           {quickSort(nearby_places)?.map((details) => (
             <div
@@ -41,6 +42,8 @@ export default function NearbySection({
             </div>
           ))}
         </div>
+      ) : (
+        <NearbyLoadingSkeleton />
       )}
     </section>
   );

@@ -1,7 +1,6 @@
-export default function MainLoadingSkeleton() {
+export default function NearbyLoadingSkeleton() {
   return (
-    <section className="flex flex-col mx-auto">
-      <h1 className="text-2xl font-semibold my-5 mx-3">Closest to you</h1>
+    <>
       <div className="flex space-x-5s">
         {Array.from({ length: 15 }).map((i, index) => (
           <li key={index} className="flex flex-col mx-3 space-y-3">
@@ -23,6 +22,6 @@ export default function MainLoadingSkeleton() {
           </li>
         ))}
       </div>
-    </section>
+    </>
   );
 }
