@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 export default function Navigation() {
   const path_name = usePathname();
   return (
-    <section className="fixed bottom-0 w-full h-16 flex items-center justify-center space-x-10 sm:hidden border-2  rounded-t-md p-2 z-10 bg-white">
+    <footer className="sticky bottom-0 w-full h-16 flex items-center justify-center space-x-10 sm:hidden border-2  rounded-t-md p-2 z-10 bg-white">
       <Link
         className={`hover:bg-gray-200 rounded-lg flex flex-col items-center justify-center ${
           path_name === "/" ? "bg:gray-200" : ""
@@ -49,6 +49,6 @@ export default function Navigation() {
         <UserCircleIcon className={`h-8 m-1 mx-5 text-gray-500`} />
         <p className="text-xs text-gray-700">Log in</p>
       </Link>
-    </section>
+    </footer>
   );
 }

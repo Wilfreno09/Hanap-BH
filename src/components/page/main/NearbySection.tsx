@@ -12,7 +12,7 @@ export default function NearbySection({
   nearby_places: PlaceDetailsType[];
 }) {
   return (
-    <section className="flex flex-col mx-auto my-10 space-y-5 ">
+    <section className="flex flex-col mx-auto my-10 space-y-5 mt-24">
       <h1 className="text-2xl font-semibold my-5 mx-3">Closest to you</h1>
       {nearby_places[0].name !== "" ? (
         <div className="flex overflow-x-auto scrollbar-hide">

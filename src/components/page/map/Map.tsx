@@ -29,7 +29,7 @@ export default function Map() {
         strictBounds: true,
       },
       mapTypeControl: false,
-      fullscreenControl: true,
+      fullscreenControl: false,
       disableDefaultUI: true,
       clickableIcons: false,
       mapId: "671365b374be82",
@@ -39,7 +39,7 @@ export default function Map() {
   return (
     <>
       {lat !== undefined && lng !== undefined ? (
-        <div className="relative w-full h-screen">
+        <section className="relativew-full h-screen">
           <GoogleMap
             zoom={14}
             center={{ lat, lng }}
@@ -55,7 +55,7 @@ export default function Map() {
             ) : null}
           </GoogleMap>
           <DetailPopUp />
-        </div>
+        </section>
       ) : null}
     </>
   );
