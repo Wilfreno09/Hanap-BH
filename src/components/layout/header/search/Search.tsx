@@ -29,7 +29,7 @@ export default function Search() {
   }
   return (
     <form
-      className={`flex flex-grow items-center rounded-full py-2 px-2 sm:border-2  sm:shadow-sm sm:grow-0 w-6/12`}
+      className={`flex grow items-center rounded-full py-2 px-2 sm:border-2  sm:shadow-sm sm:grow-0 w-6/12`}
       autoFocus={false}
       autoComplete="off"
     >
@@ -50,9 +50,9 @@ export default function Search() {
         onFocus={() => setActive(true)}
         onBlur={() => setActive(false)}
       />
-      <label htmlFor="search">
+      <label htmlFor="search" className="rounded-full md:bg-gray-900 md:mx-px">
         <MagnifyingGlassIcon
-          className={`h-6 text-gray-500 rounded-full cursor-pointer md:mx-2 sm:inline-flex sm:bg-gray-700 sm:text-white -scale-x-100`}
+          className={`h-6 text-gray-500  cursor-pointer  md:text-white md:m-1 `}
         />
       </label>
       {/* <ResultDropDown /> */}

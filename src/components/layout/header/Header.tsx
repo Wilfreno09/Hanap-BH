@@ -8,15 +8,17 @@ import Menu from "./menu/Menu";
 export default function Header() {
   return (
     <header
-      className={`fixed top-0 mx-5 my-4 z-10 flex items-center justify-evenly bg-white shadow-md border-2 py-1 px-5 rounded-full sm:bg-white sm:border-none sm:rounded-none sm:m-0 sm:shadow-md sm:justify-between md:px-10`}
+      className={`absolute w-screen top-3 z-10 flex items-center justify-center bg-transparent sm:shadow-md sm:bg-white sm:top-0 sm:w-screen sm:my-0 sm:mb-10 sm:rounded-none md:mx-0`}
     >
-      <Logo />
-      <Search />
-      <div
-        className={`relative flex items-center justify-center md:justify-end  text-gray-500 sm:justify-evenly sm:space-x-5`}
-      >
-        <AddPlace />
-        <Menu />
+      <div className="flex items-center justify-center border-2 rounded-full px-3 py-1 bg-white drop-shadow-lg sm:border-none sm:drop-shadow-none sm:w-full md:justify-evenly lg:justify-between sm:px-10 ">
+        <Logo />
+        <Search />
+        <div
+          className={`hidden relative items-center justify-center md:justify-end  text-gray-500 sm:justify-evenly sm:space-x-5 lg:flex`}
+        >
+          <AddPlace />
+          <Menu />
+        </div>
       </div>
     </header>
   );

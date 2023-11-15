@@ -11,7 +11,7 @@ export default function Menu() {
     <Link
       href={`${path_name}?open_menu=true`}
       as={`${path_name}?open_menu=true`}
-      className={` hidden lg:flex items-center rounded-full cursor-pointer hover:shadow-lg sm:space-x-2 sm:border-2 sm:p-2 ${
+      className={`flex items-center rounded-full cursor-pointer hover:shadow-lg sm:space-x-2 sm:border-2 sm:p-2 ${
         isActive ? "shadow-lg" : ""
       }`}
     >
