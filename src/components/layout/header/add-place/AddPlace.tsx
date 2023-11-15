@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PlusIcon } from "@heroicons/react/24/solid";
 export default function AddPlace() {
-  const link_mobile = "hidden flex items-center space-x-2 whitespace-nowrap";
+  const link_mobile = " flex items-center space-x-2 whitespace-nowrap";
   const link_pc = "lg:inline-flex";
   const p_mobile = " ";
   const p_pc = "";

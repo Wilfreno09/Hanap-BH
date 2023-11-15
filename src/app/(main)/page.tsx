@@ -1,21 +1,37 @@
 "use client";
-import BestOfferSection from "@/components/page/main/BestOfferSection";
-import NearbySection from "@/components/page/main/NearbySection";
+import BestOfferLoadingSkeleton from "@/components/page/main/BestOfferLoadingSkeleton";
+import NearbyLoadingSkeleton from "@/components/page/main/NearbyLoadingSkeleton";
 import { useAppSelector } from "@/lib/redux/store";
+import dynamic from "next/dynamic";
 
+interface InitialState {
+  lat?: number;
+  lng?: number;
+}
+const NearbySection = dynamic(
+  () => import("@/components/page/main/NearbySection"),
+  {
+    loading: () => <NearbyLoadingSkeleton />,
+  }
+);
+const BestOfferSection = dynamic(
+  () => import("@/components/page/main/BestOfferSection"),
+  {
+    loading: () => <BestOfferLoadingSkeleton />,
+  }
+);
 export default function page() {
-  const nearby_places = useAppSelector(
-    (state) => state.nearby_places_details_reducer
+  const user_location = useAppSelector(
+    (state) => state.user_location_reducer.coordinates
   );
-  const next_page_token = useAppSelector(
-    (state) => state.next_page_token_reducer.next_page_token
-  );
+  console.log(user_location);
   return (
     <main>
-      <NearbySection nearby_places={nearby_places} />
+      <NearbySection
+        user_location={{ lat: user_location.lat!, lng: user_location.lng! }}
+      />
       <BestOfferSection
-        nearby_places={nearby_places}
-        next_page_token={next_page_token!}
+        user_location={{ lat: user_location.lat!, lng: user_location.lng! }}
       />
     </main>
   );
