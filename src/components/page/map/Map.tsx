@@ -1,3 +1,4 @@
+"user client";
 import { useAppSelector } from "@/lib/redux/store";
 
 import { GoogleMap } from "@react-google-maps/api";

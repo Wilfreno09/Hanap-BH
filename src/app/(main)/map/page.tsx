@@ -19,7 +19,7 @@ export default function page() {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: apiKey,
   });
-
+  if (loadError) throw loadError;
   return (
     <main className="h-screen w-screen">
       <Map is_loaded={isLoaded} />
