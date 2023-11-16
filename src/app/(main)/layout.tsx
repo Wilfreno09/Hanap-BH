@@ -14,8 +14,9 @@ import { setNearbyPlaceDetails } from "@/lib/redux/slices/nearby-place-detail-sl
 import { setNextPageToken } from "@/lib/redux/slices/next-page-token-slice";
 
 export default function layout({ children }: { children: React.ReactNode }) {
-  const path_name = usePathname();
   const router = useRouter();
+  const path_name = usePathname();
+  if (!navigator.onLine) router.push(`${path_name}?error=offline`);
   const user_location = useAppSelector(
     (state) => state.user_location_reducer.coordinates
   );
@@ -29,7 +30,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
       );
       const api_data = await api_response.json();
       if (api_response.status === 503)
-        router.push(`${path_name}/error=overload`);
+        router.push(`${path_name}?error=overload`);
       dispatch(setNearbyPlaceDetails(api_data.data));
       dispatch(setNextPageToken(api_data.next_page_token));
     } catch (error) {

@@ -1,4 +1,6 @@
 "use client";
+import Error503 from "@/components/page/error/Error503";
+import Offline from "@/components/page/error/Offline";
 import BestOfferLoadingSkeleton from "@/components/page/main/BestOfferLoadingSkeleton";
 import NearbyLoadingSkeleton from "@/components/page/main/NearbyLoadingSkeleton";
 import { useAppSelector } from "@/lib/redux/store";
@@ -15,12 +17,14 @@ const BestOfferSectionMain = dynamic(
   () => import("@/components/page/main/BestOfferSection")
 );
 export default function page() {
+  const search_params = useSearchParams();
+  const error = search_params.get("error");
+  if (error === "overload") return <Error503 />;
+  if (error === "offline") return <Offline />;
   const [page_width, setPageWidth] = useState(0);
   const nearby_places = useAppSelector(
     (state) => state.nearby_places_details_reducer
   );
-  const search_params = useSearchParams();
-  const error = search_params.get("error");
   useEffect(() => {
     function resizeHandler() {
       setPageWidth(window.innerWidth);
@@ -30,7 +34,6 @@ export default function page() {
     return () => window.removeEventListener("resize", resizeHandler);
   }, []);
 
-  if(error) return
   return (
     <main className="dark:text-white mb-20 mt-[10vh] space-y-5 md:mb-0">
       <section className="flex flex-col space-y-5 py-5 lg:h-[85vh]">
