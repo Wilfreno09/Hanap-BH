@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function BestOfferLoadingSkeleton() {
-  return (
+  return Array.from({ length: 2 }).map((i, index) => (
     <div className="flex flex-col shadow-lg rounded-lg space-y-5 py-3">
       <span className="aspect-square h-auto w-full rounded-lg bg-gray-600 hover:scale-105 animate-pulse"></span>
       <span
@@ -19,5 +19,5 @@ export default function BestOfferLoadingSkeleton() {
         }}
       ></span>
     </div>
-  );
+  ));
 }

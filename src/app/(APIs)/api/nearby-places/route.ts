@@ -82,7 +82,6 @@ export async function GET(request: NextRequest) {
         });
       }
     );
-    console.log("placesapidata....:", places_api_data);
     return NextResponse.json(
       {
         data: [...restructured_DB_data!, ...resturctured_places_api_data],
