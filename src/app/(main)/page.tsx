@@ -27,9 +27,9 @@ export default function page() {
     return () => window.removeEventListener("resize", resizeHandler);
   }, []);
   return (
-    <main className="dark:text-white mb-20 mt-[10vh] space-y-5 md:mb-0 ">
+    <main className="dark:text-white mb-20 mt-[10vh] space-y-5 md:mb-0">
       <section className="flex flex-col space-y-5 py-5 lg:h-[85vh]">
-        <h1 className="text-2xl font-bold my-5 mx-8 md:text-5xl">
+        <h1 className="text-3xl font-bold my-5 mx-8 md:text-5xl">
           Closest to you
         </h1>
         {nearby_places[0].place_id !== "" ? (

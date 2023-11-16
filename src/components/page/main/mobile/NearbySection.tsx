@@ -18,13 +18,13 @@ export default async function NearbySection({
   }, [section_ref]);
   return (
     data[0].place_id !== "" && (
-      <div className="flex overflow-x-auto lg:overflow-hidden scrollbar-hide">
+      <div className="flex overflow-x-auto scrollbar-hide">
         {quickSort(data)?.map((details) => (
           <div
-            className="flex flex-col mx-3 justify-between rounded-lg shadow-md"
+            className="flex flex-col mx-3 justify-between rounded-lg shadow-xl"
             key={details.place_id}
           >
-            <span className="aspect-video h-40 w-auto rounded-lg  bg-gray-900 hover:scale-105 sm:h-80"></span>
+            <div className="aspect-video h-40 w-auto rounded-lg bg-gray-900"></div>
             <div className="flex flex-col space-y-1 px-2">
               <strong className=" text-gray-900 text-lg">{details.name}</strong>
               <p className="text-gray-700 text-sm">
