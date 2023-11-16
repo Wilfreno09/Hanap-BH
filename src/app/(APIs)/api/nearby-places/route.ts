@@ -1,8 +1,8 @@
+export const dynamic = "force-dynamic";
 import dbConnect from "@/lib/database/connect";
 import PlaceDetail from "@/lib/database/model/Place-detail";
 import getDistance from "@/lib/google-api/distance";
 import filterData from "@/lib/google-api/filter-data";
-import { user_location } from "@/lib/redux/slices/user-location-slice";
 import {
   NominatimReverseAPiResponse,
   PlacesAPIResponseDetails,
@@ -90,7 +90,7 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
   } catch (err) {
-    console.log("error: ", err);
+    console.log("Error: ", err);
     return NextResponse.json({ ERROR: err }, { status: 500 });
   }
 }

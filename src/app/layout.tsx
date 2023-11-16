@@ -20,20 +20,19 @@ export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-  auth: React.ReactNode;
 }) {
   const session = await getServerSession();
 
   return (
-    <ReduxProvider>
-      <html lang="en">
-        <body className={poppins.className}>
+    <html lang="en">
+      <body className={poppins.className}>
+        <ReduxProvider>
           <SessionProvider session={session}>
             {children}
             <Analytics />
           </SessionProvider>
-        </body>
-      </html>
-    </ReduxProvider>
+        </ReduxProvider>
+      </body>
+    </html>
   );
 }

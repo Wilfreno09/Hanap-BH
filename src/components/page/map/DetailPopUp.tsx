@@ -11,9 +11,9 @@ export default function DetailPopUp() {
 
   return view ? (
     <section
-      className={`absolute flex flex-col bottom-0 z-10 w-full ${
-        full ? "h-screen" : "h-5/6"
-      } rounded-t-lg bg-white border-2 transform transition duration-500 ease-in overflow-y-auto`}
+      className={`absolute rounded-t-lg bg-white border-2 transform transition duration-500 ease-in overflow-y-scroll flex flex-col bottom-0 z-10 w-full ${
+        full ? "h-screen pfib-[9vh]" : "h-5/6"
+      }`}
     >
       <div
         className="flex items- justify-center mb-3 py-4 "
