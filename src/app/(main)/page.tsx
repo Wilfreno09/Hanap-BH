@@ -3,6 +3,7 @@ import BestOfferLoadingSkeleton from "@/components/page/main/BestOfferLoadingSke
 import NearbyLoadingSkeleton from "@/components/page/main/NearbyLoadingSkeleton";
 import { useAppSelector } from "@/lib/redux/store";
 import dynamic from "next/dynamic";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 const NearbySectionMain = dynamic(
   () => import("@/components/page/main/NearbySection")
@@ -18,6 +19,8 @@ export default function page() {
   const nearby_places = useAppSelector(
     (state) => state.nearby_places_details_reducer
   );
+  const search_params = useSearchParams();
+  const error = search_params.get("error");
   useEffect(() => {
     function resizeHandler() {
       setPageWidth(window.innerWidth);
@@ -26,6 +29,8 @@ export default function page() {
     window.addEventListener("resize", resizeHandler);
     return () => window.removeEventListener("resize", resizeHandler);
   }, []);
+
+  if(error) return
   return (
     <main className="dark:text-white mb-20 mt-[10vh] space-y-5 md:mb-0">
       <section className="flex flex-col space-y-5 py-5 lg:h-[85vh]">

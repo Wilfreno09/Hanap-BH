@@ -6,7 +6,7 @@ import { AppDispatch, useAppSelector } from "@/lib/redux/store";
 import { setMapCenter } from "@/lib/redux/slices/map-center-slice";
 import { useEffect } from "react";
 import { setUserLocation } from "@/lib/redux/slices/user-location-slice";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Navigation from "@/components/layout/mobile/Navigation";
 import { setRedirectRouter } from "@/lib/redux/slices/redirect-route-slice";
 import { LatLngLiteral } from "@/lib/types/google-maps-api-type";
@@ -15,6 +15,7 @@ import { setNextPageToken } from "@/lib/redux/slices/next-page-token-slice";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   const path_name = usePathname();
+  const router = useRouter();
   const user_location = useAppSelector(
     (state) => state.user_location_reducer.coordinates
   );
@@ -27,6 +28,8 @@ export default function layout({ children }: { children: React.ReactNode }) {
         { cache: "no-store" }
       );
       const api_data = await api_response.json();
+      if (api_response.status === 503)
+        router.push(`${path_name}/error=overload`);
       dispatch(setNearbyPlaceDetails(api_data.data));
       dispatch(setNextPageToken(api_data.next_page_token));
     } catch (error) {

@@ -9,6 +9,7 @@ import {
 } from "@/lib/types/place-detail";
 import { type NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { json } from "stream/consumers";
 
 export async function GET(request: NextRequest) {
   const api_key = process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY;
@@ -73,6 +74,9 @@ export async function GET(request: NextRequest) {
     );
 
     const places_api_data = await places_api_response.json();
+
+    if (places_api_data.status === " OVER_QUERY_LIMIT")
+      return NextResponse.json({}, { status: 503 });
 
     const resturctured_places_api_data = places_api_data.results.map(
       (details: PlacesAPIResponseDetails) => {
