@@ -42,8 +42,8 @@ export default function page() {
           <NearbyLoadingSkeleton />
         )}
       </section>
-      <section className="flex flex-col space-y-10 bg-red-400 mt-10">
-        <h1 className="text-2xl font-semibold mx-3 md:text-4xl">
+      <section className="flex flex-col space-y-5 mt-10">
+        <h1 className="text-3xl font-semibold my-5 mx-8 md:text-5xl">
           Best Offers Nearby
         </h1>
         {nearby_places[0].place_id !== "" ? (

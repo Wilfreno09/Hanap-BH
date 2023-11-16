@@ -10,9 +10,6 @@ export default function NearbySection({ data }: { data: PlaceDetailsType[] }) {
   useEffect(() => {
     setWidth(div_ref?.current?.scrollWidth! - div_ref.current?.offsetWidth!);
   }, [div_ref]);
-  console.log(div_ref?.current?.scrollWidth!);
-  console.log(div_ref.current?.offsetWidth!);
-  console.log(width);
   return (
     data[0].place_id !== "" && (
       <motion.div className="h-full cursor-grab overflow-x-hidden">

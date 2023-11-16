@@ -2,7 +2,7 @@ export default function NearbyLoadingSkeleton() {
   return (
     <>
       <div className="flex overflow-x-auto scrollbar-hide">
-        {Array.from({ length: 5 }).map((i, index) => (
+        {Array.from({ length: 4 }).map((i, index) => (
           <li
             key={index}
             className="flex flex-col mx-3 space-y-3 justify-between"
