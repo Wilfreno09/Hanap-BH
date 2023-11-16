@@ -9,14 +9,14 @@ export default async function BestOfferSection({
 }) {
   return (
     data[0].place_id !== "" && (
-      <div className="flex flex-col space-y-10">
+      <div className="flex flex-col space-y-10 sm:flex-row sm:flex-wrap sm:justify-evenly">
         {data?.map((details: PlaceDetailsType) => (
           <div
             className="flex flex-col shadow-lg rounded-lg space-y-5"
             key={details.place_id}
           >
-            <span className="aspect-square h-auto w-full rounded-lg bg-gray-900 sm:h-80"></span>
-            <div className="flex flex-col space-y-1 p-3">
+            <div className="aspect-square h-auto w-full rounded-lg bg-gray-900 sm:h-80 sm:w-auto"></div>
+            <div className="flex flex-col space-y-1 p-3 sm:truncate">
               <strong className="text-xl text-gray-900">{details.name}</strong>
               <p className="text-md text-gray-700">
                 {details.location.vicinity}

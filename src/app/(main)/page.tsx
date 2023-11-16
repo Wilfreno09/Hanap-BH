@@ -3,31 +3,51 @@ import BestOfferLoadingSkeleton from "@/components/page/main/BestOfferLoadingSke
 import NearbyLoadingSkeleton from "@/components/page/main/NearbyLoadingSkeleton";
 import { useAppSelector } from "@/lib/redux/store";
 import dynamic from "next/dynamic";
-
-const NearbySection = dynamic(
+import { useEffect, useState } from "react";
+const NearbySectionMain = dynamic(
   () => import("@/components/page/main/NearbySection")
 );
-const BestOfferSection = dynamic(
+const NearbySectionMobile = dynamic(
+  () => import("@/components/page/main/mobile/NearbySection")
+);
+const BestOfferSectionMain = dynamic(
   () => import("@/components/page/main/BestOfferSection")
 );
 export default function page() {
+  const [page_width, setPageWidth] = useState(0);
   const nearby_places = useAppSelector(
     (state) => state.nearby_places_details_reducer
   );
+  useEffect(() => {
+    function resizeHandler() {
+      setPageWidth(window.innerWidth);
+    }
+    setPageWidth(window.innerWidth);
+    window.addEventListener("resize", resizeHandler);
+    return () => window.removeEventListener("resize", resizeHandler);
+  }, []);
   return (
-    <main className="dark:text-white space-y-10 mb-20">
-      <section className="flex flex-col mx-auto my-5 space-y-5">
-        <h1 className="text-2xl font-semibold my-3 mx-3">Closest to you</h1>
+    <main className="dark:text-white mb-20 mt-[10vh] space-y-5 md:mb-0 ">
+      <section className="flex flex-col space-y-5 py-5 lg:h-[85vh]">
+        <h1 className="text-2xl font-bold my-5 mx-8 md:text-5xl">
+          Closest to you
+        </h1>
         {nearby_places[0].place_id !== "" ? (
-          <NearbySection data={nearby_places} />
+          page_width >= 640 ? (
+            <NearbySectionMain data={nearby_places} />
+          ) : (
+            <NearbySectionMobile data={nearby_places} />
+          )
         ) : (
           <NearbyLoadingSkeleton />
         )}
       </section>
-      <section className="flex flex-col space-y-10 ">
-        <h1 className="text-2xl font-semibold mx-3">Best Offers Nearby</h1>
+      <section className="flex flex-col space-y-10 bg-red-400 mt-10">
+        <h1 className="text-2xl font-semibold mx-3 md:text-4xl">
+          Best Offers Nearby
+        </h1>
         {nearby_places[0].place_id !== "" ? (
-          <BestOfferSection data={nearby_places} />
+          <BestOfferSectionMain data={nearby_places} />
         ) : (
           <BestOfferLoadingSkeleton />
         )}
