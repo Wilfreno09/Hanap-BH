@@ -1,5 +1,5 @@
 "use client";
-
+export const dynamic = "force-dynamic";
 import Header from "@/components/layout/header/Header";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/lib/redux/store";
@@ -16,7 +16,7 @@ import { setNextPageToken } from "@/lib/redux/slices/next-page-token-slice";
 export default function layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const path_name = usePathname();
-  if (!navigator.onLine) router.push(`${path_name}?error=offline`);
+
   const user_location = useAppSelector(
     (state) => state.user_location_reducer.coordinates
   );
@@ -38,6 +38,8 @@ export default function layout({ children }: { children: React.ReactNode }) {
     }
   }
   useEffect(() => {
+    if (!navigator.onLine) router.push(`${path_name}?error=offline`);
+
     if (!navigator.geolocation.getCurrentPosition) {
       throw new Error("Location detector is not supported in your browser");
     }

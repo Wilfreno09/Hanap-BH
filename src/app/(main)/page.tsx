@@ -8,10 +8,12 @@ import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 const NearbySectionMain = dynamic(
-  () => import("@/components/page/main/NearbySection")
+  () => import("@/components/page/main/NearbySection"),
+  { loading: () => <NearbyLoadingSkeleton /> }
 );
 const NearbySectionMobile = dynamic(
-  () => import("@/components/page/main/mobile/NearbySection")
+  () => import("@/components/page/main/mobile/NearbySection"),
+  { loading: () => <NearbyLoadingSkeleton /> }
 );
 const BestOfferSectionMain = dynamic(
   () => import("@/components/page/main/BestOfferSection")
@@ -40,15 +42,12 @@ export default function page() {
         <h1 className="text-3xl font-bold my-5 mx-8 md:text-5xl">
           Closest to you
         </h1>
-        {nearby_places[0].place_id !== "" ? (
-          page_width >= 640 ? (
-            <NearbySectionMain data={nearby_places} />
-          ) : (
-            <NearbySectionMobile data={nearby_places} />
-          )
+        {page_width >= 640 ? (
+          <NearbySectionMain data={nearby_places} />
         ) : (
-          <NearbyLoadingSkeleton />
+          <NearbySectionMobile data={nearby_places} />
         )}
+        )
       </section>
       <section className="flex flex-col space-y-5 mt-10">
         <h1 className="text-3xl font-semibold my-5 mx-8 md:text-5xl">

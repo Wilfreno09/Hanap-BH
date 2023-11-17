@@ -4,7 +4,9 @@ import { StarIcon } from "@heroicons/react/24/solid";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 export default function NearbySection({ data }: { data: PlaceDetailsType[] }) {
+
   const [width, setWidth] = useState(0);
   const div_ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -24,7 +26,9 @@ export default function NearbySection({ data }: { data: PlaceDetailsType[] }) {
               className="rounded-lg shadow-lg flex flex-col justify-between my-5"
               key={details.place_id}
             >
-              <div className="aspect-video h-40 w-auto rounded-lg cursor-pointer bg-gray-900  sm:h-[12] lg:h-[15rem] hover:rounded-lg hover:scale-105 transform transition duration-300 ease-out"></div>
+              <div className="aspect-video h-40 w-auto rounded-lg cursor-pointer bg-gray-900  sm:h-[12] lg:h-[15rem] hover:rounded-lg hover:scale-105 transform transition duration-300 ease-out">
+                <Image/>
+              </div>
               <div className="flex flex-col space-y-1 px-2">
                 <strong className=" text-gray-900 text-lg">
                   {details.name}

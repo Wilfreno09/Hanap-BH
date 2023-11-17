@@ -4,7 +4,7 @@ import { StarIcon } from "@heroicons/react/24/solid";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-export default async function NearbySection({
+export default function NearbySection({
   data,
 }: {
   data: PlaceDetailsType[];
