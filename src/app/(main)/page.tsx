@@ -1,64 +1,68 @@
 "use client";
+export const dynamic = "force-dynamic";
 import Error503 from "@/components/page/error/Error503";
 import Offline from "@/components/page/error/Offline";
-import BestOfferLoadingSkeleton from "@/components/page/main/BestOfferLoadingSkeleton";
-import NearbyLoadingSkeleton from "@/components/page/main/NearbyLoadingSkeleton";
-import { useAppSelector } from "@/lib/redux/store";
-import dynamic from "next/dynamic";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-const NearbySectionMain = dynamic(
-  () => import("@/components/page/main/NearbySection"),
-  { loading: () => <NearbyLoadingSkeleton /> }
-);
-const NearbySectionMobile = dynamic(
-  () => import("@/components/page/main/mobile/NearbySection"),
-  { loading: () => <NearbyLoadingSkeleton /> }
-);
-const BestOfferSectionMain = dynamic(
-  () => import("@/components/page/main/BestOfferSection")
-);
+import GetUserLocation from "@/components/page/GetUserLocation";
+import { LatLngLiteral } from "@/lib/types/google-maps-api-type";
+import { PlaceDetailsType } from "@/lib/types/place-detail";
+import NearbySection from "@/components/page/main/nearby-places/NearbySection";
+import BestOfferSection from "@/components/page/main/best-offer/BestOfferSection";
+
 export default function page() {
+  const [location, setLocation] = useState<LatLngLiteral>();
+  const [place_details, setPlaceDetails] = useState<PlaceDetailsType[]>();
+  const [next_page_token, setToken] = useState("");
   const search_params = useSearchParams();
+  const router = useRouter();
   const error = search_params.get("error");
+
+  async function getNearbyPlaces() {
+    try {
+      const api_response = await fetch(
+        `/api/nearby-places?lat=${location?.lat}&lng=${location?.lng}`
+      );
+      const { data, next_page_token } = await api_response.json();
+
+      setPlaceDetails(data);
+      setToken(next_page_token);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  useEffect(() => {
+    if (!navigator.onLine) router.push(`/?error=offline`);
+
+    if (!navigator.geolocation.getCurrentPosition) {
+      throw new Error("Location detector is not supported in your browser");
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setLocation({ lat: latitude, lng: longitude });
+      },
+      (error) => {
+        throw error;
+      }
+    );
+  }, []);
+  useEffect(() => {
+    if (location?.lat !== undefined && location.lng !== undefined) {
+      getNearbyPlaces();
+    }
+  }, [location]);
   if (error === "overload") return <Error503 />;
   if (error === "offline") return <Offline />;
-  const [page_width, setPageWidth] = useState(0);
-  const nearby_places = useAppSelector(
-    (state) => state.nearby_places_details_reducer
-  );
-  useEffect(() => {
-    function resizeHandler() {
-      setPageWidth(window.innerWidth);
-    }
-    setPageWidth(window.innerWidth);
-    window.addEventListener("resize", resizeHandler);
-    return () => window.removeEventListener("resize", resizeHandler);
-  }, []);
 
   return (
-    <main className="dark:text-white mb-20 mt-[10vh] space-y-5 md:mb-0">
-      <section className="flex flex-col space-y-5 py-5 lg:h-[85vh]">
-        <h1 className="text-3xl font-bold my-5 mx-8 md:text-5xl">
-          Closest to you
-        </h1>
-        {page_width >= 640 ? (
-          <NearbySectionMain data={nearby_places} />
-        ) : (
-          <NearbySectionMobile data={nearby_places} />
-        )}
-        )
-      </section>
-      <section className="flex flex-col space-y-5 mt-10">
-        <h1 className="text-3xl font-semibold my-5 mx-8 md:text-5xl">
-          Best Offers Nearby
-        </h1>
-        {nearby_places[0].place_id !== "" ? (
-          <BestOfferSectionMain data={nearby_places} />
-        ) : (
-          <BestOfferLoadingSkeleton />
-        )}
-      </section>
-    </main>
+    <GetUserLocation>
+      <main className="dark:text-white mb-20 mt-[10vh] space-y-5 md:mb-0">
+        <NearbySection data={place_details!} />
+        <BestOfferSection token={next_page_token} data={place_details!} />
+      </main>
+    </GetUserLocation>
   );
 }

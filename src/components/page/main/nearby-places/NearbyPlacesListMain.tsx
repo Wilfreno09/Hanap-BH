@@ -1,30 +1,28 @@
-"use client";
 import quickSort from "@/lib/google-api/sort";
 import { StarIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
+import noIMG from "../../../../../public/image-square-xmark-svgrepo-com.svg";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
-import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-export default function NearbySection({
+export default function NearbyPlacesListMain({
   data,
 }: {
   data: PlaceDetailsType[];
 }) {
-  const [width, setWidth] = useState(0);
-  const section_ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    setWidth(
-      section_ref?.current?.scrollWidth! - section_ref.current?.offsetWidth!
-    );
-  }, [section_ref]);
-  return (
-    data[0].place_id !== "" && (
-      <div className="flex overflow-x-auto scrollbar-hide">
+  if (data && data.length > 0) {
+    return (
+      <>
         {quickSort(data)?.map((details) => (
           <div
-            className="flex flex-col mx-3 justify-between rounded-lg shadow-xl"
+            className="rounded-lg shadow-lg flex flex-col justify-between my-5"
             key={details.place_id}
           >
-            <div className="aspect-video h-40 w-auto rounded-lg bg-gray-900"></div>
+            <div className="aspect-video h-40 w-auto rounded-lg cursor-pointe flex items-center justify-center sm:h-[12] lg:h-[15rem] hover:rounded-lg hover:scale-105 transform transition duration-300 ease-out">
+              <Image
+                src={noIMG}
+                alt="No Image"
+                className="object-contain h-20 w-auto"
+              />
+            </div>
             <div className="flex flex-col space-y-1 px-2">
               <strong className=" text-gray-900 text-lg">{details.name}</strong>
               <p className="text-gray-700 text-sm">
@@ -42,7 +40,7 @@ export default function NearbySection({
             </div>
           </div>
         ))}
-      </div>
-    )
-  );
+      </>
+    );
+  }
 }

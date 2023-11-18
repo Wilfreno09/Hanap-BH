@@ -9,7 +9,6 @@ import {
 } from "@/lib/types/place-detail";
 import { type NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { json } from "stream/consumers";
 
 export async function GET(request: NextRequest) {
   const api_key = process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY;

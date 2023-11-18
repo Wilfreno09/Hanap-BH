@@ -1,20 +1,30 @@
-import { StarIcon } from "@heroicons/react/24/solid";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
-
-export default function BestOfferSection({
+import { StarIcon } from "@heroicons/react/24/solid";
+import React from "react";
+import noIMG from "../../../../../public/image-square-xmark-svgrepo-com.svg";
+import Image from "next/image";
+export default function BestOfferList({
   data,
+  token,
 }: {
+  token: string;
   data: PlaceDetailsType[];
 }) {
-  return (
-    data[0].place_id !== "" && (
-      <div className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-evenly cursor-pointer">
+  if (data && data.length > 0) {
+    return (
+      <>
         {data?.map((details: PlaceDetailsType) => (
           <div
-            className="flex flex-col my-5 mx-1 shadow-lg w-full rounded-lg space-y-5 sm:w-60 md:w-80 md:my-5 hover:scale-105 transform transition duration-300 ease-out"
+            className="flex flex-col my-5 shadow-lg w-full rounded-lg space-y-5 sm:w-[13rem] md:w-[18rem] md:mx-5 hover:scale-105 transform transition duration-300 ease-out"
             key={details.place_id}
           >
-            <div className="aspect-square h-auto w-full rounded-lg bg-gray-900 "></div>
+            <div className="relative aspect-square h-auto w-full rounded-lg flex items-center justify-center shadow-md">
+              <Image
+                src={noIMG}
+                alt="No image"
+                className="object-contain h-20 w-auto"
+              />
+            </div>
             <div className="flex flex-col space-y-1 p-3 ">
               <strong className="text-xl text-gray-900">
                 {details.name.length > 30
@@ -38,7 +48,7 @@ export default function BestOfferSection({
             </div>
           </div>
         ))}
-      </div>
-    )
-  );
+      </>
+    );
+  }
 }
