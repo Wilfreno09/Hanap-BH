@@ -3,6 +3,8 @@ import NearbyLoadingSkeleton from "./NearbyLoadingSkeleton";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
+import page from "@/app/(auth)/log-in/page";
+import { useRouter } from "next/navigation";
 const NearbyPlaceListMain = dynamic(
   () => import("@/components/page/main/nearby-places/NearbyPlacesListMain"),
   { loading: () => <NearbyLoadingSkeleton /> }
@@ -12,11 +14,13 @@ const NearbyPlaceListMobile = dynamic(
   { loading: () => <NearbyLoadingSkeleton /> }
 );
 export default function NearbySection({ data }: { data: PlaceDetailsType[] }) {
+  const router = useRouter();
   const [width, setWidth] = useState(0);
   const [page_width, setPageWidth] = useState(0);
   const div_ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     function resizeHandler() {
+      router.refresh();
       setPageWidth(window.innerWidth);
     }
     setPageWidth(window.innerWidth);
@@ -26,7 +30,7 @@ export default function NearbySection({ data }: { data: PlaceDetailsType[] }) {
 
   useEffect(() => {
     setWidth(div_ref?.current?.scrollWidth! - div_ref.current?.offsetWidth!);
-  }, [div_ref.current?.scrollWidth, div_ref.current?.offsetWidth]);
+  }, [div_ref.current?.scrollWidth, div_ref.current?.offsetWidth, page_width]);
 
   return (
     <section className="flex flex-col space-y-5 py-5 lg:h-[85vh]">

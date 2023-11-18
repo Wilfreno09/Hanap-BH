@@ -21,7 +21,8 @@ export default function page() {
   async function getNearbyPlaces() {
     try {
       const api_response = await fetch(
-        `/api/nearby-places?lat=${location?.lat}&lng=${location?.lng}`
+        `/api/nearby-places?lat=${location?.lat}&lng=${location?.lng}`,
+        { cache: "no-store" }
       );
       const { data, next_page_token } = await api_response.json();
 
@@ -54,6 +55,7 @@ export default function page() {
       getNearbyPlaces();
     }
   }, [location]);
+  console.log(place_details);
   if (error === "overload") return <Error503 />;
   if (error === "offline") return <Offline />;
 
