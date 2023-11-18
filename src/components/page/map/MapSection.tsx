@@ -1,0 +1,49 @@
+import { LatLngLiteral, MapOptions } from "@/lib/types/google-maps-api-type";
+import { PlaceDetailsType } from "@/lib/types/place-detail";
+import { Map, useApiIsLoaded } from "@vis.gl/react-google-maps";
+import UserMarker from "./markers/UserMarker";
+import NearbyPlacesMarker from "./markers/NearbyPlacesMarker";
+export default function MapSection({
+  map_center,
+  user_location,
+  data,
+}: {
+  data: PlaceDetailsType[];
+  map_center: LatLngLiteral;
+  user_location: LatLngLiteral;
+}) {
+  const api_is_loaded = useApiIsLoaded();
+
+  if (
+    api_is_loaded &&
+    map_center?.lat !== undefined &&
+    map_center?.lng !== undefined &&
+    data
+  ) {
+    return (
+      <Map
+        restriction={{
+          latLngBounds: {
+            north: 21.1321,
+            south: 4.22599,
+            west: 114.095,
+            east: 128.604,
+          },
+          strictBounds: true,
+        }}
+        mapTypeControl={false}
+        fullscreenControl={false}
+        clickableIcons={false}
+        gestureHandling={"greedy"}
+        disableDefaultUI={true}
+        mapId="671365b374be82"
+        zoom={15}
+        center={{ lat: map_center.lat, lng: map_center.lng }}
+        className="w-full h-full"
+      >
+        <UserMarker user_location={user_location} />
+        <NearbyPlacesMarker datas={data} />
+      </Map>
+    );
+  }
+}

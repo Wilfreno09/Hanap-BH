@@ -1,34 +1,21 @@
-import styles from "./NearbyPlacesMarker.module.css";
-import { useEffect, useState } from "react";
-import { Marker, MarkerClusterer } from "@react-google-maps/api";
-import { useDispatch } from "react-redux";
-import { AppDispatch, useAppSelector } from "@/lib/redux/store";
 import { setSelectedDetail } from "@/lib/redux/slices/selected-detail-slice";
-import { LatLngLiteral, MapType } from "@/lib/types/google-maps-api-type";
+import { AppDispatch } from "@/lib/redux/store";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
-export default function NearbyPlacesMarker({
-  user_location,
-  map,
-}: {
-  user_location: LatLngLiteral;
-  map: MapType;
-}) {
-  const dispatch = useDispatch<AppDispatch>();
+import { HomeIcon } from "@heroicons/react/24/solid";
+import { AdvancedMarker, useMap } from "@vis.gl/react-google-maps";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import DetailPopUPMain from "../detail-popup/DetailPopUPMain";
 
-  const nearby_places = useAppSelector(
-    (state) => state.nearby_places_details_reducer
-  );
+export default function NearbyPlacesMarker({
+  datas,
+}: {
+  datas: PlaceDetailsType[];
+}) {
   return (
     <>
-      {nearby_places?.map((place) => (
-        <Marker
-          key={place.place_id}
-          position={place.location.coordinates}
-          onClick={() => {
-            map?.panTo(place.location.coordinates);
-            dispatch(setSelectedDetail(place));
-          }}
-        />
+      {datas?.map((data) => (
+        <DetailPopUPMain key={data.place_id} data={data} />
       ))}
     </>
   );

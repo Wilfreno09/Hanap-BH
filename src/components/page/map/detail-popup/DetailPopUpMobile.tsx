@@ -1,12 +1,18 @@
 import { useAppSelector } from "@/lib/redux/store";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-export default function DetailPopUp() {
+export default function DetailPopUpMobile() {
+  const router = useRouter();
+  const search_params = useSearchParams();
+  const place_id = search_params.get("place_id");
+  const path_name = usePathname();
   const [view, setView] = useState<boolean>(false);
   const [full, setFull] = useState<boolean>(false);
   const place_detail = useAppSelector((state) => state.selected_detail_reducer);
   useEffect(() => {
-    if (place_detail.place_id !== "") setView(true);
+    if (place_detail.place_id === place_id) setView(true);
+    else setView(false);
   }, [place_detail.place_id]);
 
   return view ? (
@@ -22,7 +28,7 @@ export default function DetailPopUp() {
         <span className="h-1 w-2/5 bg-gray-500 rounded-full"></span>
         <XMarkIcon
           className="absolute right-1 top-1 h-6 text-gray-900 m-2 "
-          onClick={() => setView(false)}
+          onClick={() => router.push(path_name)}
         />
       </div>
       <div className="aspect-square w-full h-auto bg-red-500 rounded-md"></div>

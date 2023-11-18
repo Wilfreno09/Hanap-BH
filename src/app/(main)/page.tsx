@@ -55,13 +55,12 @@ export default function page() {
       getNearbyPlaces();
     }
   }, [location]);
-  console.log(place_details);
   if (error === "overload") return <Error503 />;
   if (error === "offline") return <Offline />;
 
   return (
     <GetUserLocation>
-      <main className="dark:text-white mb-20 mt-[10vh] space-y-5 md:mb-0">
+      <main className="dark:text-white text-gray-900 mb-20 mt-[10vh] space-y-5 md:mb-0">
         <NearbySection data={place_details!} />
         <BestOfferSection token={next_page_token} data={place_details!} />
       </main>

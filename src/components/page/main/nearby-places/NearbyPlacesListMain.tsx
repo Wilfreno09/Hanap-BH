@@ -24,9 +24,15 @@ export default function NearbyPlacesListMain({
               />
             </div>
             <div className="flex flex-col space-y-1 px-2">
-              <strong className=" text-gray-900 text-lg">{details.name}</strong>
+              <strong className=" text-gray-900 text-lg">
+                {details.name.length > 40
+                  ? `${details.name.slice(0, 40)}...`
+                  : details.name}
+              </strong>
               <p className="text-gray-700 text-sm">
-                {details.location.vicinity}
+                {details.location.vicinity.length > 45
+                  ? `${details.location.vicinity.slice(0, 45)}...`
+                  : details.location.vicinity}
               </p>
             </div>
             <div className="flex items-center justify-between px-2 font-semibold text-gray-900">
