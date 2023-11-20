@@ -1,5 +1,4 @@
 "use client";
-export const dynamic = "force-dynamic";
 import Error503 from "@/components/page/error/Error503";
 import Offline from "@/components/page/error/Offline";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -9,11 +8,16 @@ import { LatLngLiteral } from "@/lib/types/google-maps-api-type";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
 import NearbySection from "@/components/page/main/nearby-places/NearbySection";
 import BestOfferSection from "@/components/page/main/best-offer/BestOfferSection";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/lib/redux/store";
+import { setNearbyPlaceDetails } from "@/lib/redux/slices/nearby-place-detail-slice";
 
 export default function page() {
   const [location, setLocation] = useState<LatLngLiteral>();
   const [place_details, setPlaceDetails] = useState<PlaceDetailsType[]>();
   const [next_page_token, setToken] = useState("");
+  const dispatch = useDispatch<AppDispatch>();
+
   const search_params = useSearchParams();
   const router = useRouter();
   const error = search_params.get("error");
@@ -28,6 +32,7 @@ export default function page() {
 
       setPlaceDetails(data);
       setToken(next_page_token);
+      dispatch(setNearbyPlaceDetails(data));
     } catch (error) {
       throw error;
     }

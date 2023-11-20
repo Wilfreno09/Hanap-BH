@@ -1,21 +1,54 @@
 import { setSelectedDetail } from "@/lib/redux/slices/selected-detail-slice";
 import { AppDispatch } from "@/lib/redux/store";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
-import { HomeIcon } from "@heroicons/react/24/solid";
 import { AdvancedMarker, useMap } from "@vis.gl/react-google-maps";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import DetailPopUPMain from "../detail-popup/DetailPopUPMain";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function NearbyPlacesMarker({
   datas,
 }: {
   datas: PlaceDetailsType[];
 }) {
+  const [on_mobile, setOnMobile] = useState(false);
+  const router = useRouter();
+  const map = useMap();
+
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    if (
+      /Mobi|Android/i.test(navigator.userAgent) ||
+      /iPhone|iPad|iPod/i.test(navigator.userAgent)
+    ) {
+      setOnMobile(true);
+    } else {
+      setOnMobile(false);
+    }
+  }, [navigator.userAgent]);
+
   return (
     <>
       {datas?.map((data) => (
-        <DetailPopUPMain key={data.place_id} data={data} />
+        <AdvancedMarker
+          key={data.place_id}
+          position={data.location.coordinates}
+          onClick={() => {
+            router.push(`/map?place_id=${data.place_id}`);
+            dispatch(setSelectedDetail(data));
+            if (!on_mobile) {
+              map?.setZoom(18);
+            }
+          }}
+          className="cursor-pointer"
+        >
+          <DetailPopUPMain
+            key={data.place_id}
+            data={data}
+            on_mobile={on_mobile}
+          />
+        </AdvancedMarker>
       ))}
     </>
   );

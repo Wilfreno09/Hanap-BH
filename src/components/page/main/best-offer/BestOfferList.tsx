@@ -15,7 +15,7 @@ export default function BestOfferList({
       <>
         {data?.map((details: PlaceDetailsType) => (
           <div
-            className="flex flex-col my-5 shadow-lg w-full rounded-lg space-y-5 sm:w-[13rem] md:w-[18rem] md:mx-5 hover:scale-105 transform transition duration-300 ease-out"
+            className="flex flex-col my-5 p-1 shadow-lg w-full rounded-lg space-y-5 sm:w-[13rem] md:w-[18rem] md:mx-5 hover:scale-105 transform transition duration-300 ease-out"
             key={details.place_id}
           >
             <div className="relative aspect-square h-auto w-full rounded-lg flex items-center justify-center shadow-md">

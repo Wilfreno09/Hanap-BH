@@ -21,9 +21,9 @@ export default function BestOfferSection({
       <Link
         href="/map"
         as="/map"
-        className="group flex items-center justify-center w-[40%] cursor-pointer rounded-lg hover:underline hover:scale-105 transform transition duration-300 ease-out p-2"
+        className="group flex items-center cursor-pointer rounded-lg md:justify-center lg:w-[40%] hover:underline hover:scale-105 transform transition duration-300 ease-out p-2"
       >
-        <h1 className=" text-3xl font-semibold my-5 mx-8 md:text-5xl whitespace-nowrap">
+        <h1 className="text-3xl font-semibold my-5 mx-3 md:mx-8 md:text-4xl lg:text-5xl whitespace-nowrap">
           Best Offers Nearby
         </h1>
         <MapIcon className="hidden md:inline-flex h-12 cursor-pointer text-gray-700 group-hover:animate-bounce" />

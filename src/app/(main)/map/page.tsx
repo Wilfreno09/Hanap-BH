@@ -2,7 +2,6 @@
 import Image from "next/image";
 import loadingSVG from "../../../../public/loading-transparent.svg";
 import dynamic from "next/dynamic";
-import DetailPopUp from "@/components/page/map/detail-popup/DetailPopUpMobile";
 import { useRouter, useSearchParams } from "next/navigation";
 import Error503 from "@/components/page/error/Error503";
 import Offline from "@/components/page/error/Offline";
@@ -11,6 +10,11 @@ import { PlaceDetailsType } from "@/lib/types/place-detail";
 import { LatLngLiteral } from "@/lib/types/google-maps-api-type";
 import { unstable_noStore as noStore } from "next/cache";
 import { APIProvider } from "@vis.gl/react-google-maps";
+import MapSection from "@/components/page/map/MapSection";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/lib/redux/store";
+import { setNearbyPlaceDetails } from "@/lib/redux/slices/nearby-place-detail-slice";
+import DetailPopUpMobile from "@/components/page/map/detail-popup/DetailPopUpMobile";
 const Map = dynamic(() => import("@/components/page/map/MapSection"), {
   loading: () => (
     <section className="h-screen w-screen flex items-center justify-center bg-gray-500">
@@ -31,9 +35,7 @@ export default function page() {
   const [user_location, setUserLocation] = useState<LatLngLiteral>();
 
   const router = useRouter();
-
   const search_param = useSearchParams();
-
   const error = search_param.get("error");
 
   async function getNearbyPlaces() {
@@ -94,14 +96,14 @@ export default function page() {
     <main>
       <section className="h-screen w-screen">
         <APIProvider apiKey={api_key}>
-          <Map
+          <MapSection
             map_center={map_center!}
             user_location={user_location!}
             data={place_details!}
           />
         </APIProvider>
       </section>
-      <DetailPopUp />
+      <DetailPopUpMobile data={place_details!} />
     </main>
   );
 }

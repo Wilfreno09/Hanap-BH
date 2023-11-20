@@ -3,6 +3,8 @@ import { PlaceDetailsType } from "@/lib/types/place-detail";
 import { Map, useApiIsLoaded } from "@vis.gl/react-google-maps";
 import UserMarker from "./markers/UserMarker";
 import NearbyPlacesMarker from "./markers/NearbyPlacesMarker";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 export default function MapSection({
   map_center,
   user_location,
@@ -13,7 +15,29 @@ export default function MapSection({
   user_location: LatLngLiteral;
 }) {
   const api_is_loaded = useApiIsLoaded();
+  const search_params = useSearchParams();
+  const place_id = search_params.get("place_id");
+  const [place_data, setPalceData] = useState<PlaceDetailsType>();
+  async function getPlaceData() {
+    try {
+      const api_response = await fetch(
+        `/api/place-detail/search?place_id=${place_id}`
+      );
+      const api_data = await api_response.json();
+      setPalceData(api_data);
+    } catch (error) {
+      throw error;
+    }
+  }
 
+  useEffect(() => {
+    if (place_id !== null) {
+      const filter = data.filter((place) => place.place_id === place_id);
+      if (filter.length <= 0) {
+        getPlaceData();
+      }
+    }
+  }, [place_id]);
   if (
     api_is_loaded &&
     map_center?.lat !== undefined &&
