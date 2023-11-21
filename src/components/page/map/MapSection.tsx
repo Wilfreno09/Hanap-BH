@@ -5,6 +5,7 @@ import UserMarker from "./markers/UserMarker";
 import NearbyPlacesMarker from "./markers/NearbyPlacesMarker";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import SearchMarker from "./markers/SearchMarker";
 export default function MapSection({
   map_center,
   user_location,
@@ -31,13 +32,13 @@ export default function MapSection({
   }
 
   useEffect(() => {
-    if (place_id !== null) {
+    if (place_id !== null && data) {
       const filter = data.filter((place) => place.place_id === place_id);
       if (filter.length <= 0) {
         getPlaceData();
       }
     }
-  }, [place_id]);
+  }, [place_id, data]);
   if (
     api_is_loaded &&
     map_center?.lat !== undefined &&
@@ -65,8 +66,11 @@ export default function MapSection({
         center={{ lat: map_center.lat, lng: map_center.lng }}
         className="w-full h-full"
       >
-        <UserMarker user_location={user_location} />
         <NearbyPlacesMarker datas={data} />
+        {place_data?.place_id !== "" ? (
+          <SearchMarker data={place_data!} />
+        ) : null}
+        <UserMarker user_location={user_location} />
       </Map>
     );
   }

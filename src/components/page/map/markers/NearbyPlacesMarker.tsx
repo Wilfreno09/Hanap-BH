@@ -1,3 +1,4 @@
+"use client";
 import { setSelectedDetail } from "@/lib/redux/slices/selected-detail-slice";
 import { AppDispatch } from "@/lib/redux/store";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
@@ -13,8 +14,6 @@ export default function NearbyPlacesMarker({
   datas: PlaceDetailsType[];
 }) {
   const [on_mobile, setOnMobile] = useState(false);
-  const router = useRouter();
-  const map = useMap();
 
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
@@ -35,11 +34,7 @@ export default function NearbyPlacesMarker({
           key={data.place_id}
           position={data.location.coordinates}
           onClick={() => {
-            router.push(`/map?place_id=${data.place_id}`);
             dispatch(setSelectedDetail(data));
-            if (!on_mobile) {
-              map?.setZoom(18);
-            }
           }}
           className="cursor-pointer"
         >

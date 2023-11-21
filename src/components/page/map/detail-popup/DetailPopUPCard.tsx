@@ -1,21 +1,20 @@
-import { AppDispatch } from "@/lib/redux/store";
+"use client";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
 import { StarIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import svgIMG from "../../../../../public/image-square-xmark-svgrepo-com.svg";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function DetailPopUPCard({ data }: { data: PlaceDetailsType }) {
   const router = useRouter();
-  const path_name = usePathname();
   return (
     <section className="absolute z-10 bottom-[9vh] h-[85vh] overflow-y-auto bg-white shadow-lg rounded-lg text-gray-900 md:right-full md:-bottom-full  md:w-72 md:h-auto ">
       <XMarkIcon
         onClick={() => {
-          router.push("/map")
+          router.replace("/map");
         }}
-        className="z-10 absolute top-2 right-2 h-8 cursor-pointer hover:scale-125 transform translate duration-300 ease-out"
+        className="z-10 absolute top-2 right-2 h-6 cursor-pointer hover:scale-125 transform translate duration-300 ease-out"
       />
       <div className="relative aspect-square w-full flex items-center justify-center rounded-lg shadow-md">
         <Image
@@ -44,7 +43,7 @@ export default function DetailPopUPCard({ data }: { data: PlaceDetailsType }) {
         </div>
       </div>
       <hr className="w-[90%] ml-[5%] self-center h-[2px] rounded-full bg-gray-700" />
-      {/* {data.database === "GOOGLE" ? (
+      {data.database === "GOOGLE" ? (
         <>
           <section className="p-3  space-y-1 ">
             <p className="text-xs text-justify text-gray-700">
@@ -55,7 +54,6 @@ export default function DetailPopUPCard({ data }: { data: PlaceDetailsType }) {
                 href={`/place-detail/register?palce_id=${data.place_id}`}
                 as={`/place-detail/register?palce_id=${data.place_id}`}
                 target="_blank"
-                onClick={() => dispatch(setSelectedDetail(data))}
                 className="text-sm text-gray-900 font-semibold hover:underline hover:text-gray-700"
               >
                 Here.
@@ -63,41 +61,41 @@ export default function DetailPopUPCard({ data }: { data: PlaceDetailsType }) {
             </p>
           </section>
         </>
-      ) : ( */}
-      <>
-        <div className="flex items-center justify-center space-x-5 w-full text-base my-3">
-          <div className="flex items-center justify-center space-x-2">
-            <p className="font-bold">₱</p>
-            {data.price.min ? (
-              <p> {data.price.min}</p>
-            ) : (
-              <i className="text-sm text-gray-700">unknown</i>
-            )}
-          </div>
-          <p>~</p>
-          <div className="flex items-center justify-center space-x-2">
-            <p className="font-bold">₱</p>
+      ) : (
+        <>
+          <div className="flex items-center justify-center space-x-5 w-full text-base my-3">
+            <div className="flex items-center justify-center space-x-2">
+              <p className="font-bold">₱</p>
+              {data.price.min ? (
+                <p> {data.price.min}</p>
+              ) : (
+                <i className="text-sm text-gray-700">unknown</i>
+              )}
+            </div>
+            <p>~</p>
+            <div className="flex items-center justify-center space-x-2">
+              <p className="font-bold">₱</p>
 
-            {data.price.max ? (
-              <p>{data.price.max}</p>
-            ) : (
-              <i className="text-sm text-gray-700">unknown</i>
-            )}
+              {data.price.max ? (
+                <p>{data.price.max}</p>
+              ) : (
+                <i className="text-sm text-gray-700">unknown</i>
+              )}
+            </div>
           </div>
-        </div>
-        <p className="flex justify-center text-xs font-semibold text-gray-800 ">
-          {`(${data.rooms})`} Rooms Available
-        </p>
-        <Link
-          href={`/place/${data.place_id}`}
-          as={`/place/${data.place_id}`}
-          target="_blank"
-          className="text-sm font-semibold flex items-center justify-center  border border-gray-700 rounded-full p-[.3rem] m-2 hover:scale-105 hover:shadow-lg hover:text-gray-700 transform translate duration-200 ease-out"
-        >
-          See more
-        </Link>
-      </>
-      {/* )} */}
+          <p className="flex justify-center text-xs font-semibold text-gray-800 ">
+            {`(${data.rooms})`} Rooms Available
+          </p>
+          <Link
+            href={`/place/${data.place_id}`}
+            as={`/place/${data.place_id}`}
+            target="_blank"
+            className="text-sm font-semibold flex items-center justify-center  border border-gray-700 rounded-full p-[.3rem] m-2 hover:scale-105 hover:shadow-lg hover:text-gray-700 transform translate duration-200 ease-out"
+          >
+            See more
+          </Link>
+        </>
+      )}
     </section>
   );
 }

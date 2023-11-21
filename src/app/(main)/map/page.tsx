@@ -11,9 +11,6 @@ import { LatLngLiteral } from "@/lib/types/google-maps-api-type";
 import { unstable_noStore as noStore } from "next/cache";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import MapSection from "@/components/page/map/MapSection";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/lib/redux/store";
-import { setNearbyPlaceDetails } from "@/lib/redux/slices/nearby-place-detail-slice";
 import DetailPopUpMobile from "@/components/page/map/detail-popup/DetailPopUpMobile";
 const Map = dynamic(() => import("@/components/page/map/MapSection"), {
   loading: () => (
