@@ -53,5 +53,6 @@ export type PlaceDetailsType = {
   };
   rooms: number;
   distance?: number;
+  database?: string;
   date_created?: Date;
 };

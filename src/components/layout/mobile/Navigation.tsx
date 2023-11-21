@@ -5,12 +5,27 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Navigation() {
   const path_name = usePathname();
-  return (
-    <footer className="fixed bottom-0 w-full h-16 flex items-center justify-center space-x-10 sm:hidden border-2  rounded-t-md p-2 z-10 bg-white">
+  const [on_mobile, setOnMobile] = useState(false);
+  const router = useRouter();
+  const [page_width, setPageWidth] = useState(0);
+
+  useEffect(() => {
+    function resizeHandler() {
+      router.refresh();
+      setPageWidth(window.innerWidth);
+    }
+    setPageWidth(window.innerWidth);
+    window.addEventListener("resize", resizeHandler);
+    return () => window.removeEventListener("resize", resizeHandler);
+  }, []);
+
+  return page_width < 604 ? (
+    <footer className="fixed bottom-0 w-full h-[10vh] flex items-center justify-center space-x-10 border-2  rounded-t-md p-2 z-10 bg-white">
       <Link
         className={`hover:bg-gray-200 rounded-lg flex flex-col items-center justify-center ${
           path_name === "/" ? "bg:gray-200" : ""
@@ -50,5 +65,5 @@ export default function Navigation() {
         <p className="text-xs text-gray-700">Log in</p>
       </Link>
     </footer>
-  );
+  ) : null;
 }
