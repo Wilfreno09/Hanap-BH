@@ -6,7 +6,6 @@ export default function Logo() {
   return (
     <Link
       href="/"
-      as="/"
       className={`relative flex items-center justify-center cursor-pointer sm:space-x-4`}
     >
       <Image src={logoImg} alt="Logo" className={`h-6  w-auto sm:h-10`} />

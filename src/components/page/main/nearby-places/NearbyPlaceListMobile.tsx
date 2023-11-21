@@ -2,23 +2,14 @@
 import quickSort from "@/lib/google-api/sort";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
-import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-export default async function NearbySection({
+export default function NearbyPlaceListMobile({
   data,
 }: {
   data: PlaceDetailsType[];
 }) {
-  const [width, setWidth] = useState(0);
-  const section_ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    setWidth(
-      section_ref?.current?.scrollWidth! - section_ref.current?.offsetWidth!
-    );
-  }, [section_ref]);
-  return (
-    data[0].place_id !== "" && (
-      <div className="flex overflow-x-auto scrollbar-hide">
+  if (data && data.length > 0) {
+    return (
+      <>
         {quickSort(data)?.map((details) => (
           <div
             className="flex flex-col mx-3 justify-between rounded-lg shadow-xl"
@@ -42,7 +33,7 @@ export default async function NearbySection({
             </div>
           </div>
         ))}
-      </div>
-    )
-  );
+      </>
+    );
+  }
 }
