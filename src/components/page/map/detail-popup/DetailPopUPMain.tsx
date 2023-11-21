@@ -1,4 +1,3 @@
-"use client";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
 import DetailPopUPCard from "./DetailPopUPCard";
 import { HomeIcon } from "@heroicons/react/24/solid";

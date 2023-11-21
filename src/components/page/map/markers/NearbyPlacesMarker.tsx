@@ -1,4 +1,3 @@
-"use client";
 import { setSelectedDetail } from "@/lib/redux/slices/selected-detail-slice";
 import { AppDispatch } from "@/lib/redux/store";
 import { PlaceDetailsType } from "@/lib/types/place-detail";

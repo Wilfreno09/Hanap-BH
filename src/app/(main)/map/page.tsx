@@ -9,10 +9,9 @@ import { useEffect, useState } from "react";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
 import { LatLngLiteral } from "@/lib/types/google-maps-api-type";
 import { unstable_noStore as noStore } from "next/cache";
-import { APIProvider } from "@vis.gl/react-google-maps";
-import MapSection from "@/components/page/map/MapSection";
+import { APIProvider, useMap } from "@vis.gl/react-google-maps";
 import DetailPopUpMobile from "@/components/page/map/detail-popup/DetailPopUpMobile";
-const Map = dynamic(() => import("@/components/page/map/MapSection"), {
+const MapSection = dynamic(() => import("@/components/page/map/MapSection"), {
   loading: () => (
     <section className="h-screen w-screen flex items-center justify-center bg-gray-500">
       <Image
@@ -33,6 +32,7 @@ export default function page() {
 
   const router = useRouter();
   const search_param = useSearchParams();
+
   const error = search_param.get("error");
 
   async function getNearbyPlaces() {

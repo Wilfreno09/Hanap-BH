@@ -1,6 +1,6 @@
 import { LatLngLiteral, MapOptions } from "@/lib/types/google-maps-api-type";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
-import { Map, useApiIsLoaded } from "@vis.gl/react-google-maps";
+import { Map, useApiIsLoaded, useMap } from "@vis.gl/react-google-maps";
 import UserMarker from "./markers/UserMarker";
 import NearbyPlacesMarker from "./markers/NearbyPlacesMarker";
 import { useSearchParams } from "next/navigation";
@@ -17,6 +17,7 @@ export default function MapSection({
 }) {
   const api_is_loaded = useApiIsLoaded();
   const search_params = useSearchParams();
+  const map = useMap()
   const place_id = search_params.get("place_id");
   const [place_data, setPalceData] = useState<PlaceDetailsType>();
   async function getPlaceData() {
@@ -39,6 +40,8 @@ export default function MapSection({
       }
     }
   }, [place_id, data]);
+
+  if(!place_id) map?.setZoom(15)
   if (
     api_is_loaded &&
     map_center?.lat !== undefined &&

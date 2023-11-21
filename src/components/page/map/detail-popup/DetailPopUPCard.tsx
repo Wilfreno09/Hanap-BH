@@ -1,4 +1,3 @@
-"use client";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
 import { StarIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
@@ -9,7 +8,7 @@ import { useRouter } from "next/navigation";
 export default function DetailPopUPCard({ data }: { data: PlaceDetailsType }) {
   const router = useRouter();
   return (
-    <section className="absolute z-10 bottom-[9vh] h-[85vh] overflow-y-auto bg-white shadow-lg rounded-lg text-gray-900 md:right-full md:-bottom-full  md:w-72 md:h-auto ">
+    <section className="absolute scrollbar-hide z-10 bottom-[9vh] h-[85vh] overflow-y-auto bg-white shadow-lg rounded-lg text-gray-900 md:right-full md:-bottom-full  md:w-72 md:h-auto ">
       <XMarkIcon
         onClick={() => {
           router.replace("/map");
