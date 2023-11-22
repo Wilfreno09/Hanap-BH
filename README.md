@@ -1,34 +1,23 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+<a href="https://hanap-bh.vercel.app/" target="_blank">
+<img src="https://github.com/Wilfreno09/Hanap-BH/blob/ce8c61423060c93d5c7a0d9827b2f6a10bdb99a6/public/logo.png" alt="Hanap-BH" style="height:7vw;" /><a/>
+<p/>
 
-## Getting Started
+<p align="center">
+<a href="https://hanap-bh.vercel.app/"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=40&duration=1000&pause=1000&color=222222&center=true&vCenter=true&repeat=false&random=false&width=435&lines=%F0%9D%99%83%F0%9D%99%96%F0%9D%99%A3%F0%9D%99%96%F0%9D%99%A5-%F0%9D%98%BD%F0%9D%99%83" alt="Hanap-BH" /></a>
+<p/>
+<p>
+ "Welcome to 𝙃𝙖𝙣𝙖𝙥-𝘽𝙃, your go-to portal for hassle-free accommodation hunting in the Philippines! 🏠✨ Discover the perfect boarding houses and lodgings near you. Our user-friendly interface and advanced mapping technology make finding your ideal home away from home a breeze. Explore the vibrant map, pinpointing the closest options tailored to your preferences. Say goodbye to the stress of searching — 𝙃𝙖𝙣𝙖𝙥-𝘽𝙃 is here to make your stay as comfortable as can be. Start your journey to a convenient and cozy living experience today!"
+<p/>
+  
+<hr/>
 
-First, run the development server:
+## Table of Contents
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [License](#license)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+##Features
