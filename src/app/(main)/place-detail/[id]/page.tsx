@@ -7,12 +7,15 @@ import { useEffect, useState } from "react";
 import noImg from "../../../../../public/image-square-xmark-svgrepo-com.svg";
 import Image from "next/image";
 export default function page({ params }: { params: { id: string } }) {
-  const [db_place, setDBplace] = useState<PlaceDetailsType>();
-  const router = useRouter();
-  const path_name = usePathname();
   const selected_place = useAppSelector(
     (state) => state.selected_detail_reducer
   );
+  const nearby_places = useAppSelector(
+    (state) => state.nearby_places_details_reducer
+  );
+  const [db_place, setDBplace] = useState<PlaceDetailsType>();
+  const router = useRouter();
+  const path_name = usePathname();
   async function getDBPlace() {
     try {
       const api_response = await fetch(
@@ -36,21 +39,29 @@ export default function page({ params }: { params: { id: string } }) {
   }
   useEffect(() => {
     if (params.id !== selected_place.place_id) {
-      getDBPlace();
+      const filter = nearby_places.filter(
+        (place) => place.place_id === params.id
+      );
+      if (filter.length <= 0) {
+        getDBPlace();
+      } else {
+        setDBplace(filter[0]);
+      }
     } else {
       setDBplace(selected_place);
     }
-    console.log(selected_place);
-  }, []);
+  }, [selected_place, nearby_places]);
   return (
-    <section className="mt-[10vh]">
-      <div className="aspect-video w-[80vw] h-auto bg-red-400">
-        <Image
-          src={noImg}
-          alt="no image"
-          className="object-contain w-1/2 h-auto"
-        />
-      </div>
-    </section>
+    <>
+      <section className="mt-[10vh]">
+        <div className="aspect-video h-[50vh] w-auto bg-red-400">
+          <Image
+            src={noImg}
+            alt="no image"
+            className="object-contain w-1/2 h-auto"
+          />
+        </div>
+      </section>
+    </>
   );
 }
