@@ -12,12 +12,47 @@
   
 <hr/>
 
-## Table of Contents
-- [Features](#features)
+# Table of Contents
+- [Features](#Features)
 - [Technologies Used](#technologies-used)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [License](#license)
 
 
-##Features
+# Features
+  𝗠𝗮𝗽
+
+  
+  `` Hanap-BH uses the GOOGLE's Maps JavaScript API to display an interactive map on your screen ``
+
+  
+   𝗥𝗲𝘀𝗽𝗼𝗻𝘀𝗶𝘃𝗲 𝗗𝗲𝘀𝗶𝗴𝗻
+
+   
+  `` Hanap-BH utilizes tailwind-css to make the website responsive to any screen size ``
+
+  
+   𝗨𝘀𝗲𝗿 𝗔𝘂𝘁𝗵𝗲𝗻𝘁𝗶𝗰𝗮𝘁𝗶𝗼𝗻
+
+   
+  `` Users are not inclined to authenticate before accessing the website, but if the user is to claim or add a place, they need to authenticate themselves to proceed ``
+
+  
+  𝗦𝗲𝗮𝗿𝗰𝗵 𝗙𝘂𝗻𝗰𝘁𝗶𝗼𝗻𝗮𝗹𝗶𝘁𝘆
+
+  
+  `` You have a specific place in your mind? feel free to use the search bar! ``
+
+
+
+# Technologies used
+
+## Framework
+-[Next.js](https://nextjs.org/)
+
+## Libraries
+ -[React.js](https://react.dev/)
+ 
+
+   
