@@ -24,6 +24,15 @@ export async function GET(request: NextRequest) {
     const nominatim_data: NominatimReverseAPiResponse =
       await nomitatim_response.json();
 
+    if (
+      nominatim_data.address.country !== "Philippines" ||
+      nominatim_data.address.country_code !== "ph"
+    ) {
+      return NextResponse.json(
+        { message: "location out of bound" },
+        { status: 400 }
+      );
+    }
     if (next_page_token) {
       const next_page_response = await fetch(
         `https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken=${next_page_token}&key=${api_key}`
@@ -38,10 +47,13 @@ export async function GET(request: NextRequest) {
         }
       );
 
-      return NextResponse.json({
-        data: restructured_next_page_data,
-        next_page_token: next_page_data.next_page_token,
-      });
+      return NextResponse.json(
+        {
+          data: restructured_next_page_data,
+          next_page_token: next_page_data.next_page_token,
+        },
+        { status: 200 }
+      );
     }
 
     await dbConnect();
@@ -73,10 +85,12 @@ export async function GET(request: NextRequest) {
     );
 
     const places_api_data = await places_api_response.json();
-
-    if (places_api_data.status === " OVER_QUERY_LIMIT")
-      return NextResponse.json({}, { status: 503 });
-
+    if (places_api_data.status === "OVER_QUERY_LIMIT") {
+      return NextResponse.json(
+        { message: "too many request" },
+        { status: 408 }
+      );
+    }
     const resturctured_places_api_data = places_api_data.results.map(
       (details: PlacesAPIResponseDetails) => {
         return filterData(details, nominatim_data, {
@@ -92,8 +106,7 @@ export async function GET(request: NextRequest) {
       },
       { status: 200 }
     );
-  } catch (err) {
-    console.log("Error: ", err);
-    return NextResponse.json({ ERROR: err }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ message: error }, { status: 500 });
   }
 }

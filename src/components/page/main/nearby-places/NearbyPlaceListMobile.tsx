@@ -7,12 +7,12 @@ export default function NearbyPlaceListMobile({
 }: {
   data: PlaceDetailsType[];
 }) {
-  if (data && data.length > 0) {
+  if (data && data[0].place_id !== "") {
     return (
       <>
         {quickSort(data)?.map((details) => (
           <div
-            className="flex flex-col mx-3 justify-between rounded-lg shadow-xl"
+            className="flex flex-col mx-3 justify-between rounded-lg shadow-xl bg-white"
             key={details.place_id}
           >
             <div className="aspect-video h-40 w-auto rounded-lg bg-gray-900"></div>

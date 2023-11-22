@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <header
       className={`${
-        path_name === "/" ? "fixed" : "absolute"
+        path_name === "/map" ? "absolute" : "fixed"
       } w-screen my-5 top-0 z-10 flex items-center py-2 justify-center bg-transparent sm:shadow-md sm:bg-white sm:w-screen sm:my-0 sm:rounded-none md:mx-0`}
     >
       <div className="flex items-center justify-center border-2 rounded-full px-3 py-1 bg-white drop-shadow-lg sm:border-none sm:drop-shadow-none sm:w-full sm:justify-evenly lg:justify-between sm:px-10 ">

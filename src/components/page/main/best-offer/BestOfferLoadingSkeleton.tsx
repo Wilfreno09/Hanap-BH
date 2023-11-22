@@ -2,7 +2,7 @@ import React from "react";
 
 export default function BestOfferLoadingSkeleton() {
   return (
-    <section className="flex flex-col sm:flex-row justify-evenly">
+    <section className="flex flex-col sm:flex-row justify-evenly ">
       {Array.from({ length: 4 }).map((i, index) => (
         <div
           key={index}
