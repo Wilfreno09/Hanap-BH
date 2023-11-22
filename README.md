@@ -15,14 +15,14 @@
 <hr/>
 
 # Table of Contents
--[Summary](#summary)
+- [Summary](#summary)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Project Structure](#project-structure)
 <hr/>
 
 # Summary
- **Hanap-BH is a Web app that displays your nearby boarding houses and lodgings in the Philippines.**
+ **Hanap-BH is a Web app that displays your nearby boarding houses and lodgings based on your location in the Philippines.**
 
 
 
