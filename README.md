@@ -15,13 +15,11 @@
 # Table of Contents
 - [Features](#Features)
 - [Technologies Used](#technologies-used)
-- [Usage](#usage)
 - [Project Structure](#project-structure)
-- [License](#license)
 
 
 # Features
-  𝗠𝗮𝗽
+  𝗜𝗻𝘁𝗲𝗿𝗮𝗰𝘁𝗶𝘃𝗲 𝗠𝗮𝗽
 
   
   `` Hanap-BH uses the GOOGLE's Maps JavaScript API to display an interactive map on your screen ``
@@ -48,11 +46,14 @@
 
 # Technologies used
 
-## Framework
--[Next.js](https://nextjs.org/)
+## Tools, Libraries & Framework used
 
-## Libraries
- -[React.js](https://react.dev/)
- 
+- [Next.js](https://nextjs.org/)
+ - [React.js](https://react.dev/)
+ - [React-Redux](https://react-redux.js.org/)
+ - [Mongoose.js](https://mongoosejs.com/)
+ - [React-google-maps](https://github.com/visgl/react-google-maps)
+ - [Tailwind-css](https://tailwindcss.com/)
+
 
    
