@@ -6,6 +6,8 @@ export type NominatimReverseAPiResponse = {
   address: {
     city?: string;
     town?: string;
+    country?: string;
+    country_code?: string
   };
 };
 export type PlacesAPIResponseDetails = {

@@ -25,7 +25,7 @@ export default function Navigation() {
   }, []);
 
   return page_width < 604 ? (
-    <footer className="fixed bottom-0 w-full h-[10vh] flex items-center justify-center space-x-10 border-2  rounded-t-md p-2 z-10 bg-white">
+    <footer className="fixed bottom-0 w-full h-[10vh] flex items-center justify-center space-x-10 border-2  rounded-t-md p-2 z-10 bg-white sm:hidden">
       <Link
         className={`hover:bg-gray-200 rounded-lg flex flex-col items-center justify-center ${
           path_name === "/" ? "bg:gray-200" : ""

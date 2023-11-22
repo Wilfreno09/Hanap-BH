@@ -15,9 +15,6 @@ export default function DetailPopUpMobile({
   const search_params = useSearchParams();
   const place_id = search_params.get("place_id");
   const [view, setView] = useState<boolean>(false);
-  console.log(
-    place_id && place_detail.place_id === "" && data && data.length > 0
-  );
 
   useEffect(() => {
     if (

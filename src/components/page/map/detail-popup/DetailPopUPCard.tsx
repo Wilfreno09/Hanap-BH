@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 export default function DetailPopUPCard({ data }: { data: PlaceDetailsType }) {
   const router = useRouter();
   return (
-    <section className="absolute scrollbar-hide z-10 bottom-[9vh] h-[85vh] overflow-y-auto bg-white shadow-lg rounded-lg text-gray-900 md:right-full md:-bottom-full  md:w-72 md:h-auto ">
+    <section className="absolute scrollbar-hide z-10 bottom-[9vh] h-[85vh] cursor-default overflow-y-auto bg-white shadow-lg rounded-lg text-gray-900 md:right-full md:-bottom-full  md:w-72 md:h-auto ">
       <XMarkIcon
         onClick={() => {
           router.replace("/map");
@@ -50,8 +50,7 @@ export default function DetailPopUPCard({ data }: { data: PlaceDetailsType }) {
               usefull information for this stablishment. If this place is yours,
               you can claim this place and provide more information{" "}
               <Link
-                href={`/place-detail/register?palce_id=${data.place_id}`}
-                as={`/place-detail/register?palce_id=${data.place_id}`}
+                href={`/place/register?palce_id=${data.place_id}`}
                 target="_blank"
                 className="text-sm text-gray-900 font-semibold hover:underline hover:text-gray-700"
               >

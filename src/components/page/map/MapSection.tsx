@@ -17,7 +17,7 @@ export default function MapSection({
 }) {
   const api_is_loaded = useApiIsLoaded();
   const search_params = useSearchParams();
-  const map = useMap()
+  const map = useMap();
   const place_id = search_params.get("place_id");
   const [place_data, setPalceData] = useState<PlaceDetailsType>();
   async function getPlaceData() {
@@ -33,7 +33,7 @@ export default function MapSection({
   }
 
   useEffect(() => {
-    if (place_id !== null && data) {
+    if (place_id !== null && data[0].place_id !== "") {
       const filter = data.filter((place) => place.place_id === place_id);
       if (filter.length <= 0) {
         getPlaceData();
@@ -41,14 +41,16 @@ export default function MapSection({
     }
   }, [place_id, data]);
 
-  if(!place_id) map?.setZoom(15)
+  if (!place_id) map?.setZoom(15);
   if (
     api_is_loaded &&
     map_center?.lat !== undefined &&
     map_center?.lng !== undefined &&
     data
   ) {
-    return (
+    return user_location !== undefined &&
+      map_center !== undefined &&
+      data[0].place_id !== "" ? (
       <Map
         restriction={{
           latLngBounds: {
@@ -75,6 +77,6 @@ export default function MapSection({
         ) : null}
         <UserMarker user_location={user_location} />
       </Map>
-    );
+    ) : null;
   }
 }

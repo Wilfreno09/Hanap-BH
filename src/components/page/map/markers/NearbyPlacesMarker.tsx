@@ -1,10 +1,9 @@
 import { setSelectedDetail } from "@/lib/redux/slices/selected-detail-slice";
 import { AppDispatch } from "@/lib/redux/store";
 import { PlaceDetailsType } from "@/lib/types/place-detail";
-import { AdvancedMarker, useMap } from "@vis.gl/react-google-maps";
+import { AdvancedMarker } from "@vis.gl/react-google-maps";
 import { useDispatch } from "react-redux";
 import DetailPopUPMain from "../detail-popup/DetailPopUPMain";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function NearbyPlacesMarker({

@@ -10,12 +10,12 @@ export default function BestOfferList({
   token: string;
   data: PlaceDetailsType[];
 }) {
-  if (data && data.length > 0) {
+  if (data && data[0].place_id !== "") {
     return (
       <>
         {data?.map((details: PlaceDetailsType) => (
           <div
-            className="flex flex-col my-5 p-1 shadow-lg w-full rounded-lg space-y-5 sm:w-[13rem] md:w-[18rem] md:mx-5 hover:scale-105 transform transition duration-300 ease-out"
+            className="flex flex-col my-5 p-1 shadow-lg w-full rounded-lg space-y-5 sm:w-[13rem] md:w-[18rem] md:mx-5 md:p-0 hover:scale-105 transform transition duration-300 ease-out"
             key={details.place_id}
           >
             <div className="relative aspect-square h-auto w-full rounded-lg flex items-center justify-center shadow-md">
@@ -25,13 +25,18 @@ export default function BestOfferList({
                 className="object-contain h-20 w-auto"
               />
             </div>
-            <div className="flex flex-col space-y-1 p-3 ">
-              <strong className="text-xl text-gray-900">
-                {details.name.length > 30
-                  ? `${details.name.slice(0, 30)}...`
+            <div className="relative group flex flex-col space-y-1 p-3 ">
+              {details.name.length > 25 ? (
+                <p className="hidden absolute -top-[20%] bg-white shadow-md  whitespace-nowrap text-xs rounded-lg p-1 font-semibold group-hover:flex transition duration-200 delay-200 ease-in-out">
+                  {details.name}
+                </p>
+              ) : null}
+              <strong className="text-xl text-gray-900 whitespace-nowrap">
+                {details.name.length > 25
+                  ? `${details.name.slice(0, 25)}...`
                   : details.name}
               </strong>
-              <p className="text-md text-gray-700 truncate whitespace-pre-line">
+              <p className="text-md text-gray-700 truncate whitespace-nowrap">
                 {details.location.vicinity.length > 30
                   ? `${details.location.vicinity.slice(0, 30)}...`
                   : details.location.vicinity}
