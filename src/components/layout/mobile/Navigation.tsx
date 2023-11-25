@@ -31,7 +31,7 @@ export default function Navigation() {
           path_name === "/" ? "bg:gray-200" : ""
         }`}
         href="/"
-        as="/"
+        prefetch
       >
         <QueueListIcon
           className={`h-8 m-1 mx-5 ${
@@ -45,7 +45,7 @@ export default function Navigation() {
           path_name === "/map" ? "bg:gray-200" : ""
         }`}
         href="/map"
-        as="/map"
+        prefetch
       >
         <MapIcon
           className={`h-8 m-1 mx-5 ${
@@ -59,7 +59,7 @@ export default function Navigation() {
           path_name === "/log-in" ? "bg:gray-200" : ""
         }`}
         href="/log-in"
-        as="/log-in"
+        prefetch
       >
         <UserCircleIcon className={`h-8 m-1 mx-5 text-gray-500`} />
         <p className="text-xs text-gray-700">Log in</p>
