@@ -26,7 +26,7 @@ export default function BestOfferSection({
         <h1 className="text-3xl font-semibold my-5 mx-3 md:mx-8 md:text-4xl lg:text-5xl whitespace-nowrap">
           Best Offers Nearby
         </h1>
-        <MapIcon className="hidden md:inline-flex h-12 cursor-pointer text-gray-700 group-hover:animate-bounce" />
+        <MapIcon className="h-8 cursor-pointer text-gray-700 animate-bounce sm:group-hover:animate-bounce " />
       </Link>
       <div className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-center cursor-pointer">
         <BestOfferList token={token} data={data} />
