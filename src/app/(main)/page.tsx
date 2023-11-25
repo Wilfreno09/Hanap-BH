@@ -1,15 +1,8 @@
 "use client";
-import Error503 from "@/components/page/error/Error408";
-import Offline from "@/components/page/error/Offline";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { LatLngLiteral } from "@/lib/types/google-maps-api-type";
-import { PlaceDetailsType } from "@/lib/types/place-detail";
+import { useEffect } from "react";
 import NearbySection from "@/components/page/main/nearby-places/NearbySection";
 import BestOfferSection from "@/components/page/main/best-offer/BestOfferSection";
-import { useDispatch } from "react-redux";
-import { AppDispatch, useAppSelector } from "@/lib/redux/store";
-import { setNearbyPlaceDetails } from "@/lib/redux/slices/nearby-place-detail-slice";
+import { useAppSelector } from "@/lib/redux/store";
 
 export default function page() {
   const place_details = useAppSelector(

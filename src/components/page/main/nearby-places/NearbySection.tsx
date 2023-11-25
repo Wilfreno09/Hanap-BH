@@ -31,12 +31,12 @@ export default function NearbySection({ data }: { data: PlaceDetailsType[] }) {
       <Link
         href="/map"
         as="/map"
-        className="group flex items-center w-[40%] cursor-pointer rounded-lg hover:underline hover:scale-105 transform transition duration-300 ease-out p-2"
+        className="group flex items-center cursor-pointer rounded-lg hover:underline hover:scale-105 transform transition duration-300 ease-out p-2"
       >
         <h1 className="text-3xl font-bold my-5 mx-8 md:text-4xl lg:text-5xl whitespace-nowrap">
           Closest to you
         </h1>
-        <MapIcon className="hidden sm:inline-flex h-12 w-auto before:cursor-pointer text-gray-700 group-hover:animate-bounce" />
+        <MapIcon className="h-8 before:cursor-pointer text-gray-700 animate-bounce sm:group-hover:animate-bounce" />
       </Link>
       {page_width > 640 ? (
         <NearbyPlaceListMain page_width={page_width} data={data} />
